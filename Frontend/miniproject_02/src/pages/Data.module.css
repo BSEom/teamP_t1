@@ -1,0 +1,333 @@
+/* 전체 컨테이너 - 높이 제한하고 스크롤 생성 */
+.container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  height: 90vh; /* 뷰포트 높이의 90%로 제한 */
+  overflow-y: auto; /* 세로 스크롤 생성 */
+  overflow-x: hidden; /* 가로 스크롤 숨김 */
+}
+
+/* 메인 카드 */
+.mainCard {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 120vh; /* 스크롤 테스트를 위해 높이를 크게 설정 */
+}
+
+/* 제목 */
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* 컨텐츠 래퍼 (왼쪽 컨트롤 + 오른쪽 데이터 영역) */
+.contentWrapper {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+/* 왼쪽 컨트롤 패널 */
+.controlPanel {
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  position: sticky;
+  top: 20px; /* 컨테이너 스크롤 시 상단에서 20px 떨어진 곳에 고정 */
+  max-height: calc(90vh - 40px); /* 컨테이너 높이에서 여백 제외 */
+  overflow-y: auto; /* 컨트롤 패널 내부에서도 스크롤 가능 */
+}
+
+/* 드롭다운 섹션 */
+.dropdownSection {
+  margin-bottom: 25px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* 드롭다운 스타일 */
+.dropdown {
+  position: relative;
+}
+
+.dropdownToggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.dropdownToggle:hover {
+  border-color: #4c5eaf;
+}
+
+.arrow {
+  transition: transform 0.3s;
+  color: #666;
+  font-size: 12px;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownItem {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdownItem:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+/* 년도 그룹 스타일 */
+.yearGroup {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.yearHeader {
+  padding: 8px 15px;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #4c4eaf;
+  font-size: 13px;
+}
+
+.yearGroup .dropdownItem {
+  padding-left: 25px;
+  font-size: 14px;
+}
+
+/* 선택된 정보 표시 */
+.selectedInfo {
+  background: #e8ecf5;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-left: 4px solid #4c66af;
+}
+
+.infoTitle {
+  font-weight: bold;
+  color: #2e437d;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.infoItem {
+  color: #333;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+/* 데이터 조회 버튼 */
+.fetchButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #5789e6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.fetchButton:hover:not(:disabled) {
+  background-color:#6b87e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 102, 175, 0.3);
+}
+
+.fetchButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 오른쪽 데이터 표시 영역 */
+.dataDisplayArea {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 표 컨테이너 */
+.tableContainer {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 그래프 컨테이너 */
+.chartContainer {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 컨테이너 제목 */
+.containerTitle {
+  background-color: #5a78d8;
+  color: white;
+  padding: 15px 20px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 표 내용 */
+.tableContent {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* 데이터 테이블 */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.dataTable th {
+  background-color: #f8f9fa;
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+}
+
+.dataTable td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.dataTable tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* 그래프 내용 */
+.chartContent {
+  padding: 20px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 차트 플레이스홀더 */
+.chartPlaceholder {
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chartPlaceholder pre {
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  text-align: left;
+}
+
+/* 데이터 없음 메시지 */
+.noData {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 40px;
+  font-size: 16px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .contentWrapper {
+    flex-direction: column;
+  }
+  
+  .controlPanel {
+    max-width: none;
+    min-width: auto;
+    position: static;
+    max-height: none;
+  }
+  
+  .dataDisplayArea {
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    height: 95vh; /* 모바일에서는 더 많은 높이 사용 */
+  }
+  
+  .mainCard {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+}

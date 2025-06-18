@@ -1,0 +1,73 @@
+.container.mt-5 {
+  margin-top: 50px;
+  width: 90%;           /* 또는 100%, 1200px 이런 것도 가능! */
+  max-width: 1200px;
+}
+
+h1.text-center {
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+label {
+    font-size: 1.2rem;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.container.mt-4 {
+  height: 300px;        /* 고정 높이 지정! */
+  overflow-y: auto;     /* 세로 스크롤만 나오게 설정 */
+  border: 1px solid #ccc; /* 눈에 보이게 해보자! */
+  padding: 20px;        /* 여백도 살짝~ */
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    color: #333;
+    background-color: #fff;
+    min-height: 50px;
+    white-space: pre-wrap;
+}
+
+.form-group .form-control {
+    border: 1px solid #ccc;
+    background-color: #fdfdfd;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.form-group .form-control:focus {
+    border-color: #80bdff;
+    outline: 0;
+}
+
+button.btn {
+   min-width: 80px;
+}
+
+button.btn.btn-smaller {
+    padding: 1px 1px;  /* 위아래 패딩 줄임! 기본은 보통 8~12px 정도임 */
+    font-size: 0.9rem;  /* 글자 크기도 살짝 줄이면 버튼이 더 슬림해 보여 */
+    height: auto;       /* 혹시 높이 고정돼 있으면 auto로 바꿔줘 */;
+}
+
+.btn+.btn {
+    margin-left: 10px;
+}
+
+.d-flex > div {
+  display: flex;      /* 내부 버튼들을 가로로 정렬! */
+  gap: 10px;          /* 버튼 사이 여백 귀엽게~ */
+}
+
