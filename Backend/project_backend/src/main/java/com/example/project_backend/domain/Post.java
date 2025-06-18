@@ -16,10 +16,10 @@ public class Post {
     @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_gen")
     @SequenceGenerator(name = "post_seq_gen", sequenceName = "post_seq", initialValue = 1000, allocationSize = 1)
-    private Long post_id;
+    private Long postId;
 
     @Column(name = "user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(nullable = false)
     private String title;
@@ -31,26 +31,26 @@ public class Post {
     }
 
     public Post(Long post_id, Long user_id, String title, String content) {
-        this.post_id = post_id;
-        this.user_id = user_id;
+        this.postId = post_id;
+        this.userId = user_id;
         this.title = title;
         this.content = content;
     }
 
     public Long getPost_id() {
-        return post_id;
+        return postId;
     }
 
     public void setPost_id(Long post_id) {
-        this.post_id = post_id;
+        this.postId = post_id;
     }
 
     public Long getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public String getTitle() {
