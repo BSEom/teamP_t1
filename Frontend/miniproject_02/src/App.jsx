@@ -20,13 +20,9 @@ function App() {
       <Link to="/Mypage">마이 페이지</Link>
     </div>
       <nav>
-
         <Link to="/">최저가 물건 찾기</Link>
         <Link to="/Data">통계</Link>
         <Link to="/Board">게시판</Link>
-
-        <Link to="/Write">작성창</Link>
-        <Link to="/View">뷰어</Link>
       </nav>
 
       <Routes>
