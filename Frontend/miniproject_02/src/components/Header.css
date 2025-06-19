@@ -1,0 +1,18 @@
+.info_container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  z-index: 1100;
+  display: flex;
+  gap: 1rem;
+}
+
+.info_container a {
+ color: #888;
+ font-size: 1rem;
+}
+.info_container a:hover {
+  color: #829fff;
+  transition: ease 0.3s;
+}

@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -37,7 +38,7 @@ public class UserController {
 
         if (result.isPresent()) { // DB에서 로그인 정보 대조할 부분
             session.setAttribute("user", result.get());
-            return ResponseEntity.ok(Map.of("message", "로그인 성공!"));
+            return ResponseEntity.ok(Map.of("message", "로그인 성공!", "username", result.get()));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인 실패")); // code: 401
         }
@@ -80,6 +81,26 @@ public class UserController {
             return ResponseEntity.ok("사용가능한 메일");
         }
 
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getSession(HttpSession session) {
+
+        Object user = session.getAttribute("user");
+
+        if (user != null) {
+            return ResponseEntity.ok(Map.of("username", user));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+
+        session.invalidate();
+
+        return ResponseEntity.ok(Map.of("message", "로그아웃 완료"));
     }
 
 }

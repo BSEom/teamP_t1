@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn, setUsername } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,10 @@ const Login = () => {
     if (response.ok) {
       const result = await response.json();
       alert(JSON.stringify(result.message));
+
+      setIsLoggedIn(true);
+      setUsername(result.username);
+
       setTimeout(() => navigate("/"), 100); 
     } else {
       const result = await response.json();
