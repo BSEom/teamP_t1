@@ -67,6 +67,9 @@ const Register = () => {
             />
             <label htmlFor="username">닉네임</label>
           </div>
+          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
+    중복확인
+  </button>
 
           <div className="form-floating mb-3">
             <input
@@ -79,6 +82,58 @@ const Register = () => {
             />
             <label htmlFor="email">이메일</label>
           </div>
+          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
+    중복확인
+  </button>
+
+
+          <div className="form-floating mb-3">
+            <input
+              type="text"
+              id="phone"
+              className="form-control"
+              placeholder="휴대폰 번호"
+              name="phonenumber"
+              required
+            />
+            <label htmlFor="phone">휴대폰 번호</label>
+          </div>
+
+          {/* 부산광역시 구 선택 */}
+          <div className="form-floating mb-3">
+            <select id="busanGu" className="form-control" name="address" required>
+              <option value="" disabled>구/군 선택</option>
+              <option value="중구">중구</option>
+              <option value="서구">서구</option>
+              <option value="동구">동구</option>
+              <option value="영도구">영도구</option>
+              <option value="부산진구">부산진구</option>
+              <option value="동래구">동래구</option>
+              <option value="남구">남구</option>
+              <option value="북구">북구</option>
+              <option value="해운대구">해운대구</option>
+              <option value="사하구">사하구</option>
+              <option value="금정구">금정구</option>
+              <option value="강서구">강서구</option>
+              <option value="연제구">연제구</option>
+              <option value="수영구">수영구</option>
+              <option value="사상구">사상구</option>
+              <option value="기장군">기장군</option>
+            </select>
+            <label htmlFor="busanGu">부산광역시 구/군</label>
+          </div>
+
+          {/* <div className="form-floating mb-3">
+            <input
+              type="text"
+              id="detailAddress"
+              className="form-control"
+              placeholder="상세주소 (예: 00동 123-45)"
+              name="entry.detailAddress"
+              required
+            />
+            <label htmlFor="detailAddress">상세주소</label>
+          </div> */}
 
 
           <div className="form-floating mb-3">
