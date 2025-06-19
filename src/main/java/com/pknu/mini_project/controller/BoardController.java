@@ -109,7 +109,7 @@ public class BoardController {
     @GetMapping("/board/{boardId}")
     public Map<String, Object> getBoardDetail(@PathVariable int boardId) {
         System.out.println("요청된 boardId: " + boardId);
-        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT " +
+        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT, b.HIT " +
                 "FROM USER_BOARD b " +
                 "JOIN USERS u ON b.USER_ID = u.USER_ID " +
                 "WHERE b.BOARD_ID = ?";
@@ -169,6 +169,19 @@ public class BoardController {
             } else {
                 return "fail: delete failed";
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail: " + e.getMessage();
+        }
+    }
+
+    // 조회수
+    @PutMapping("/board/hit/{boardId}")
+    public String increaseHit(@PathVariable int boardId) {
+        try {
+            String sql = "UPDATE USER_BOARD SET HIT = NVL(HIT, 0) + 1 WHERE BOARD_ID = ?";
+            int result = jdbcTemplate.update(sql, boardId);
+            return result > 0 ? "success" : "fail: not updated";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail: " + e.getMessage();
