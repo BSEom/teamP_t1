@@ -23,7 +23,8 @@ public class MemberService {
 
     public ResultDto signup(SignUpDto dto) {
 
-        Member member = new Member(null, dto.getUsername(), dto.getPassword(), dto.getAddress(), dto.getPhonenumber());
+        Member member = new Member(null, dto.getUsername(), dto.getPassword(), dto.getAddress(), dto.getPhonenumber(),
+                dto.getEmail());
 
         try {
             memberRepository.save(member);
@@ -34,4 +35,12 @@ public class MemberService {
         return new ResultDto(true, "회원가입 성공");
     }
 
+    public boolean nameck(String name) {
+        System.out.println(name + name.length());
+        return memberRepository.findByUsername(name).isPresent();
+    }
+
+    public boolean emailck(String email) {
+        return memberRepository.findByEmail(email).isPresent();
+    }
 }

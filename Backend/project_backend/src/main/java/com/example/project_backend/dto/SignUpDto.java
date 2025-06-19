@@ -6,18 +6,15 @@ public class SignUpDto {
     private String password;
     private String address;
     private String phonenumber;
+    private String email;
 
-    public SignUpDto(String username, String password, String address, String phonenumber) {
+    public SignUpDto(String username, String password, String address, String phonenumber, String email) {
         this.username = username;
         this.password = password;
         this.address = address;
         this.phonenumber = phonenumber;
+        this.email = email;
     }
-
-    // public SignUpDto(String username, String password) {
-    // this.username = username;
-    // this.password = password;
-    // }
 
     public String getUsername() {
         return username;
@@ -49,6 +46,14 @@ public class SignUpDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

@@ -13,9 +13,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -47,6 +49,32 @@ public class UserController {
             return ResponseEntity.ok(result.getMessage());
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(result.getMessage()); // code: 409
+        }
+
+    }
+
+    @PostMapping("/sign-up/name-check")
+    public ResponseEntity<String> nameCheck(@RequestBody String username) {
+
+        boolean result = memberService.nameck(username);
+
+        if (result) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 이름");
+        } else {
+            return ResponseEntity.ok("사용가능한 이름");
+        }
+
+    }
+
+    @PostMapping("/sign-up/email-check")
+    public ResponseEntity<String> emailCheck(@RequestBody String email) {
+
+        boolean result = memberService.emailck(email);
+
+        if (result) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 메일");
+        } else {
+            return ResponseEntity.ok("사용가능한 메일");
         }
 
     }
