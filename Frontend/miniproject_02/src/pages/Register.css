@@ -20,7 +20,7 @@ p {
   padding: 30px;
   border-radius: 1rem;
   box-shadow: 0 1px 40px #ccc;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
 }
 
@@ -86,4 +86,37 @@ form {
   background-color: rgba(250, 205, 216, 0.26);
   padding: 5px;
   border-radius: 8px;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 10px; 
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+
+.input-with-button .form-floating {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.duplicate-check-btn {
+  width: auto;
+  min-width: 90px;
+  padding: 1rem 16px;
+  background-color: #6b97d1;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0;
+  height: 58px;
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.duplicate-check-btn:hover {
+  background-color: #5a86c0;
 }
