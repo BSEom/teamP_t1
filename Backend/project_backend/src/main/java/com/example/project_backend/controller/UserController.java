@@ -10,12 +10,18 @@ import com.example.project_backend.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,31 +30,77 @@ public class UserController {
     private MemberService memberService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginFn(@RequestBody LoginDto dto, HttpSession session) {
+    public ResponseEntity<Map<String, String>> loginFn(@RequestBody LoginDto dto, HttpSession session) {
 
-        boolean result = memberService.login(dto);
+        Optional<String> result = memberService.login(dto);
 
         System.out.println(result);
 
-        if (result) { // DB에서 로그인 정보 대조할 부분
-            session.setAttribute("user", dto.getUsername());
-            return ResponseEntity.ok("로그인 성공");
+        if (result.isPresent()) { // DB에서 로그인 정보 대조할 부분
+            session.setAttribute("user", result.get());
+            return ResponseEntity.ok(Map.of("message", "로그인 성공!", "username", result.get()));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패"); // code: 401
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인 실패")); // code: 401
         }
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<String> signupFn(@RequestBody SignUpDto dto) {
+    public ResponseEntity<Map<String, String>> signupFn(@RequestBody SignUpDto dto) {
         ResultDto result = memberService.signup(dto);
 
         if (result.isSuccess()) {
 
-            return ResponseEntity.ok(result.getMessage());
+            return ResponseEntity.ok(Map.of("message", result.getMessage()));
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(result.getMessage()); // code: 409
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", result.getMessage())); // code: 409
         }
 
+    }
+
+    @PostMapping("/sign-up/name-check")
+    public ResponseEntity<String> nameCheck(@RequestBody String username) {
+
+        boolean result = memberService.nameck(username);
+
+        if (result) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 이름");
+        } else {
+            return ResponseEntity.ok("사용가능한 이름");
+        }
+
+    }
+
+    @PostMapping("/sign-up/email-check")
+    public ResponseEntity<String> emailCheck(@RequestBody String email) {
+
+        boolean result = memberService.emailck(email);
+
+        if (result) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 존재하는 메일");
+        } else {
+            return ResponseEntity.ok("사용가능한 메일");
+        }
+
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getSession(HttpSession session) {
+
+        Object user = session.getAttribute("user");
+
+        if (user != null) {
+            return ResponseEntity.ok(Map.of("username", user));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+
+        session.invalidate();
+
+        return ResponseEntity.ok(Map.of("message", "로그아웃 완료"));
     }
 
 }
