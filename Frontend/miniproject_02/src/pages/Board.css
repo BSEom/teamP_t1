@@ -20,7 +20,7 @@ body {
     border-radius: 24px;
     box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
     padding: 40px 48px;
-    margin: 48px 0 250px 0;
+    margin: 40px 0 200px 0;
     min-width: 900px;
     max-width: 1200px;
     width: 100%;
@@ -45,6 +45,7 @@ body {
 }
 
 .board-search-box {
+    margin: 100px 0 0 80px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -247,6 +248,7 @@ body {
 }
 
 .btn.btn-outline-primary {
+    margin: 100px 0 0 30px;
     width: 150px;
     background: #fff;
     color: #1976d2;
@@ -273,7 +275,7 @@ body {
         max-width: 98vw;
         padding: 32px 24px;
     }
-    
+
     .board-header {
         justify-content: center;
     }
@@ -331,19 +333,19 @@ body {
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .btn.btn-outline-primary {
         width: 100%;
     }
-    
+
     .btn.btn-all {
         width: 100%;
     }
-    
+
     .pagination {
         gap: 4px;
     }
-    
+
     .pagination-btn {
         padding: 6px 12px;
         min-width: 35px;

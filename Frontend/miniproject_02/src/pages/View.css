@@ -1,73 +1,123 @@
-.container.mt-5 {
-  margin-top: 50px;
-  width: 90%;           /* 또는 100%, 1200px 이런 것도 가능! */
-  max-width: 1200px;
+/* 전체 박스 느낌 */
+.view-container {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  background-color: white;
+  max-width: 1000px;
+  width : 90% ;
+  height : 1500px;
+  margin : 0 auto;
 }
 
+/* 헤더 타이틀 영역 */
 h1.text-center {
-    margin-bottom: 30px;
-    font-weight: bold;
+  margin: 0;
+  background-color: #5972e4;
+  color: white;
+  padding: 14px;
+  font-size: 1.4rem !important;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+/* 각 줄 (제목, 작성자 등) */
+.form-group {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+}
+
+/* 왼쪽 라벨 */
+.form-group label {
+  width: 120px;
+  background-color: #d4dffc38;
+  text-align: center;
+  padding: 12px;
+  margin: 0;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 label {
-    font-size: 1.2rem;
-    text-align: left;
-    margin-left: 10px;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
 }
 
-.container.mt-4 {
-  height: 300px;        /* 고정 높이 지정! */
-  overflow-y: auto;     /* 세로 스크롤만 나오게 설정 */
-  border: 1px solid #ccc; /* 눈에 보이게 해보자! */
-  padding: 20px;        /* 여백도 살짝~ */
-}
-
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.form-control {
-    color: #333;
-    background-color: #fff;
-    min-height: 50px;
-    white-space: pre-wrap;
-}
-
+/* 오른쪽 값 */
 .form-group .form-control {
-    border: 1px solid #ccc;
-    background-color: #fdfdfd;
-    padding: 12px;
-    border-radius: 4px;
+  flex: 1;
+  padding: 12px 16px;
+  background-color: white;
+  border: none;
+  color: #333;
+  white-space: pre-wrap;
+  min-height: auto;
+  margin: 0;
 }
 
-.form-group .form-control:focus {
-    border-color: #80bdff;
-    outline: 0;
+/* 내용은 높이 고정 + 스크롤 */
+.form-group .form-control.container.mt-4 {
+  height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: none !important;
 }
 
-button.btn {
-   min-width: 80px;
+/* 버튼 정렬 영역 */
+.d-flex.justify-content-between.mb-4 {
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid #ccc;
 }
 
-button.btn.btn-smaller {
-    padding: 1px 1px;  /* 위아래 패딩 줄임! 기본은 보통 8~12px 정도임 */
-    font-size: 0.9rem;  /* 글자 크기도 살짝 줄이면 버튼이 더 슬림해 보여 */
-    height: auto;       /* 혹시 높이 고정돼 있으면 auto로 바꿔줘 */;
+.d-flex > button {
+    flex: 0 0 auto !important;
+    margin: 5px !important;
 }
 
-.btn+.btn {
-    margin-left: 10px;
+/* 공통 버튼 스타일 */
+button.btn-smaller {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
 }
 
-.d-flex > div {
-  display: flex;      /* 내부 버튼들을 가로로 정렬! */
-  gap: 10px;          /* 버튼 사이 여백 귀엽게~ */
+/* 각각 색상 주기 */
+button.btn-smaller.btn-primary:nth-child(1) {
+  background-color: #4c7aaf; /* 수정 */
+  width: 70px;
+  height: 50px;
+}
+button.btn-smaller.btn-primary:nth-child(2) {
+  background-color: #a6b6c9ab; /* 삭제 - 목록이랑 색깔 연동됨 ㅠ*/
+  width: 70px;
+  height: 50px;
 }
 
+button.btn-smaller.btn-success {
+    background-color: #4271c7;
+}
+
+/* 댓글 부분 유지 */
+.comments-section {
+  margin-top: 30px;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+}
+
+.comment-item {
+  border: 1px solid #ddd;
+  background-color: #fdfdfd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
