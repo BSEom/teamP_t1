@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [ name, setName ] = useState();
+  const [ email, setEmail ] = useState();
+  const [ ckm, setCkm ] = useState(false); 
+  const [ ckn, setCkn ] = useState(false); 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const pw1 = document.querySelector("#password").value;
@@ -13,7 +18,6 @@ const Register = () => {
     //   alert("비밀번호가 일치하지 않습니다 !");
     //   return;
     // }
-
 
     // form값을 JOSN으로 변환
     const form = e.target;
@@ -48,6 +52,46 @@ const Register = () => {
 
   };
 
+  const checkName = async () => {
+    const res = await fetch("http://localhost:8050/user/sign-up/name-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: name,
+    });
+
+
+    if (res.ok) {
+      const result = await res.json();
+      alert(JSON.stringify(result.message));
+      setCkn(true);
+    } else {
+      const result = await res.json();
+      alert(JSON.stringify(result.message))
+    }
+  };
+
+  const checkEmail = async () => {
+    const res = await fetch("http://localhost:8050/user/sign-up/email-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+      body: email,
+    });
+
+
+    if (res.ok) {
+      const result = await res.json();
+      alert(JSON.stringify(result.message));
+      setCkm(true);
+    } else {
+      const result = await res.json();
+      alert(JSON.stringify(result.message))
+    }
+  };
+
   return (
     <div className="body-wrapper">
 
@@ -63,11 +107,14 @@ const Register = () => {
               id="username"
               placeholder="name"
               name="username"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              readOnly={ckn}
               required
             />
             <label htmlFor="username">닉네임</label>
           </div>
-          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
+          <button type="button" className="duplicate-check-btn" onClick={checkName}>
     중복확인
   </button>
 
@@ -78,11 +125,14 @@ const Register = () => {
               className="form-control"
               placeholder="name@example.com"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              readOnly={ckm}
               required
             />
             <label htmlFor="email">이메일</label>
           </div>
-          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
+          <button type="button" className="duplicate-check-btn" onClick={checkEmail}>
     중복확인
   </button>
 
@@ -196,7 +246,7 @@ const Register = () => {
             <label htmlFor="password">비밀번호</label>
           </div>
 
-          <button type="submit" style={{ fontSize: "1.2rem" }}>가입하기</button>
+          <button type="submit" disabled={!(ckm && ckn)} style={{ fontSize: "1.2rem" }}>가입하기</button>
         </form>
       </div>
     </div>
