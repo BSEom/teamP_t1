@@ -1,6 +1,6 @@
 /* 마이페이지 전체 컨테이너 */
 .mypage-container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 48px auto;
     background: linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%);
     border-radius: 24px;
@@ -61,7 +61,7 @@
     flex: 1;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 16px;
-    min-height: 240px;
+    min-height: 850px;
     padding: 40px 32px;
     box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06);
     display: flex;
@@ -72,9 +72,6 @@
     position: relative;
     transition: box-shadow 0.2s;
     overflow-y: auto;
-    /* 스크롤 추가 */
-    max-height: 520px;
-    /* 필요시 조정 */
 }
 
 .mypage-content::before {
@@ -236,10 +233,10 @@
     }
 }
 
-/* 회원 정보 수정 폼 (첨부 이미지 스타일) */
+/* 회원 정보 수정 폼 */
 .mypage-edit-box {
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     margin: 0 auto;
     background: none;
     box-shadow: none;
@@ -358,5 +355,137 @@
     .mypage-content {
         padding: 18px 8px;
         min-height: 120px;
+    }
+}
+
+/* 게시물관리(나의글) 스타일 */
+.stylish-board {
+    background: linear-gradient(120deg, #e3f0ff 0%, #f8faff 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+    padding: 36px 32px 32px 32px;
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    position: relative;
+}
+
+.stylish-title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #1976d2;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.stylish-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.stylish-tab {
+    flex: 1;
+    background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    font-size: 1.08rem;
+    font-weight: 700;
+    padding: 12px 0;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+    transition: background 0.18s, color 0.18s;
+    opacity: 1;
+}
+
+.stylish-tab.active,
+.stylish-tab.inactive {
+    background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+    color: #fff;
+    opacity: 1;
+}
+
+.stylish-tab.inactive {
+    filter: grayscale(0.25) brightness(0.92);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.stylish-search {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stylish-select {
+    border-radius: 8px;
+    border: 1.5px solid #b3c6e6;
+    padding: 8px 12px;
+    font-size: 1.05rem;
+    background: #f8faff;
+    color: #1976d2;
+    font-weight: 600;
+    outline: none;
+    transition: border 0.18s;
+}
+
+.stylish-select:focus {
+    border: 1.5px solid #1976d2;
+}
+
+.stylish-searchbox {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+    background: #fff;
+}
+
+.stylish-input {
+    flex: 1;
+    border: none;
+    padding: 10px 14px;
+    font-size: 1.08rem;
+    background: transparent;
+    outline: none;
+    color: #1976d2;
+}
+
+.stylish-searchbtn {
+    background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    font-size: 1.08rem;
+    padding: 0 22px;
+    cursor: pointer;
+    transition: background 0.18s;
+    border-radius: 0 8px 8px 0;
+}
+
+.stylish-searchbtn:hover {
+    background: linear-gradient(90deg, #1565c0 60%, #64b5f6 100%);
+}
+
+.stylish-empty-list {
+    text-align: center;
+    color: #b0b8c1;
+    font-size: 1.13rem;
+    padding: 38px 0 10px 0;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+}
+
+@media (max-width: 700px) {
+    .stylish-board {
+        padding: 18px 4vw;
+        max-width: 98vw;
     }
 }
