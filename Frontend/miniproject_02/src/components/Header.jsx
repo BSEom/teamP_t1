@@ -5,12 +5,13 @@ const Header = () => {
     const { isLoggedIn, username } = useAuth();
     const navigate = useNavigate();
     
+
     return (
         <div className="info_container">
             <Link to="/">홈</Link> | {" "}
             { isLoggedIn ? (
                 <>
-                    <span>{username}님</span> | {" "}
+                    <span>{username}{" "}님</span> | {" "}
                     <Link to="/CheckMypage">마이 페이지</Link> | {" "}
                     <Link to="/Logout">로그아웃</Link>
                 </>
