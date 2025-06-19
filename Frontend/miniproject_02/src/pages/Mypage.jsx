@@ -1,10 +1,33 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
 import "./Mypage.css";
 
-function Mypage({ userInfo }) {
+function Mypage() {
     const [selectedMenu, setSelectedMenu] = React.useState('info');
     const [activeTab, setActiveTab] = React.useState('posts');
+
+    const [userInfo, setUserInfo] = useState(null);
+    
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await fetch("http://localhost:8050/user/me", {
+                credentials: "include",
+            });
+        
+            if (res.ok) {
+                const data = await res.json();
+                setUserInfo(data);  // ✅ username 들어오면 저장
+            } else {
+                console.warn("로그인 정보 없음");
+            }
+        
+        };
+
+        fetchUser();
+    }, []);
+
+
 
     // 게시글/댓글 탭 클릭 시 각각의 내용 렌더링
     const renderTabContent = () => {
