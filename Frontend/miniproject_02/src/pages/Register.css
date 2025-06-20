@@ -21,8 +21,8 @@ p {
   border-radius: 1rem;
   box-shadow: 0 1px 40px #ccc;
   max-width: 500px;
-  width: 100%;
-  height: 700px;
+  width: 33%;
+  /* height: 700px; */
 }
 
 .container h2 {
@@ -103,8 +103,9 @@ form {
 
 .duplicate-check-btn {
   width: auto;
-  min-width: 90px;
-  padding: 1rem 16px;
+  min-width: 80px;
+  padding: 10px;
+  text-align: center;
   background-color: #6b97d1;
   color: white;
   font-weight: bold;
@@ -116,8 +117,14 @@ form {
   height: 58px;
   white-space: nowrap;
   align-self: flex-end;
+  margin: 0 0 0 10px;
 }
 
 .duplicate-check-btn:hover {
   background-color: #5a86c0;
+  
+}
+
+.form-floating {
+  display: flex;
 }
