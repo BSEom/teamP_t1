@@ -1,0 +1,10 @@
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  background-color: #f0f0f0;
+  font-size: 0.9rem;
+  color: #555;
+  position: relative; /* 기본은 relative */
+  bottom: 0;
+}
