@@ -2,13 +2,14 @@
 .view-container {
   border: 1px solid #ccc;
   border-radius: 6px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 0;
   background-color: white;
   max-width: 1000px;
   width : 90% ;
-  height : 1500px;
+  max-height : 1200px;
+  height: 80%;
   margin : 0 auto;
 }
 

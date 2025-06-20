@@ -7,22 +7,17 @@ min-height: 100vh;
 overflow-x: hidden;
 }
 .body-wrapper {
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* 중앙 정렬 핵심!!! */
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 150px; /* nav 높이 고려 (필요시 조정) */
+  padding-top: 90px;
   padding-bottom: 40px; /* footer 고려 */
+  box-sizing: border-box;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  height: auto; /* 고정 높이 대신 내용에 따라 조절 */
 }
 .container {
   background-color: #fff;
@@ -30,8 +25,9 @@ overflow-x: hidden;
   border-radius: 1rem;
   box-shadow: 0 1px 40px #ccc;
   max-width: 400px;
-  min-height: 500px;
   width: 100%;
+  min-height: 500px;
+  box-sizing: border-box;
 }
 
 .container h2 {

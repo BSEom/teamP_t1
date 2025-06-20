@@ -17,7 +17,7 @@ import Logout from './pages/Logout'
 
 function App() {
   return (
-    <>
+    <div className='app-container'>
       <Header />
       <nav>
         <Link to="/">최저가 물건 찾기</Link>
@@ -25,6 +25,7 @@ function App() {
         <Link to="/Board">게시판</Link>
       </nav>
 
+      <main className = "content">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Register" element={<Register />} />
@@ -37,10 +38,10 @@ function App() {
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/CheckMypage" element={<CheckMyPage />} />
         <Route path="/Logout" element={<Logout />} />
-
       </Routes>
+      </main>
       <Footer/>
-    </>
+    </div>
   );
 }
 export default App;
