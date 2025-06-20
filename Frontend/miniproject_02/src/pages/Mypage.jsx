@@ -89,10 +89,10 @@ function Mypage() {
                                 <h3 className="mypage-edit-title">회원 정보 수정</h3>
                                 <form className="mypage-edit-form-simple">
                                     <label>회원 ID
-                                        <input type="text" />
+                                        <input type="text" readOnly/>
                                     </label>
                                     <label>닉네임
-                                        <input type="text" />
+                                        <input type="text" readOnly/>
                                     </label>
                                     <label>이메일
                                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
