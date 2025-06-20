@@ -12,11 +12,12 @@ import Mypage from './pages/Mypage'
 import Update from './pages/Update'
 import CheckMyPage from './pages/CheckMypage'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Logout from './pages/Logout'
 
 function App() {
   return (
-    <>
+    <div className='app-container'>
       <Header />
       <nav>
         <Link to="/">최저가 물건 찾기</Link>
@@ -24,6 +25,7 @@ function App() {
         <Link to="/Board">게시판</Link>
       </nav>
 
+      <main className = "content">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Register" element={<Register />} />
@@ -36,13 +38,10 @@ function App() {
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/CheckMypage" element={<CheckMyPage />} />
         <Route path="/Logout" element={<Logout />} />
-
       </Routes>
-
-      <footer style={{textAlign: 'center', padding: '1rem', color: '#888'}}>
-        COPYRIGHTS @ 2025 Miniproject02 - Team01 , All rights reserved.
-      </footer>
-    </>
+      </main>
+      <Footer/>
+    </div>
   );
 }
 export default App;

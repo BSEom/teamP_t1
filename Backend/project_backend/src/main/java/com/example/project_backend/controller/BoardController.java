@@ -28,13 +28,6 @@ public class BoardController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // @GetMapping("/board")
-    // public List<Map<String, Object>> getBoardList() {
-
-    // String sql = "SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE FROM
-    // USER_BOARD b JOIN USERS u ON b.USER_ID = u.USER_ID ORDER BY b.BOARD_ID DESC";
-    // return jdbcTemplate.queryForList(sql);
-    // }
     @GetMapping("/board")
     public PagingResponse<Map<String, Object>> getBoardList(@ModelAttribute SearchVo searchVo) {
         int total = getBoardCount();
@@ -108,7 +101,7 @@ public class BoardController {
     @GetMapping("/board/{boardId}")
     public Map<String, Object> getBoardDetail(@PathVariable int boardId) {
         System.out.println("요청된 boardId: " + boardId);
-        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT " +
+        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT, b.HIT " +
                 "FROM USER_BOARD b " +
                 "JOIN USERS u ON b.USER_ID = u.USER_ID " +
                 "WHERE b.BOARD_ID = ?";
@@ -154,6 +147,13 @@ public class BoardController {
     @DeleteMapping("/board/{boardId}")
     public String deleteBoard(@PathVariable int boardId) {
         try {
+            String commentCheckSql = "SELECT COUNT(*) FROM BOARD_COMMENT WHERE BOARD_ID = ?";
+            Integer commentCount = jdbcTemplate.queryForObject(commentCheckSql, Integer.class, boardId);
+
+            if (commentCount != null && commentCount > 0) {
+                return "fail: comments_exist";
+            }
+
             String checkSql = "SELECT COUNT(*) FROM USER_BOARD WHERE BOARD_ID = ?";
             Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, boardId);
             if (count == null || count == 0) {
@@ -163,11 +163,20 @@ public class BoardController {
             String deleteSql = "DELETE FROM USER_BOARD WHERE BOARD_ID = ?";
             int result = jdbcTemplate.update(deleteSql, boardId);
 
-            if (result > 0) {
-                return "success";
-            } else {
-                return "fail: delete failed";
-            }
+            return result > 0 ? "success" : "fail: delete failed";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail: " + e.getMessage();
+        }
+    }
+
+    // 조회수
+    @PutMapping("/board/hit/{boardId}")
+    public String increaseHit(@PathVariable int boardId) {
+        try {
+            String sql = "UPDATE USER_BOARD SET HIT = NVL(HIT, 0) + 1 WHERE BOARD_ID = ?";
+            int result = jdbcTemplate.update(sql, boardId);
+            return result > 0 ? "success" : "fail: not updated";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail: " + e.getMessage();
