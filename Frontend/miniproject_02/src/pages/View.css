@@ -69,6 +69,7 @@ label {
   overflow-y: auto;
   background-color: #fff;
   box-shadow: none !important;
+  margin: 0 50px 0 0 !important;
 }
 button.bookmark
 {
@@ -80,8 +81,9 @@ button.bookmark
 .d-flex.justify-content-between.mb-4 {
   justify-content: center;
   gap: 10px;
-  padding: 20px;
+  padding: 15px;
   border-top: 1px solid #ccc;
+  margin: 0 auto !important;
 }
 
 .d-flex.justify-content-between.mb-4 > button {
@@ -127,10 +129,26 @@ button.btn.btn-secondary.btn-smaller {
   padding-top: 20px;
 }
 
+.comment-meta {
+  text-align: left;
+}
+
+.comment-time {
+  color: #7a8ca1;
+  margin: 10px;
+}
 .comment-item {
   border: 1px solid #ddd;
   background-color: #fdfdfd;
   border-radius: 4px;
   padding: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+}
+.content-box {
+  text-align: left;
+}
+
+.comment-edit-box {
+  display: flex;
+  justify-content: flex-end;
 }

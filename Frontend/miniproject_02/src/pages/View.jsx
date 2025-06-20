@@ -327,8 +327,10 @@ const View = () => {
                         {comments.length === 0 && <p>등록된 댓글이 없습니다.</p>}
                         {comments.map((c) => (
                             <div key={c.COMMENT_ID} className="comment-item mb-3">
+                            <div className = "comment-meta">
                                 <strong>{c.WRITER}</strong>
-                                <p>{c.COMMENT_TIME}</p>
+                                <span className ="comment-time">{c.COMMENT_TIME}</span>
+                            </div>
 
                                 {updateCommentId === c.COMMENT_ID ? (
                                     <>
@@ -337,7 +339,7 @@ const View = () => {
                                             value={updateContent}
                                             onChange={(e) => setUpdateContent(e.target.value)}
                                         />
-                                        <div className="d-flex">
+                                        <div className="comment-edit-box">
                                             <button
                                                 className="btn btn-primary btn-smaller"
                                                 onClick={() => handleCommentUpdate(c.COMMENT_ID)}
@@ -351,7 +353,7 @@ const View = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <p>{c.CONTENT}</p>
+                                        <div className="content-box">{c.CONTENT}</div>
                                         <div className="d-flex">
                                             <button className="btn btn-success btn-smaller" onClick={() => handleCommentDelete(c.COMMENT_ID)}>
                                                 삭제

@@ -244,6 +244,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: left;
 }
 
 .mypage-edit-title {
@@ -296,8 +297,8 @@
 .mypage-edit-btns {
     display: flex;
     gap: 16px;
-    margin-top: 18px;
     justify-content: center;
+    height: 60px;
 }
 
 .btn-save {
@@ -306,9 +307,8 @@
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: 1.13rem;
     font-weight: 600;
-    padding: 12px 0;
+    padding: 0 !important;
     cursor: pointer;
     transition: background 0.18s;
 }
@@ -323,9 +323,7 @@
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: 1.13rem;
-    font-weight: 600;
-    padding: 12px 0;
+    font-weight: 600 !important;
     cursor: pointer;
     transition: background 0.18s;
 }
@@ -363,7 +361,7 @@
     background: linear-gradient(120deg, #e3f0ff 0%, #f8faff 100%);
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
-    padding: 36px 32px 32px 32px;
+    padding: 36px 32px 60px 32px;
     max-width: 520px;
     margin: 0 auto;
     display: flex;
@@ -462,12 +460,13 @@
     background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
     color: #fff;
     border: none;
+    height: 40px;
     font-weight: 700;
     font-size: 1.08rem;
     padding: 0 22px;
     cursor: pointer;
     transition: background 0.18s;
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px 8px 0 0;
 }
 
 .stylish-searchbtn:hover {

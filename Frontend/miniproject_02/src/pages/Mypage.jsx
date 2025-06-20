@@ -39,10 +39,11 @@ function Mypage() {
                             <option>제목</option>
                             <option>내용</option>
                         </select>
-                    </div>
-                    <div className="mypage-board-searchbox stylish-searchbox" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                        <div className="mypage-board-searchbox stylish-searchbox" style={{ marginTop: '10px', marginBottom: '10px' }}>
                         <input type="text" placeholder="검색어를 입력하세요" className="stylish-input" />
+                        </div>
                     </div>
+                    
                     <button className="mypage-board-searchbtn stylish-searchbtn" style={{ minWidth: '100px', alignSelf: 'flex-end' }}>검색</button>
                     <div className="stylish-empty-list">
                         <span>게시글이 없습니다.</span>
