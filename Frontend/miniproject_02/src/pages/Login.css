@@ -25,9 +25,8 @@ overflow-x: hidden;
   border-radius: 1rem;
   box-shadow: 0 1px 40px #ccc;
   max-width: 400px;
-  width: 100%;
   min-height: 500px;
-  box-sizing: border-box;
+  width: 33%;
 }
 
 .container h2 {

@@ -67,12 +67,10 @@ const Register = () => {
               required
             />
             <label htmlFor="username">닉네임</label>
+            <button type="button" className="duplicate-check-btn" onClick={checkName}>
+              중복확인
+            </button>
           </div>
-          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
-    중복확인
-  </button>
-  </div>
-        <div className="input-with-button">
           <div className="form-floating mb-3">
             <input
               type="text"
@@ -83,14 +81,13 @@ const Register = () => {
               required
             />
             <label htmlFor="email">이메일</label>
+            <button type="button" className="duplicate-check-btn" onClick={checkEmail}>
+              중복확인
+            </button>
           </div>
-          <button type="button" className="duplicate-check-btn" /*onClick={}*/>
-    중복확인
-  </button>
-  </div>
 
 
-          <div className="form-floating">
+          <div className="form-floating mb-3">
             <input
               type="text"
               id="phone"
