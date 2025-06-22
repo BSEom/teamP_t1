@@ -3,9 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Header = () => {
     const { isLoggedIn, username } = useAuth();
-    const navigate = useNavigate();
     
-
     return (
         <div className="info_container">
             <Link to="/">홈</Link> | {" "}

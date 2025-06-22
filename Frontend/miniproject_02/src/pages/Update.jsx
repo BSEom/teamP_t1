@@ -6,6 +6,7 @@ const Update = () => {
     const boardId = searchParams.get("boardId");
     const nowpage = searchParams.get("nowpage") || 1;
     const navigate = useNavigate();
+    
 
     const [form, setForm] = useState({
         title: "",
