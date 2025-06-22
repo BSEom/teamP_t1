@@ -78,7 +78,6 @@ const Board = () => {
                         >
                             <option value="title">제목</option>
                             <option value="writer">작성자</option>
-                            <option value="content">내용</option>
                         </select>
                         <input
                             type="text"

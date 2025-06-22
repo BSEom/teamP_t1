@@ -119,6 +119,10 @@ button.btn-smaller.btn-success {
     background-color: #4271c7;
 }
 
+button.btn-smaller.btn-success:hover {
+    background-color: #c9d7ff;
+}
+
 button.btn.btn-secondary.btn-smaller {
   width: 70px;
 }

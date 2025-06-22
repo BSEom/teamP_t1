@@ -148,7 +148,7 @@ body {
 .board-table {
     width: 100%;
     max-width: 900px;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0 8px;
     background: transparent;
 }
@@ -199,7 +199,7 @@ body {
 
 .board-table .table-title a:hover {
     text-decoration: underline;
-    color: #1565c0;
+    color: #f7c478;
 }
 
 /* 페이지네이션 스타일 */
@@ -246,7 +246,7 @@ body {
 }
 
 .btn.btn-outline-primary {
-    margin: 100px 0 0 30px;
+    margin: 100px 50px 0 0;
     width: 150px;
     background: #fff;
     color: #1976d2;

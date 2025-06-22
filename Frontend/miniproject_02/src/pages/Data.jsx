@@ -103,7 +103,7 @@ const Data = () => {
                         className={styles.dropdownItem}
                         onClick={() => handleRegionSelect(region)}
                       >
-                        <span style={{ fontWeight: 'bold', color: '#4CAF50' }}>{region.code}</span>
+                        <span style={{ fontWeight: 'bold', color: '#4c63af' }}>{region.code}</span>
                         <span style={{ marginLeft: '8px' }}>{region.name}</span>
                       </div>
                     ))}
