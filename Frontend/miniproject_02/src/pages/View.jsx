@@ -363,12 +363,12 @@ const View = () => {
                                 ) : (
                                     <>
                                         <div className="content-box">{c.CONTENT}</div>
-                                        <div className="d-flex">
-                                            <button className="btn btn-success btn-smaller" onClick={() => handleCommentDelete(c.COMMENT_ID)}>
+                                        <div className="content-button-box">
+                                            <button className="comment-button" onClick={() => handleCommentDelete(c.COMMENT_ID)}>
                                                 삭제
                                             </button>
                                             <button
-                                                className="btn btn-success btn-smaller"
+                                                className="comment-button"
                                                 onClick={() => handleCommentUpdateClick(c.COMMENT_ID, c.CONTENT)}
                                             >
                                                 수정

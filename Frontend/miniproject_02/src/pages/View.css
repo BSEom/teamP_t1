@@ -1,7 +1,7 @@
 /* 전체 박스 느낌 */
 .view-container {
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   /* overflow: hidden; */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 0;
@@ -16,12 +16,13 @@
 /* 헤더 타이틀 영역 */
 h1.text-center {
   margin: 0;
-  background-color: #5972e4;
+  background-color: #4271c7;
   color: white;
   padding: 14px;
   font-size: 1.4rem !important;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
+  border-radius: 8px 8px 0 0 ;
 }
 
 /* 각 줄 (제목, 작성자 등) */
@@ -104,7 +105,7 @@ button.btn-smaller {
 
 /* 각각 색상 주기 */
 button.btn-smaller.btn-primary:nth-child(1) {
-  background-color: #4c7aaf; /* 수정 */
+  background-color: #4271c7; /* 수정 */
   width: 70px;
   height: 50px;
 }
@@ -142,11 +143,27 @@ button.btn.btn-secondary.btn-smaller {
   background-color: #fdfdfd;
   border-radius: 4px;
   padding: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 50px !important;
 }
 .content-box {
   text-align: left;
 }
+
+.content-button-box {
+  width: 500px;
+  margin-left: 290px;
+}
+
+.comment-button {
+  width: 70px;
+  height: 50px;
+  margin: 0 5px 0 5px;
+  border-radius: 5px;
+  background-color: #4271c7;
+  padding: 0 !important;
+  font-weight: 500 !important;
+}
+
 
 .comment-edit-box {
   display: flex;

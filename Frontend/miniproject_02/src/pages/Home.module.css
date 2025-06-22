@@ -76,7 +76,7 @@
 
 .regionCode {
   font-weight: bold;
-  color: #4CAF50;
+  color: #4c63af;
 }
 
 .regionName {
@@ -85,7 +85,7 @@
 
 .selectedBox {
   padding: 10px;
-  border: 1px dashed #4CAF50;
+  border: 1px dashed #4c63af;
   border-radius: 5px;
 }
 
@@ -98,7 +98,7 @@
 .selectedValue {
   font-size: 16px;
   font-weight: bold;
-  color: #4CAF50;
+  color: #4c63af;
 }
 
 .mapContainer {

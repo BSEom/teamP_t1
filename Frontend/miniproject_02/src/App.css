@@ -68,15 +68,25 @@ nav {
   margin-top: 100px;    /* 100px 아래로 내리기 */
   margin-bottom: 30px;
   width: 100%;
-  background-color: #829fff;
+  background: linear-gradient(
+    135deg,
+    #1d59ff8e 0%,
+    #2460e0 30%,
+    #78a3ff 60%,
+    #3ba7ff75 75%,
+    #63a1ff 100%
+  );
+ backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
   padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 1000;
   display: flex;
   justify-content: center;
   gap: 3rem;
   font-weight: bold;
   font-size: 2.5rem;
+  transition: all 0.3s ease;
 }
 
 nav a {
@@ -84,10 +94,11 @@ nav a {
   text-decoration: none;
   transition: color 0.3s ease;
   margin : 0 1rem;
+  text-shadow: 1px 1px 3px gray;
 }
 
 nav a:hover {
-  color: #b0faff;
+  color: #ffe17c;
 }
 
 .app-container {
