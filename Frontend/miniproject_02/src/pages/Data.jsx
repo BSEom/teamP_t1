@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import styles from './Data.module.css'
+import Chart from 'chart.js/auto'
 
 const Data = () => {
   const [selectedRegion, setSelectedRegion] = useState('')
@@ -12,6 +13,107 @@ const Data = () => {
   const [chartData, setChartData] = useState(null)
   const [tableData, setTableData] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const chartRef = useRef(null)
+  const chartInstance = useRef(null)
+
+  useEffect(() => {
+    if (!chartData || !chartRef.current) return
+  
+    const labels = chartData.map(d => d.ITEM)
+    const values = chartData.map(d => d.DIFF_RATIO)
+    
+    // 랜덤 색상 생성 함수
+    const getRandomColor = () => {
+      const r = Math.floor(Math.random() * 156 + 100); // 100~255
+      const g = Math.floor(Math.random() * 156 + 100);
+      const b = Math.floor(Math.random() * 156 + 100);
+      return `rgba(${r}, ${g}, ${b}, 0.7)`; // 밝고 투명한 색
+    };
+
+    // labels/values와 동일한 길이의 색상 배열 생성
+    const backgroundColors = values.map(() => getRandomColor());
+
+    // 이전 차트 삭제 (중복 방지)
+    if (chartInstance.current) {
+      chartInstance.current.destroy()
+    }
+  
+    // 새 차트 생성
+    chartInstance.current = new Chart(chartRef.current, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: '가격차이 비율 (%)',
+            data: values,
+            backgroundColor: backgroundColors,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: '품목별 가격차이 비율 (%)'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const index = context.dataIndex
+                const item = chartData[index].ITEM
+                const diff_ratio = chartData[index].DIFF_RATIO
+                const max = chartData[index].MAX_PRICE
+                const min = chartData[index].MIN_PRICE
+                const priceDiff = chartData[index].PRICE_DIFF
+                
+                return [
+                  `최고가: ${max}원`,
+                  `최소가: ${min}원`,
+                  `가격차이: ${priceDiff}원`,
+                  `비율: ${diff_ratio}%`
+                ]
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              autoSkip: false, // ← 모든 x축 라벨을 표시하도록 설정
+              maxRotation: 90, // 글자 회전으로 공간 확보
+              minRotation: 45
+            }
+          }
+        }
+      }
+    })
+  }, [chartData])
+
+  useEffect(() => {
+  if (chartData && chartData.length > 0) {
+    console.log('✅ chartData가 업데이트됨:', chartData)
+
+    chartData.forEach((row, i) => {
+      console.log(`[${i}] item =`, row.item, '| diff_ratio =', row.diff_ratio)
+    })
+
+    const labels = chartData.map(d => d.item)
+    const values = chartData.map(d =>
+      parseFloat((d.diff_ratio + '').replace('%', '').trim()) || 0
+    )
+
+    console.log('Labels:', labels)
+    console.log('Values:', values)
+  } else {
+    console.log('⚠️ chartData는 있지만 배열이 비어 있음 또는 구조 문제')
+  }
+}, [chartData])
+
+
 
   const busanRegions = [
     { code: '5', name: '남구' },
@@ -51,15 +153,26 @@ const Data = () => {
 
     setLoading(true)
     try {
-      const response = await axios.post('/api/statistics', {
-        regionCode: selectedRegionCode,
-        year: selectedYear,
-        month: selectedMonth
+      const response = await axios.get('http://localhost:8050/chart/select', {
+        params: {
+          area: selectedRegion,
+          year: selectedYear,
+          month: selectedMonth
+        }
       })
       
-      setChartData(response.data.chartData)
-      setTableData(response.data.tableData)
+      setChartData(response.data)
+      // setTableData(response.data.tableData)
       console.log('통계 데이터 가져오기 성공:', response.data)
+
+  
+
+      // const labels = chartData.map(d => d.item)
+      // const values = chartData.map(d => parseFloat(d.diff_ratio) || 0)
+
+      // console.log('Labels:', labels)
+      // console.log('Values:', values)
+
     } catch (error) {
       console.error('통계 데이터 가져오기 실패:', error)
       alert('데이터를 불러오는데 실패했습니다.')
@@ -67,6 +180,8 @@ const Data = () => {
       setLoading(false)
     }
   }
+
+  
 
   return (
     <div className={styles.container}>
@@ -188,7 +303,7 @@ const Data = () => {
             <div className={styles.tableContainer}>
               <h3 className={styles.containerTitle}> 데이터 표</h3>
               <div className={styles.tableContent}>
-                {tableData.length > 0 ? (
+                {/* {tableData.length > 0 ? (
                   <table className={styles.dataTable}>
                     <thead>
                       <tr>
@@ -209,7 +324,8 @@ const Data = () => {
                   </table>
                 ) : (
                   <div className={styles.noData}>표시할 데이터가 없습니다.</div>
-                )}
+                )} */}
+                <div className={styles.noData}>표시할 데이터가 없습니다.</div>
               </div>
             </div>
 
@@ -220,8 +336,9 @@ const Data = () => {
                 {chartData ? (
                   <div className={styles.chartPlaceholder}>
                     {/* 여기에 실제 차트 라이브러리 컴포넌트가 들어갈 예정 */}
-                    <p>차트 데이터가 로드되었습니다!</p>
-                    <pre>{JSON.stringify(chartData, null, 2)}</pre>
+                    {/* <p>차트 데이터가 로드되었습니다!</p>
+                    <pre>{JSON.stringify(chartData, null, 2)}</pre> */}
+                    <canvas ref={chartRef} className={styles.chartCanvas}></canvas>
                   </div>
                 ) : (
                   <div className={styles.noData}>표시할 그래프가 없습니다.</div>
