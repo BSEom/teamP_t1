@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./View.css";
 
 const View = () => {
@@ -7,6 +8,7 @@ const View = () => {
     const boardId = searchParams.get("boardId");
     const nowpage = searchParams.get("nowpage") || 1;
     const navigate = useNavigate();
+    const { isLoggedIn, username } = useAuth();
 
     // post 상태에 bookmarked 추가 (boolean)
     const [post, setPost] = useState({
@@ -144,10 +146,15 @@ const View = () => {
 
 
     const handleUpdate = () => {
-        navigate(`/update?boardId=${boardId}&nowpage=${nowpage}`);
+        if (post.name === username) {
+            navigate(`/update?boardId=${boardId}&nowpage=${nowpage}`);
+        } else {
+            alert("작성자가 아닙니다.");
+        }
     };
 
     const handleDelete = async () => {
+
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
         const response = await fetch(`http://localhost:8050/api/board/${boardId}`, {
@@ -156,7 +163,9 @@ const View = () => {
 
         const resultText = await response.text();
 
-        if (resultText.includes("comments_exist")) {
+        if (post.name !== username) {
+            alert("작성자가 아닙니다.")
+        } else if (resultText.includes("comments_exist")) {
             alert("댓글이 존재하여 게시글을 삭제할 수 없습니다.");
         } else if (resultText.includes("success")) {
             alert("삭제되었습니다.");
@@ -178,7 +187,7 @@ const View = () => {
             const res = await fetch(`http://localhost:8050/api/board/comments`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ boardId, name: "홍길순", content: comment }),
+                body: JSON.stringify({ boardId, name: username, content: comment }),
             });
 
             if (res.ok) {
@@ -207,7 +216,7 @@ const View = () => {
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name: "홍길순", content: updateContent }),
+                    body: JSON.stringify({ name: username, content: updateContent }),
                 }
             );
 

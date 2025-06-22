@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Write.css";
 
@@ -9,6 +9,28 @@ const Write = () => {
         name: "",
         content: "",
     });
+
+    useEffect(() => {   // 로그인 연동
+        const fetchUser = async () => {
+            const res = await fetch("http://localhost:8050/user/me", {
+                credentials: "include",
+            });
+        
+            if (res.ok) {
+                const data = await res.json();
+                setForm((preFrom) => ({
+                    ...preFrom, 
+                    name: data.username
+                }))
+            } else {
+                alert("로그인이 필요합니다.");
+                setTimeout(() => navigate("/login"), 100);
+            }
+        
+        };
+
+        fetchUser();
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,7 +51,7 @@ const Write = () => {
             const result = await response.text();
             if (result === "success") {
                 alert("글 작성 완료!");
-                navigate("/");
+                navigate("/Board");
             } else {
                 alert("글 작성 실패: " + result);
             }
@@ -68,6 +90,7 @@ const Write = () => {
                             name="name"
                             value={form.name}
                             onChange={handleChange}
+                            readOnly
                         />
                     </div>
 

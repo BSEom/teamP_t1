@@ -17,7 +17,7 @@ function Mypage() {
         
             if (res.ok) {
                 const data = await res.json();
-                setUserInfo(data);  // ✅ username 들어오면 저장
+                setUserInfo(data);  // username 들어오면 저장
             } else {
                 console.warn("로그인 정보 없음");
             }
