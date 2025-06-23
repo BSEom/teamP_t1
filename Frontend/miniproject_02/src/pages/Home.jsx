@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { MapContainer, TileLayer, CircleMarker, Tooltip, Marker, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, CircleMarker, Tooltip, Marker, useMap, GeoJSON } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from './Home.module.css'
+import RegionLayer from './RegionLayer'
 
 // npm i leaflet react-leaflet 이걸 설치해야 지도가 보임 !!
 
@@ -24,6 +25,14 @@ const Home = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [mapData, setMapData] = useState([])
   const [mapCenter, setMapCenter] = useState({ lat: 35.1796, lng: 129.0756 })
+
+  const [geoData, setGeoData] = useState(null);
+  
+   useEffect(() => {
+    fetch("/map.geojson") 
+      .then((res) => res.json())
+      .then((data) => setGeoData(data));
+  }, [])
 
   const busanRegions = [
     { code: '5', name: '남구', lat: 35.1367, lng: 129.0844 },
@@ -104,13 +113,37 @@ const Home = () => {
           <div className={styles.mapContainer}>
             <MapContainer
               center={[mapCenter.lat, mapCenter.lng]}
-              zoom={12}
+              zoom={5}
               style={{ height: '400px', width: '100%', borderRadius: '10px' }}
             >
               <TileLayer
                 attribution='&copy; OpenStreetMap contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+
+              {/* Geo JSON */}
+              {geoData && (
+                // <RegionLayer
+                //   data={geoData}
+                //   style={() => ({
+                //     color: "#2c3e50",
+                //     weight: 1,
+                //     fillColor: "#a29bfe",
+                //     fillOpacity: 0.3
+                //   })}
+                //   onEachFeature={(feature, layer) => {
+                //     const name = feature.properties.SGG_NM || "알 수 없음";
+                //     layer.bindTooltip(`<strong>${name}</strong>`, {
+                //       direction: "center",
+                //       permanent: false,
+                //       sticky: true
+                //     });
+                //   }}
+                // />
+                <RegionLayer geoData={geoData} />
+              )}
+
+
               <ChangeMapCenter lat={mapCenter.lat} lng={mapCenter.lng} />
               {selectedRegion && (
                 <Marker position={[mapCenter.lat, mapCenter.lng]}>
