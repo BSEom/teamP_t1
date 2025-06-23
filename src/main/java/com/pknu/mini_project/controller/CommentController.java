@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -93,5 +94,44 @@ public class CommentController {
         String sql = "DELETE FROM BOARD_COMMENT WHERE COMMENT_ID = ?";
         int result = jdbcTemplate.update(sql, commentId);
         return result > 0 ? "success" : "fail: comment not found or not deleted";
+    }
+
+    // 댓글 모으기
+    @GetMapping("/mypage")
+    public List<Map<String, Object>> getUserPosts(@RequestParam String userName) {
+        try {
+            String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+            Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class, userName);
+
+            // String sql = "SELECT B.BOARD_ID, B.TITLE, B.CONTENT, U.USER_NAME AS WRITER,
+            // B.HIT, BC.CONTENT " +
+            // "FROM USER_BOARD B " +
+            // "JOIN USERS U ON B.USER_ID = U.USER_ID " +
+            // "JOIN BOARD_COMMENT BC ON B.USER_ID = BC.USER_ID " +
+            // "WHERE U.USER_ID = ?";
+
+            // String sql = "SELECT B.BOARD_ID, B.TITLE, B.CONTENT AS BOARD_CONTENT,
+            // U.USER_NAME AS WRITER, B.HIT, LISTAGG(BC.CONTENT, '||') WITHIN GROUP (ORDER
+            // BY BC.COMMENT_DATE) AS ALL_COMMENTS "
+            // +
+            // "FROM USER_BOARD B " +
+            // "JOIN USERS U ON B.USER_ID = U.USER_ID " +
+            // "JOIN BOARD_COMMENT BC ON B.USER_ID = BC.USER_ID " +
+            // "WHERE U.USER_ID = ? " +
+            // "GROUP BY B.BOARD_ID, B.TITLE, B.CONTENT, U.USER_NAME, B.HIT " +
+            // "ORDER BY B.BOARD_ID ";
+
+            // String sql = "SELECT * FROM BOARD_COMMENT WHERE USER_ID = ? ";
+
+            String sql = "SELECT DISTINCT UB.TITLE, BC.CONTENT " +
+                    "FROM BOARD_COMMENT BC " +
+                    "JOIN USER_BOARD UB ON BC.BOARD_ID = UB.BOARD_ID " +
+                    "WHERE BC.USER_ID = ? ";
+
+            return jdbcTemplate.queryForList(sql, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 }

@@ -23,35 +23,43 @@ public class BookmarkController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // 북마크 확인
     @GetMapping("/bookmark/{boardId}")
     public boolean isBookmarked(@PathVariable int boardId, @RequestParam String userName) {
-        String sql = "SELECT COUNT(*) FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = (SELECT USER_ID FROM USERS WHERE USER_NAME = ?)";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, boardId, userName);
-        return count != null && count > 0;
+        try {
+
+            String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+            Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class, userName);
+
+            String sql = "SELECT IS_BOOKMARKED FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = ?";
+            Integer isBookmarked = jdbcTemplate.queryForObject(sql, Integer.class, boardId, userId);
+
+            return isBookmarked != null && isBookmarked == 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    // 북마크 추가
     @PostMapping("/bookmark/{boardId}")
     public String addBookmark(@PathVariable int boardId,
             @RequestBody Map<String, String> data) {
         try {
-            String userName = data.get("userId"); // 실제로는 userName
-            String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
-            List<Map<String, Object>> users = jdbcTemplate.queryForList(findUserSql, userName);
-            if (users.isEmpty())
-                return "fail: user not found";
-            int userId = ((Number) users.get(0).get("USER_ID")).intValue();
+            int userId = Integer.parseInt(data.get("userId"));
 
             String checkSql = "SELECT COUNT(*) FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = ?";
             Integer exists = jdbcTemplate.queryForObject(checkSql, Integer.class, boardId, userId);
-            if (exists != null && exists > 0)
-                return "fail: already bookmarked";
+
+            if (exists != null && exists > 0) {
+
+                String updateSql = "UPDATE USER_BOOKMARK SET IS_BOOKMARKED = 1 WHERE BOARD_ID = ? AND USER_ID = ?";
+                jdbcTemplate.update(updateSql, boardId, userId);
+                return "success: bookmarked (reactivated)";
+            }
 
             String insertSql = "INSERT INTO USER_BOOKMARK (BOOKMARK_NO, BOARD_ID, USER_ID, IS_BOOKMARKED) VALUES (SEQ_BOOKMARK_NO.NEXTVAL, ?, ?, 1)";
             jdbcTemplate.update(insertSql, boardId, userId);
 
-            return "success";
+            return "success: bookmarked (inserted)";
         } catch (Exception e) {
             e.printStackTrace();
             return "fail: " + e.getMessage();
@@ -62,12 +70,21 @@ public class BookmarkController {
     @PutMapping("/bookmark/{boardId}/{userId}")
     public String toggleBookmark(@PathVariable int boardId, @PathVariable int userId) {
         try {
+            String checkSql = "SELECT COUNT(*) FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = ?";
+            Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, boardId, userId);
+
+            if (count == null || count == 0) {
+                String insertSql = "INSERT INTO USER_BOOKMARK (BOOKMARK_NO, BOARD_ID, USER_ID, IS_BOOKMARKED) VALUES (SEQ_BOOKMARK_NO.NEXTVAL, ?, ?, 1)";
+                jdbcTemplate.update(insertSql, boardId, userId);
+                return "success: bookmarked (inserted)";
+            }
 
             String updateSql = "UPDATE USER_BOOKMARK " +
                     "SET IS_BOOKMARKED = CASE WHEN IS_BOOKMARKED = 1 THEN 0 ELSE 1 END " +
                     "WHERE BOARD_ID = ? AND USER_ID = ?";
 
             int result = jdbcTemplate.update(updateSql, boardId, userId);
+
             if (result > 0) {
                 String stateSql = "SELECT IS_BOOKMARKED FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = ?";
                 Integer state = jdbcTemplate.queryForObject(stateSql, Integer.class, boardId, userId);
@@ -77,11 +94,32 @@ public class BookmarkController {
                     return "success: unbookmarked";
                 }
             } else {
-                return "fail: not found or not updated";
+                return "fail: not updated";
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             return "fail: " + e.getMessage();
+        }
+    }
+
+    // 북마크된 게시글만 모으기
+    @GetMapping("/mypage/bookmarks")
+    public List<Map<String, Object>> getBookmarkedPosts(@RequestParam String userName) {
+        try {
+            String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+            Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class, userName);
+
+            String sql = "SELECT B.BOARD_ID, B.TITLE, B.CONTENT, U.USER_NAME AS WRITER, B.HIT " +
+                    "FROM USER_BOARD B " +
+                    "JOIN USER_BOOKMARK UB ON B.BOARD_ID = UB.BOARD_ID " +
+                    "JOIN USERS U ON B.USER_ID = U.USER_ID " +
+                    "WHERE UB.USER_ID = ? AND UB.IS_BOOKMARKED = 1 ";
+
+            return jdbcTemplate.queryForList(sql, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of(); // 빈 리스트 반환
         }
     }
 

@@ -184,4 +184,23 @@ public class BoardController {
         }
     }
 
+    // 게시글 모으기
+    @GetMapping("/board/mypage/board")
+    public List<Map<String, Object>> getUserPosts(@RequestParam String userName) {
+        try {
+            String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+            Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class, userName);
+
+            String sql = "SELECT B.BOARD_ID, B.TITLE, B.CONTENT, U.USER_NAME AS WRITER, B.HIT " +
+                    "FROM USER_BOARD B " +
+                    "JOIN USERS U ON B.USER_ID = U.USER_ID " +
+                    "WHERE U.USER_ID = ?";
+
+            return jdbcTemplate.queryForList(sql, userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
 }
