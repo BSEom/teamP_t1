@@ -27,7 +27,7 @@ public class ChartController {
             @RequestParam int month) {
 
         String sql = """
-                    SELECT item as item, min_price as min_price, max_price as max_price, price_diff as price_diff, diff_ratio as diff_ratio
+                    SELECT item, min_price, max_price, price_diff, diff_ratio
                     FROM market_prices
                     WHERE area = ? AND year = ? AND month = ?
                 """;
@@ -35,4 +35,25 @@ public class ChartController {
         List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, area, year, month);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/map")
+    public ResponseEntity<List<String>> getMinPrice(@RequestParam String area) {
+
+        String sql = """
+                    SELECT ITEM
+                    FROM (
+                      SELECT ITEM, AREA, MIN_PRICE,
+                             RANK() OVER (PARTITION BY ITEM ORDER BY MIN_PRICE ASC) AS rnk
+                      FROM RECENT_PRICES
+                    ) ranked
+                    WHERE rnk = 1
+                      AND AREA = ?
+                """;
+
+        List<String> result = jdbcTemplate.queryForList(sql, String.class, area);
+        System.out.println(result);
+
+        return ResponseEntity.ok(result);
+    }
+
 }

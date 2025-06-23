@@ -71,9 +71,26 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
         ...highlightStyle,
         fillColor: "#fab1a0",
       });
-    //   const el = layer.getElement?.();
-    //   if (el) el.style.outline = "none";
-      layer.bindPopup(`<b>${name}</b> 구가 선택되었습니다.`).openPopup();
+   
+      fetch(`http://localhost:8050/chart/map?area=${encodeURIComponent(name)}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("📦 가져온 데이터:", data);
+        
+          const itemList = data.length > 0 ? data.map(item => `<li>${item}</li>`).join("")
+          : "<li>준비중...</li>";
+      
+          layer.bindPopup(`
+            <h6><b>${name}</b>의 최저가 품목:</h6><br/>
+            <ul>${itemList}</ul>
+          `).openPopup();
+        })
+        .catch(err => {
+          console.error("❌ 데이터 불러오기 실패:", err);
+          layer.bindPopup(`<b>${name}</b> 구 정보를 불러올 수 없습니다.`).openPopup();
+        });
+
+      // layer.bindPopup(`<b>${name}</b> 구가 선택되었습니다.`).openPopup();
       selectedRef.current = layer;
     });
 
