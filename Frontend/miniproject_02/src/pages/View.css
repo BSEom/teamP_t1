@@ -82,8 +82,8 @@ button.bookmark
 .publish-area {
   justify-content: space-between !important;
   gap: 10px;
-  padding: 10px;
-
+  padding: 10px 0 20px 0;
+  height: 100px;
 }
 
 /* 공통 버튼 스타일 */
@@ -120,6 +120,26 @@ button.add_comment:hover {
 
 button.btn.btn-secondary.btn-smaller {
   width: 70px;
+}
+
+.back-list{
+  width: 150px !important;
+  height: 50px !important;
+  margin: 18px 0 0 0 !important;
+  background: #fff;
+    color: #1976d2;
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.back-list:hover {
+    background: #1976d2;
+    color: #fff;
+    border: 2px solid #1565c0;
 }
 
 /* 댓글 부분 유지 */

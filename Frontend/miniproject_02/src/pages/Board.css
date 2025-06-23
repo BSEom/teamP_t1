@@ -28,7 +28,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
+    margin : 0 30px 32px 30px;
     flex-wrap: wrap;
 }
 
@@ -245,19 +245,18 @@ body {
     flex-wrap: wrap;
 }
 
-.btn.btn-outline-primary {
-    margin: 100px 50px 0 0;
-    width: 150px;
+.btn.write-post {
+    margin: 100px 30px 0 0;
+    width: 150px !important;
+    height: 44px !important;
     background: #fff;
     color: #1976d2;
     border: 2px solid #1976d2;
     border-radius: 8px;
-    padding: 10px 28px;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, border 0.2s;
-    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
 }
 
 .btn.btn-outline-primary:hover {

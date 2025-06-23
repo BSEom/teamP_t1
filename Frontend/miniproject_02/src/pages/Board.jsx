@@ -92,7 +92,7 @@ const Board = () => {
                         </button>
                     </div>
 
-                    <button className="btn btn-outline-primary" onClick={handleGoWrite}>
+                    <button className="btn write-post" onClick={handleGoWrite}>
                         글 작성
                     </button>
                 </div>

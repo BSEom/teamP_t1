@@ -23,28 +23,33 @@ const View = () => {
     const [updateCommentId, setUpdateCommentId] = useState(null);
     const [updateContent, setUpdateContent] = useState("");
 
-    // 공통 함수: 댓글 목록 불러오기
+    // 댓글 목록
     const fetchComments = async () => {
+        if (!boardId) return;
         const res = await fetch(`http://localhost:8050/api/board/comments/${boardId}`);
-        const data = await res.json();
-        setComments(data);
+        if (res.ok) {
+            const data = await res.json();
+            setComments(data);
+        }
     };
 
-    // 공통 함수: 북마크 상태 동기화
+    // 북마크 상태
     const syncBookmarkStatus = async () => {
+        if (!username || !boardId) return;
+
         const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}?userName=${username}`);
-        const raw = await res.json();
-
-        const isBookmarked = (raw === true || raw === "true");
-        setPost(prev => ({ ...prev, bookmarked: isBookmarked }));
-
-        console.log("북마크 상태:", raw);
+        if (res.ok) {
+            const raw = await res.json();
+            const isBookmarked = (raw === true || raw === "true");
+            setPost(prev => ({ ...prev, bookmarked: isBookmarked }));
+            console.log("북마크 상태:", raw);
+        }
     };
 
     useEffect(() => {
-        if (!boardId || !username) return;
+        if (!boardId) return;
 
-        // 게시글 데이터 불러오기
+        // 게시글 데이터
         fetch(`http://localhost:8050/api/board/${boardId}`)
             .then(res => res.json())
             .then(data => {
@@ -57,61 +62,27 @@ const View = () => {
                 }));
             });
 
-        syncBookmarkStatus();
         fetchComments();
+
+        // 로그인한 경우에만 북마크 상태 동기화 호출
+        if (username) {
+            syncBookmarkStatus();
+        }
     }, [boardId, username]);
 
-    // 북마크 추가
-    const addBookmark = async () => {
-        const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: userid }),
-        });
-        const resultText = (await res.text()).trim();
-
-        if (resultText.includes("success")) {
-            alert("북마크에 추가되었습니다.");
-        } else if (resultText.includes("already bookmarked")) {
-            alert("이미 북마크 되어 있습니다.");
-        } else {
-            alert("북마크 추가 실패: " + resultText);
-        }
-        await syncBookmarkStatus();
-    };
-
-    // 북마크 해제
-    const removeBookmark = async () => {
-        const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}/${userid}`, {
-            method: "PUT",
-        });
-        const resultText = (await res.text()).trim();
-
-        if (resultText.includes("success")) {
-            alert("북마크가 해제되었습니다.");
-        } else {
-            alert("북마크 해제 실패: " + resultText);
-        }
-        await syncBookmarkStatus();
-    };
-
     // 북마크 토글
-    // const toggleBookmark = async () => {
-    //     if (post.bookmarked) {
-    //         await removeBookmark();
-    //     } else {
-    //         await addBookmark();
-    //     }
-    // };
     const toggleBookmark = async () => {
+        if (!userid || !boardId) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+
         const wasBookmarked = post.bookmarked;
 
-        // UI 먼저 업데이트
         setPost(prev => ({ ...prev, bookmarked: !wasBookmarked }));
 
         try {
             if (wasBookmarked) {
-                // 기존에 북마크 되어 있었으면 해제
                 const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}/${userid}`, {
                     method: "PUT",
                 });
@@ -119,7 +90,6 @@ const View = () => {
                 console.log(result);
                 alert("북마크가 해제되었습니다.");
             } else {
-                // 북마크 추가
                 const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -133,12 +103,9 @@ const View = () => {
             alert("북마크 처리 중 오류 발생: " + err.message);
         }
 
-        // 다시 서버 상태 동기화 (안전하게)
         await syncBookmarkStatus();
     };
 
-
-    // 게시글 수정 버튼
     const handleUpdate = () => {
         if (post.name === username) {
             navigate(`/update?boardId=${boardId}&nowpage=${nowpage}`);
@@ -147,7 +114,6 @@ const View = () => {
         }
     };
 
-    // 게시글 삭제 버튼
     const handleDelete = async () => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
@@ -266,9 +232,9 @@ const View = () => {
                     </div>
 
                     <div className="publish-area">
-                            <button className="publish edit" onClick={handleUpdate}>수정</button>
-                            <button className="publish delete" onClick={handleDelete}>삭제</button>
-                        <button className="btn btn-smaller btn-outline-primary" onClick={() => navigate(`/board?nowpage=${nowpage}`)}>목록으로</button>
+                        <button className="publish edit" onClick={handleUpdate}>수정</button>
+                        <button className="publish delete" onClick={handleDelete}>삭제</button>
+                        <button className="back-list" onClick={() => navigate(`/board?nowpage=${nowpage}`)}>목록으로</button>
                     </div>
 
                     {/* 댓글 작성 */}

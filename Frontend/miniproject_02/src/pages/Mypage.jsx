@@ -7,6 +7,8 @@ function Mypage() {
     const [activeTab, setActiveTab] = useState('posts');
     const [userInfo, setUserInfo] = useState(null);
     const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
+    const [BoardPosts, setBoardPosts] = useState([]);
+    const [CommentPosts, setCommentPosts] = useState([]);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -49,6 +51,30 @@ function Mypage() {
         }
     }, [userInfo]);
 
+    useEffect(() => {
+        if (userInfo?.username) {
+            fetch(`http://localhost:8050/api/board/mypage/board?userName=${userInfo.username}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("게시글 목록 데이터:", data);
+                    setBoardPosts(data);
+                })
+                .catch(err => console.error("게시글 목록 가져오기 실패", err));
+        }
+    }, [userInfo]);
+
+    useEffect(() => {
+        if (userInfo?.username) {
+            fetch(`http://localhost:8050/api/board/comments/mypage?userName=${userInfo.username}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("댓글 목록 데이터:", data);
+                    setCommentPosts(data);
+                })
+                .catch(err => console.error("게시글 목록 가져오기 실패", err));
+        }
+    }, [userInfo]);
+
 
 
     const renderTabContent = () => {
@@ -65,9 +91,30 @@ function Mypage() {
                         </div>
                     </div>
                     <button className="mypage-board-searchbtn stylish-searchbtn" style={{ minWidth: '100px', alignSelf: 'flex-end' }}>검색</button>
-                    <div className="stylish-empty-list">
-                        <span>게시글이 없습니다.</span>
-                    </div>
+                    {BoardPosts.length === 0 ? (
+                        <div className="stylish-empty-list">
+                            <span>게시글이 없습니다.</span>
+                        </div>
+                    ) : (
+                        <div className="bookmark-posts">
+                            {BoardPosts.map((post) => (
+                                <div key={`board-${post.BOARD_ID}`} className="bookmark-card">
+                                    <Link to={`/view?boardId=${post.BOARD_ID}`}>
+                                        <h4 className="bookmark-title">{post.TITLE}</h4>
+                                        <p className="bookmark-content">
+                                            {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
+                                        </p>
+                                        <div className="bookmark-meta">
+                                            <span>작성자: {post.WRITER}</span><br />
+                                            <span>조회수: {post.HIT}</span>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+
                 </>
             );
         } else if (activeTab === 'comments') {
@@ -83,9 +130,31 @@ function Mypage() {
                         <input type="text" placeholder="검색어를 입력하세요" className="stylish-input" />
                     </div>
                     <button className="mypage-board-searchbtn stylish-searchbtn" style={{ minWidth: '100px', alignSelf: 'flex-end' }}>검색</button>
-                    <div className="stylish-empty-list">
+                    {/* <div className="stylish-empty-list">
                         <span>댓글이 없습니다.</span>
-                    </div>
+                    </div> */}
+                    {CommentPosts.length === 0 ? (
+                        <div className="stylish-empty-list">
+                            <span>댓글이 없습니다.</span>
+                        </div>
+                    ) : (
+                        <div className="bookmark-posts">
+                            {CommentPosts.map((post, index) => (
+                                <div key={`comment-${post.BOARD_ID}-${index}`} className="bookmark-card">
+                                    <Link to={`/view?boardId=${post.BOARD_ID}`}>
+                                        <h4 className="bookmark-title">{post.TITLE}</h4>
+                                        <p className="bookmark-content">
+                                            {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
+                                        </p>
+                                        <div className="bookmark-meta">
+                                            {/* <span>작성자: {post.WRITER}</span><br /> */}
+                                            {/* <span>조회수: {post.HIT}</span> */}
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </>
             );
         } else if (activeTab === 'bookmarks') {
@@ -99,25 +168,16 @@ function Mypage() {
                             <span>북마크한 게시글이 없습니다.</span>
                         </div>
                     ) : (
-                        // <ul className="stylish-list">
-                        //     {bookmarkedPosts.map((post) => (
-                        //         <li key={post.BOARD_ID}>
-                        //             <Link to={`/view?boardId=${post.BOARD_ID}`}>
-                        //                 {post.TITLE} - {post.WRITER}
-                        //             </Link>
-                        //         </li>
-                        //     ))}
-                        // </ul>
                         <div className="bookmark-posts">
                             {bookmarkedPosts.map((post) => (
-                                <div key={post.BOARD_ID} className="bookmark-card">
+                                <div key={`bookmark-${post.BOARD_ID}`} className="bookmark-card">
                                     <Link to={`/view?boardId=${post.BOARD_ID}`}>
                                         <h4 className="bookmark-title">{post.TITLE}</h4>
                                         <p className="bookmark-content">
                                             {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
                                         </p>
                                         <div className="bookmark-meta">
-                                            <span>작성자: {post.WRITER}</span><br/>
+                                            <span>작성자: {post.WRITER}</span><br />
                                             <span>조회수: {post.HIT}</span>
                                         </div>
                                     </Link>
@@ -209,11 +269,11 @@ function Mypage() {
                                     <button
                                         className={`stylish-tab${activeTab === 'posts' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('posts')}
-                                    >게시글 (0)</button>
+                                    >게시글 ({BoardPosts.length})</button>
                                     <button
                                         className={`stylish-tab${activeTab === 'comments' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('comments')}
-                                    >댓글 (0)</button>
+                                    >댓글 ({CommentPosts.length})</button>
                                     <button
                                         className={`stylish-tab${activeTab === 'bookmarks' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('bookmarks')}
