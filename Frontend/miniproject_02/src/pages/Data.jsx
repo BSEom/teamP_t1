@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, use } from 'react'
 import axios from 'axios'
 import styles from './Data.module.css'
 import Chart from 'chart.js/auto'
@@ -6,9 +6,10 @@ import Chart from 'chart.js/auto'
 const Data = () => {
   const [selectedRegion, setSelectedRegion] = useState('')
   const [selectedRegionCode, setSelectedRegionCode] = useState('')
+  const [selectedItem, setSelectedItem] = useState('')
   const [selectedYear, setSelectedYear] = useState('')
   const [selectedMonth, setSelectedMonth] = useState('')
-  const [isRegionDropdownOpen, setIsRegionDropdownOpen] = useState(false)
+  const [isItemDropdownOpen, setIsItemDropdownOpen] = useState(false)
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false)
   const [chartData, setChartData] = useState(null)
   const [tableData, setTableData] = useState([])
@@ -20,19 +21,20 @@ const Data = () => {
   useEffect(() => {
     if (!chartData || !chartRef.current) return
   
-    const labels = chartData.map(d => d.ITEM)
-    const values = chartData.map(d => d.DIFF_RATIO)
-    
-    // 랜덤 색상 생성 함수
-    const getRandomColor = () => {
-      const r = Math.floor(Math.random() * 156 + 100); // 100~255
-      const g = Math.floor(Math.random() * 156 + 100);
-      const b = Math.floor(Math.random() * 156 + 100);
-      return `rgba(${r}, ${g}, ${b}, 0.7)`; // 밝고 투명한 색
-    };
+    const labels = chartData.map(d => d.AREA)
+    const minPrices = chartData.map(d => d.MIN_PRICE)
+    const maxPrices = chartData.map(d => d.MAX_PRICE)
 
-    // labels/values와 동일한 길이의 색상 배열 생성
-    const backgroundColors = values.map(() => getRandomColor());
+    // // 랜덤 색상 생성 함수
+    // const getRandomColor = () => {
+    //   const r = Math.floor(Math.random() * 156 + 100); // 100~255
+    //   const g = Math.floor(Math.random() * 156 + 100);
+    //   const b = Math.floor(Math.random() * 156 + 100);
+    //   return `rgba(${r}, ${g}, ${b}, 0.7)`; // 밝고 투명한 색
+    // };
+
+    // // labels/values와 동일한 길이의 색상 배열 생성
+    // const backgroundColors = values.map(() => getRandomColor());
 
     // 이전 차트 삭제 (중복 방지)
     if (chartInstance.current) {
@@ -43,12 +45,17 @@ const Data = () => {
     chartInstance.current = new Chart(chartRef.current, {
       type: 'bar',
       data: {
-        labels,
+        labels: chartData.map(d => d.AREA),
         datasets: [
           {
-            label: '가격차이 비율 (%)',
-            data: values,
-            backgroundColor: backgroundColors,
+            label: '최저가',
+            data: chartData.map(d => d.MIN_PRICE),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)'
+          },
+          {
+            label: '최고가',
+            data: chartData.map(d => d.MAX_PRICE),
+            backgroundColor: 'rgba(255, 99, 132, 0.6)'
           }
         ]
       },
@@ -58,24 +65,17 @@ const Data = () => {
           legend: { display: false },
           title: {
             display: true,
-            text: '품목별 가격차이 비율 (%)'
+            text: '지역별 최저가 / 최고가 비교'
           },
           tooltip: {
             callbacks: {
-              label: function(context) {
-                const index = context.dataIndex
-                const item = chartData[index].ITEM
-                const diff_ratio = chartData[index].DIFF_RATIO
-                const max = chartData[index].MAX_PRICE
-                const min = chartData[index].MIN_PRICE
-                const priceDiff = chartData[index].PRICE_DIFF
-                
-                return [
-                  `최고가: ${max}원`,
-                  `최소가: ${min}원`,
-                  `가격차이: ${priceDiff}원`,
-                  `비율: ${diff_ratio}%`
-                ]
+              label: function (context) {
+                const index = context.dataIndex;
+                const datasetLabel = context.dataset.label;
+                const value = context.parsed.y;
+                const unit = '원';
+              
+                return `${datasetLabel}: ${value.toLocaleString()}${unit}`;
               }
             }
           }
@@ -115,14 +115,39 @@ const Data = () => {
 
 
 
-  const busanRegions = [
-    { code: '5', name: '남구' },
-    { code: '7', name: '동래구' },
-    { code: '8', name: '부산진구' },
-    { code: '10', name: '북구' },
-    { code: '11', name: '사상구' },
-    { code: '12', name: '사하구' },
-    { code: '18', name: '해운대구' }
+  const busanItems = [
+    { code: '1', name: '가루비누' },
+    { code: '2', name: '간장' },
+    { code: '3', name: '갈치' },
+    { code: '4', name: '고등어' },
+    { code: '5', name: '달걀' },
+    { code: '6', name: '닭고기' },
+    { code: '7', name: '대파' },
+    { code: '8', name: '돼지고기' },
+    { code: '9', name: '두부' },
+    { code: '10', name: '라면' },
+    { code: '11', name: '맥주' },
+    { code: '12', name: '무' },
+    { code: '13', name: '밀가루' },
+    { code: '14', name: '밀감' },
+    { code: '15', name: '배' },
+    { code: '16', name: '배추' },
+    { code: '17', name: '부엌용세제' },
+    { code: '18', name: '분말커피' },
+    { code: '19', name: '사과' },
+    { code: '20', name: '사이다' },
+    { code: '21', name: '설탕' },
+    { code: '22', name: '소주' },
+    { code: '23', name: '쇠고기' },
+    { code: '24', name: '식용유' },
+    { code: '25', name: '쌀' },
+    { code: '26', name: '양파' },
+    { code: '27', name: '오징어' },
+    { code: '28', name: '우유' },
+    { code: '29', name: '참기름' },
+    { code: '30', name: '커피크림' },
+    { code: '31', name: '콜라' },
+    { code: '32', name: '화장지' }
   ]
 
   const years = ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
@@ -134,7 +159,7 @@ const Data = () => {
   ]
 
   const columnHeaders = {
-    ITME: "품목",
+    AREA: "지역",
     MIN_PRICE: "최저가(원)",
     MAX_PRICE: "최고가(원)",
     PRICE_DIFF: "가격차이(원)",
@@ -142,10 +167,9 @@ const Data = () => {
   };
 
 
-  const handleRegionSelect = (region) => {
-    setSelectedRegion(region.name)
-    setSelectedRegionCode(region.code)
-    setIsRegionDropdownOpen(false)
+  const handleItemSelect = (item) => {
+    setSelectedItem(item.name)
+    setIsItemDropdownOpen(false)
   }
 
   const handleDateSelect = (year, month) => {
@@ -155,7 +179,7 @@ const Data = () => {
   }
 
   const fetchStatisticsData = async () => {
-    if (!selectedRegionCode || !selectedYear || !selectedMonth) {
+    if (!selectedItem || !selectedYear || !selectedMonth) {
       alert('지역과 날짜를 모두 선택해주세요.')
       return
     }
@@ -164,7 +188,7 @@ const Data = () => {
     try {
       const response = await axios.get('http://localhost:8050/chart/select', {
         params: {
-          area: selectedRegion,
+          item: selectedItem,
           year: selectedYear,
           month: selectedMonth
         }
@@ -198,29 +222,29 @@ const Data = () => {
               <div className={styles.dropdown}>
                 <div 
                   className={styles.dropdownToggle} 
-                  onClick={() => setIsRegionDropdownOpen(!isRegionDropdownOpen)}
+                  onClick={() => setIsItemDropdownOpen(!isItemDropdownOpen)}
                 >
-                  <span style={{ color: selectedRegion ? '#333' : '#999' }}>
-                    {selectedRegion || '지역을 선택하세요'}
+                  <span style={{ color: selectedItem ? '#333' : '#999' }}>
+                    {selectedItem || '품목을 선택하세요'}
                   </span>
                   <span
                     className={styles.arrow}
-                    style={{ transform: isRegionDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                    style={{ transform: isItemDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
                   >
                     ▼
                   </span>
                 </div>
 
-                {isRegionDropdownOpen && (
+                {isItemDropdownOpen && (
                   <div className={styles.dropdownMenu}>
-                    {busanRegions.map((region) => (
+                    {busanItems.map((Item) => (
                       <div
-                        key={region.code}
+                        key={Item.code}
                         className={styles.dropdownItem}
-                        onClick={() => handleRegionSelect(region)}
+                        onClick={() => handleItemSelect(Item)}
                       >
-                        <span style={{ fontWeight: 'bold', color: '#4c63af' }}>{region.code}</span>
-                        <span style={{ marginLeft: '8px' }}>{region.name}</span>
+                        <span style={{ fontWeight: 'bold', color: '#4c63af' }}>{Item.code}</span>
+                        <span style={{ marginLeft: '8px' }}>{Item.name}</span>
                       </div>
                     ))}
                   </div>
@@ -272,12 +296,12 @@ const Data = () => {
             </div>
 
             {/* 선택된 정보 표시 */}
-            {(selectedRegion || (selectedYear && selectedMonth)) && (
+            {(selectedItem || (selectedYear && selectedMonth)) && (
               <div className={styles.selectedInfo}>
                 <div className={styles.infoTitle}>선택된 정보:</div>
-                {selectedRegion && (
+                {selectedItem && (
                   <div className={styles.infoItem}>
-                    지역: <strong>{selectedRegion}</strong> (코드: {selectedRegionCode})
+                    지역: <strong>{selectedItem}</strong>
                   </div>
                 )}
                 {(selectedYear && selectedMonth) && (
@@ -292,7 +316,7 @@ const Data = () => {
             <button 
               className={styles.fetchButton}
               onClick={fetchStatisticsData}
-              disabled={loading || !selectedRegionCode || !selectedYear || !selectedMonth}
+              disabled={loading || !selectedItem || !selectedYear || !selectedMonth}
             >
               {loading ? '데이터 조회 중...' : '통계 데이터 조회'}
             </button>

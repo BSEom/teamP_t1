@@ -22,17 +22,17 @@ public class ChartController {
 
     @GetMapping("/select")
     public ResponseEntity<List<Map<String, Object>>> getPriceStats(
-            @RequestParam String area,
+            @RequestParam String item,
             @RequestParam int year,
             @RequestParam int month) {
 
         String sql = """
-                    SELECT item, min_price, max_price, price_diff, diff_ratio
+                    SELECT area, min_price, max_price, price_diff, diff_ratio
                     FROM market_prices
-                    WHERE area = ? AND year = ? AND month = ?
+                    WHERE item = ? AND year = ? AND month = ?
                 """;
 
-        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, area, year, month);
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, item, year, month);
         return ResponseEntity.ok(result);
     }
 
