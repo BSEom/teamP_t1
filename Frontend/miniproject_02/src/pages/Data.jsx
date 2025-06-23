@@ -162,7 +162,7 @@ const Data = () => {
 
     setLoading(true)
     try {
-      const response = await axios.get('http://localhost:8050/chart/select', {
+      const response = await axios.get('/chart/select', {
         params: {
           area: selectedRegion,
           year: selectedYear,

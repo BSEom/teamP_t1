@@ -27,7 +27,7 @@ const View = () => {
     useEffect(() => {
         if (!boardId) return;
 
-        fetch(`http://localhost:8050/api/board/${boardId}`)
+        fetch(`/api/board/${boardId}`)
             .then((res) => res.json())
             .then((data) => {
                 setPost({
@@ -44,7 +44,7 @@ const View = () => {
             });
 
         // 댓글 데이터 받아오기
-        fetch(`http://localhost:8050/api/board/comments/${boardId}`)
+        fetch(`/api/board/comments/${boardId}`)
             .then((res) => res.json())
             .then((data) => setComments(data))
             .catch(console.error);
@@ -104,10 +104,10 @@ const View = () => {
 
             if (isCurrentlyBookmarked) {
                 const findUserId = userid;
-                url = `http://localhost:8050/api/board/bookmark/${boardId}/${findUserId}`;
+                url = `/api/board/bookmark/${boardId}/${findUserId}`;
                 options = { method: "PUT" };
             } else {
-                url = `http://localhost:8050/api/board/bookmark/${boardId}`;
+                url = `/api/board/bookmark/${boardId}`;
                 options = {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -128,7 +128,7 @@ const View = () => {
             } else {
                 alert("북마크 처리 결과: " + resultText);
                 // fallback
-                const stateRes = await fetch(`http://localhost:8050/api/board/${boardId}`);
+                const stateRes = await fetch(`/api/board/${boardId}`);
                 const data = await stateRes.json();
                 setPost((prev) => ({
                     ...prev,
@@ -157,7 +157,7 @@ const View = () => {
 
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
-        const response = await fetch(`http://localhost:8050/api/board/${boardId}`, {
+        const response = await fetch(`/api/board/${boardId}`, {
             method: "DELETE",
         });
 
@@ -184,7 +184,7 @@ const View = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:8050/api/board/comments`, {
+            const res = await fetch(`/api/board/comments`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ boardId, name: username, content: comment }),
@@ -193,7 +193,7 @@ const View = () => {
             if (res.ok) {
                 alert("댓글이 등록되었습니다.");
                 setComment("");
-                fetch(`http://localhost:8050/api/board/comments/${boardId}`)
+                fetch(`/api/board/comments/${boardId}`)
                     .then((res) => res.json())
                     .then((data) => setComments(data));
             } else {
@@ -212,7 +212,7 @@ const View = () => {
     const handleCommentUpdate = async (commentId) => {
         try {
             const res = await fetch(
-                `http://localhost:8050/api/board/comments/${commentId}`,
+                `/api/board/comments/${commentId}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -225,7 +225,7 @@ const View = () => {
                 alert("댓글이 수정되었습니다.");
                 setUpdateCommentId(null);
                 setUpdateContent("");
-                fetch(`http://localhost:8050/api/board/comments/${boardId}`)
+                fetch(`/api/board/comments/${boardId}`)
                     .then((res) => res.json())
                     .then((data) => setComments(data));
             } else {
@@ -241,7 +241,7 @@ const View = () => {
 
         try {
             const res = await fetch(
-                `http://localhost:8050/api/board/comments/${commentId}`,
+                `/api/board/comments/${commentId}`,
                 {
                     method: "DELETE",
                 }
@@ -250,7 +250,7 @@ const View = () => {
             const result = await res.text();
             if (result === "success") {
                 alert("댓글 삭제 완료");
-                fetch(`http://localhost:8050/api/board/comments/${boardId}`)
+                fetch(`/api/board/comments/${boardId}`)
                     .then((res) => res.json())
                     .then((data) => setComments(data));
             } else {

@@ -11,7 +11,7 @@ function Mypage() {
     
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("http://localhost:8050/user/me", {
+            const res = await fetch("/user/me", {
                 credentials: "include",
             });
         

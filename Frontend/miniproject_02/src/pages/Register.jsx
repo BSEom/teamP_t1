@@ -32,7 +32,7 @@ const Register = () => {
     // e.target.submit();
     
     // JSON으로 제출
-    const response = await fetch("http://localhost:8050/user/sign-up", {
+    const response = await fetch("/user/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Register = () => {
   };
 
   const checkName = async () => {
-    const res = await fetch("http://localhost:8050/user/sign-up/name-check", {
+    const res = await fetch("/user/sign-up/name-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -73,7 +73,7 @@ const Register = () => {
   };
 
   const checkEmail = async () => {
-    const res = await fetch("http://localhost:8050/user/sign-up/email-check", {
+    const res = await fetch("/user/sign-up/email-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",

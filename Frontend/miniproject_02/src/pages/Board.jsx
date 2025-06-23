@@ -21,7 +21,7 @@ const Board = () => {
     }, [page, navigate]);
 
     useEffect(() => {
-        fetch(`http://localhost:8050/api/board?page=${page}&recordSize=10`)
+        fetch(`/api/board?page=${page}&recordSize=10`)
             .then((res) => res.json())
             .then((data) => {
                 setBoardList(data.list);
@@ -55,7 +55,7 @@ const Board = () => {
 
     const handleGoView = async (boardId) => {
         try {
-            await fetch(`http://localhost:8050/api/board/hit/${boardId}`, {
+            await fetch(`/api/board/hit/${boardId}`, {
                 method: "PUT",
             });
         } catch (err) {
