@@ -76,7 +76,6 @@ label {
 button.bookmark
 {
   width: 10px;
-  margin-right: 50px;
 }
 
 /* 버튼 정렬 영역 */
@@ -125,9 +124,10 @@ button.btn.btn-secondary.btn-smaller {
 
 /* 댓글 부분 유지 */
 .comments-section {
-  margin-top: 30px;
+  margin: 30px 0 50px 0;
   border-top: 2px solid #ccc;
   padding-top: 20px;
+
 }
 
 .comment-meta {

@@ -117,7 +117,7 @@ function Mypage() {
                                             {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
                                         </p>
                                         <div className="bookmark-meta">
-                                            <span>작성자: {post.WRITER}</span>
+                                            <span>작성자: {post.WRITER}</span><br/>
                                             <span>조회수: {post.HIT}</span>
                                         </div>
                                     </Link>
@@ -218,7 +218,7 @@ function Mypage() {
                                         className={`stylish-tab${activeTab === 'bookmarks' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('bookmarks')}
                                     >
-                                        북마크한 글 ({bookmarkedPosts.length})
+                                        북마크 ({bookmarkedPosts.length})
                                     </button>
 
                                 </div>

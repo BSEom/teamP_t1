@@ -362,7 +362,7 @@
     border-radius: 18px;
     box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
     padding: 36px 32px 60px 32px;
-    max-width: 520px;
+    width: 415px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -480,6 +480,15 @@
     padding: 38px 0 10px 0;
     letter-spacing: 0.01em;
     font-weight: 500;
+}
+
+.bookmark-card {
+ background-color: white;
+ border-radius: 10px;
+ box-shadow: 1px 1px 3px 0px #ccc;
+ margin-bottom: 30px;
+ padding: 20px;
+
 }
 
 @media (max-width: 700px) {

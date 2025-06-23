@@ -243,7 +243,7 @@ const View = () => {
                         <div className="form-control">{post.name}</div>
                     </div>
 
-                    <div className="form-group d-flex align-items-center">
+                    <div className="form-group">
                         <label>조회수</label>
                         <div className="form-control">{post.hit}</div>
                         <button
@@ -265,11 +265,9 @@ const View = () => {
                         <div className="form-control container mt-4">{post.content}</div>
                     </div>
 
-                    <div className="d-flex justify-content-between mb-4">
-                        <div className="d-flex">
-                            <button className="btn btn-smaller btn-primary" onClick={handleUpdate}>수정</button>
-                            <button className="btn btn-smaller btn-primary" onClick={handleDelete}>삭제</button>
-                        </div>
+                    <div className="publish-area">
+                            <button className="publish edit" onClick={handleUpdate}>수정</button>
+                            <button className="publish delete" onClick={handleDelete}>삭제</button>
                         <button className="btn btn-smaller btn-outline-primary" onClick={() => navigate(`/board?nowpage=${nowpage}`)}>목록으로</button>
                     </div>
 
@@ -285,7 +283,7 @@ const View = () => {
                         />
                     </div>
                     <div className="text-right mb-4">
-                        <button className="btn btn-smaller btn-success" onClick={handleCommentInsert}>댓글 등록</button>
+                        <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
                     </div>
 
                     {/* 댓글 목록 */}
