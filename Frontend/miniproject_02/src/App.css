@@ -1,0 +1,137 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+}
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.info_container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1rem 2rem;
+  z-index: 1100;
+  display: flex;
+  gap: 1rem;
+}
+
+.info_container a {
+ color: #888;
+ font-size: 1rem;
+}
+.info_container a:hover {
+  color: #829fff;
+  transition: ease 0.3s;
+}
+
+nav {
+  position: relative;   /* sticky 대신 relative */
+  margin-top: 100px;    /* 100px 아래로 내리기 */
+  margin-bottom: 30px;
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    #1d59ff8e 0%,
+    #2460e0 30%,
+    #78a3ff 60%,
+    #3ba7ff75 75%,
+    #63a1ff 100%
+  );
+ backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  padding: 1rem 2rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  font-weight: bold;
+  font-size: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin : 0 1rem;
+  text-shadow: 1px 1px 3px gray;
+}
+
+nav a:hover {
+  color: #ffe17c;
+}
+
+.app-container {
+  min-height: 100vh;            /* 화면 전체 높이 확보 */
+  display: flex;                /* flex 컨테이너 */
+  flex-direction: column;       /* 세로 방향 쭉 쌓기 */
+}
+
+.content {
+  flex: 1;                     /* 남은 공간을 모두 차지 */
+  padding: 10px;               /* 내용 주변 여백 */
+}
+
+/* 전체 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 8px;         /* 스크롤바 너비 */
+  height: 8px;        /* 가로 스크롤바일 경우 */
+}
+
+::-webkit-scrollbar-track {
+  background: #e9e8e8; /* 트랙 배경색 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cddcfc;     /* 스크롤바 손잡이 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #97b9e5cb;     /* 마우스 올렸을 때 색 */
+}
+
+.leaflet-interactive:focus {
+  outline: none;
+}

@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+min-height: 100vh;
+overflow-x: hidden;
+}
+.body-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 90px;
+  padding-bottom: 40px; /* footer 고려 */
+  box-sizing: border-box;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 1rem;
+  box-shadow: 0 1px 40px #ccc;
+  max-width: 400px;
+  width: 100%;
+  min-height: 500px;
+  box-sizing: border-box;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #79a1dd;
+}
+
+label {
+  display: block;
+  font-weight: 550;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+input:focus {
+  border-color: aquamarine;
+  outline: none;
+}
+
+.container div {
+  margin-bottom: 20px;
+}
+
+button {
+  width: 100%;
+  padding: 1rem;
+  background-color: rgb(147, 164, 241);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+button:hover {
+  background-color: #ffddf8;
+}
+
+form {
+  width: 100%;
+}
+
+.note {
+  text-align: center;
+  margin-top: 1rem;
+  color: #b8b293b0;
+  font-size: 0.8rem;
+}
+
+.nav-link-top,
+.nav-link-bottom {
+  background-color: rgba(250, 205, 216, 0.26);
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.button-wrapper {
+  margin-top: 5rem; /* 버튼 위쪽 공간 벌리기 */
+}
+
+.form-floating {
+  margin-bottom: 2rem; /* 기존 1rem이나 1.5rem 보다 크게 */
+}

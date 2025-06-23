@@ -32,21 +32,20 @@ public class Member {
     @Column(name = "user_phone", nullable = false)
     private String phonenumber;
 
+    @Column(name = "user_email", nullable = false, unique = true)
+    private String email;
+
     protected Member() {
     }
 
-    // public Member(String username, String password) {
-    // this.username = username;
-    // this.password = password;
-    // }
-
     public Member(Long id, String username, String password, String address,
-            String phonenumber) {
+            String phonenumber, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.address = address;
         this.phonenumber = phonenumber;
+        this.email = email;
     }
 
     public String getAddress() {
@@ -87,6 +86,14 @@ public class Member {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

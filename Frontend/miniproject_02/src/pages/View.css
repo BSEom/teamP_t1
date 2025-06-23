@@ -1,0 +1,175 @@
+/* 전체 박스 느낌 */
+.view-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  /* overflow: hidden; */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  background-color: white;
+  max-width: 1000px;
+  width : 90% ;
+  max-height : 2000px;
+  height: 80%;
+  margin : 0 auto;
+}
+
+/* 헤더 타이틀 영역 */
+h1.text-center {
+  margin: 0;
+  background-color: #4271c7;
+  color: white;
+  padding: 14px;
+  font-size: 1.4rem !important;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  border-radius: 8px 8px 0 0 ;
+}
+
+/* 각 줄 (제목, 작성자 등) */
+.form-group {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  text-align: left;
+  justify-content: space-between;
+}
+
+/* 왼쪽 라벨 */
+.form-group label {
+  width: 120px;
+  background-color: #d4dffc38;
+  text-align: center;
+  padding: 12px;
+  margin: 0;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+}
+
+/* 오른쪽 값 */
+.form-group .form-control {
+  flex: 1;
+  padding: 12px 16px;
+  background-color: white;
+  border: none;
+  color: #333;
+  white-space: pre-wrap;
+  min-height: auto;
+  margin: 0;
+}
+
+/* 내용은 높이 고정 + 스크롤 */
+.form-group .form-control.container.mt-4 {
+  height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: none !important;
+  margin: 0 50px 0 0 !important;
+}
+button.bookmark
+{
+  width: 10px;
+  margin-right: 50px;
+}
+
+/* 버튼 정렬 영역 */
+.d-flex.justify-content-between.mb-4 {
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  margin: 0 auto !important;
+}
+
+.d-flex.justify-content-between.mb-4 > button {
+    flex: 0 0 auto !important;
+    margin: 5px !important;
+}
+
+/* 공통 버튼 스타일 */
+button.btn-smaller {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* 각각 색상 주기 */
+button.btn-smaller.btn-primary:nth-child(1) {
+  background-color: #4271c7; /* 수정 */
+  width: 70px;
+  height: 50px;
+}
+button.btn-smaller.btn-primary:nth-child(2) {
+  background-color: #a6b6c9ab; /* 삭제 - 목록이랑 색깔 연동됨 ㅠ*/
+  width: 70px;
+  height: 50px;
+}
+
+button.btn-smaller.btn-success {
+    background-color: #4271c7;
+}
+
+button.btn-smaller.btn-success:hover {
+    background-color: #c9d7ff;
+}
+
+button.btn.btn-secondary.btn-smaller {
+  width: 70px;
+}
+
+/* 댓글 부분 유지 */
+.comments-section {
+  margin-top: 30px;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+}
+
+.comment-meta {
+  text-align: left;
+}
+
+.comment-time {
+  color: #7a8ca1;
+  margin: 10px;
+}
+.comment-item {
+  border: 1px solid #ddd;
+  background-color: #fdfdfd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 50px !important;
+}
+.content-box {
+  text-align: left;
+}
+
+.content-button-box {
+  width: 500px;
+  margin-left: 290px;
+}
+
+.comment-button {
+  width: 70px;
+  height: 50px;
+  margin: 0 5px 0 5px;
+  border-radius: 5px;
+  background-color: #4271c7;
+  padding: 0 !important;
+  font-weight: 500 !important;
+}
+
+
+.comment-edit-box {
+  display: flex;
+  justify-content: flex-end;
+}

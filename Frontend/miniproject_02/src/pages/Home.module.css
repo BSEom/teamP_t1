@@ -1,0 +1,125 @@
+.container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff33;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.flexRow {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dropdown {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dropdownToggle {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f9f9f9;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.placeholder {
+  color: #999;
+}
+
+.activeText {
+  color: #333;
+}
+
+.dropdownMenu {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.24);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdownItem:hover {
+  background: #f0f0f0;
+}
+
+.regionCode {
+  font-weight: bold;
+  color: #4c63af;
+}
+
+.regionName {
+  margin-left: 8px;
+}
+
+.selectedBox {
+  padding: 10px;
+  border: 1px dashed #4c63af;
+  border-radius: 5px;
+}
+
+.selectedLabel {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.selectedValue {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4c63af;
+}
+
+.mapContainer {
+  flex: 1;
+  min-width: 500px;
+}
+
+.guide {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.guideText {
+  background: #e9ecf8;
+  padding: 10px;
+  border-left: 5px solid #4a6ac3;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.selectedText {
+  font-weight: bold;
+  color: #333;
+}
