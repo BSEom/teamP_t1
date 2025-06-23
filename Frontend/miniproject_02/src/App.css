@@ -131,3 +131,7 @@ nav a:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #97b9e5cb;     /* 마우스 올렸을 때 색 */
 }
+
+.leaflet-interactive:focus {
+  outline: none;
+}

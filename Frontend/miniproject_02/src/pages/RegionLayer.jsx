@@ -53,15 +53,17 @@ const RegionLayer = ({ geoData }) => {
         ...highlightStyle,
         fillColor: "#fab1a0",
       });
+    //   const el = layer.getElement?.();
+    //   if (el) el.style.outline = "none";
       layer.bindPopup(`<b>${name}</b> 구가 선택되었습니다.`).openPopup();
       selectedRef.current = layer;
     });
 
-    // 우클릭 이벤트
-    layer.on("contextmenu", function () {
-      console.log("📌 우클릭한 지역:", name);
-      // 여기에 팝업 열기, 메뉴 표시 등 추가 가능
-    });
+    // // 우클릭 이벤트
+    // layer.on("contextmenu", function () {
+    //   console.log("우클릭한 지역:", name);
+    //   // 여기에 팝업 열기, 메뉴 표시 등 추가 가능
+    // });
   };
 
   return (
