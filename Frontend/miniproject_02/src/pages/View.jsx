@@ -8,7 +8,7 @@ const View = () => {
     const boardId = searchParams.get("boardId");
     const nowpage = searchParams.get("nowpage") || 1;
     const navigate = useNavigate();
-    const { isLoggedIn, username } = useAuth();
+    const { isLoggedIn, username, userid } = useAuth();
 
     // post 상태에 bookmarked 추가 (boolean)
     const [post, setPost] = useState({
@@ -99,11 +99,11 @@ const View = () => {
     const toggleBookmark = async () => {
         try {
             const isCurrentlyBookmarked = post.bookmarked;
-            const userName = "홍길순"; // ************************로그인 연동 필요
+            const userName = username; // ************************로그인 연동 필요
             let url, options;
 
             if (isCurrentlyBookmarked) {
-                const findUserId = 2;
+                const findUserId = userid;
                 url = `http://localhost:8050/api/board/bookmark/${boardId}/${findUserId}`;
                 options = { method: "PUT" };
             } else {

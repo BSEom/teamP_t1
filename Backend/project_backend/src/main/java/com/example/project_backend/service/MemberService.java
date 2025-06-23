@@ -45,4 +45,14 @@ public class MemberService {
     public boolean emailck(String email) {
         return memberRepository.findByEmail(email).isPresent();
     }
+
+    public Object getuid(Object username) {
+
+        String name = String.valueOf(username);
+
+        // System.out.println("서비스 테스트 : " +
+        // memberRepository.findByUsername(name).map(Member::getId));
+
+        return memberRepository.findByUsername(name).map(Member::getId);
+    }
 }

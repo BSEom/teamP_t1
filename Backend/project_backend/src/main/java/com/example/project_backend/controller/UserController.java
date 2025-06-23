@@ -100,9 +100,11 @@ public class UserController {
     public ResponseEntity<?> getSession(HttpSession session) {
 
         Object user = session.getAttribute("user");
+        Object uid = memberService.getuid(user);
+        memberService.getuid(user);
 
         if (user != null) {
-            return ResponseEntity.ok(Map.of("username", user));
+            return ResponseEntity.ok(Map.of("username", user, "uid", uid));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 필요");
         }

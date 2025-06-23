@@ -5,6 +5,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState(null);
+  const [userid, setUserid] = useState(null);
 
   useEffect(() => {
     // 앱 시작 시 세션 검사
@@ -17,9 +18,11 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         setIsLoggedIn(true);
         setUsername(data.username);
+        setUserid(data.uid)
       } else {
         setIsLoggedIn(false);
         setUsername(null);
+        setUserid(null);
       }
     };
 
@@ -27,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, username, setIsLoggedIn, setUsername }}>
+    <AuthContext.Provider value={{ isLoggedIn, username, userid, setIsLoggedIn, setUsername }}>
       {children}
     </AuthContext.Provider>
   );
