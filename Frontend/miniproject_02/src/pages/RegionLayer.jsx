@@ -1,7 +1,23 @@
-import { GeoJSON } from "react-leaflet";
-import React, { useRef } from "react";
+import { GeoJSON, useMap } from "react-leaflet";
+import React, { useRef, useEffect } from "react";
+import * as L from "leaflet";
 
-const RegionLayer = ({ geoData }) => {
+const RegionLayer = ({ geoData, selectedRegion }) => {
+
+  const map = useMap();
+  const layerMap = useRef({}); // 지역명: layer 객체
+
+
+  useEffect(() => {
+    if (!selectedRegion || !geoData) return;
+
+    const layer = layerMap.current[selectedRegion];
+    if (layer) {
+      layer.fire("click"); // 마치 클릭한 것처럼 작동
+      // map.fitBounds(layer.getBounds());
+    }
+  }, [selectedRegion, geoData, map]);
+
   const defaultStyle = {
     color: "#2c3e50",
     weight: 1,
@@ -23,9 +39,11 @@ const RegionLayer = ({ geoData }) => {
 
     // Tooltip
     layer.bindTooltip(name, {
-      direction: "center",
+      direction: "top",
       sticky: true,
     });
+
+    layerMap.current[name] = layer;
 
     // Hover 효과
     layer.on("mouseover", function () {
@@ -70,7 +88,9 @@ const RegionLayer = ({ geoData }) => {
     geoData && (
       <GeoJSON
         data={geoData}
-        style={() => defaultStyle}
+         style={(feature) =>
+          feature.properties.SGG_NM === selectedRegion ? highlightStyle : defaultStyle
+        }
         onEachFeature={onEachFeature}
       />
     )

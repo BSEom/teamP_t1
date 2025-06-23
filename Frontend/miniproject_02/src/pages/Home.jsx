@@ -13,11 +13,32 @@ const ChangeMapCenter = ({ lat, lng }) => {
   const map = useMap()
   useEffect(() => {
     if (lat && lng) {
-      map.setView([lat, lng], 12)
+      map.setView([lat, lng], 10)
     }
   }, [lat, lng, map])
   return null
 }
+
+const FlyToRegion = ({ selectedRegion, geoData }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!selectedRegion || !geoData) return;
+
+    // geoData.features에서 이름이 일치하는 feature 찾기
+    const targetFeature = geoData.features.find(
+      (f) => f.properties.SGG_NM === selectedRegion
+    );
+
+    if (targetFeature) {
+      const layer = L.geoJSON(targetFeature);
+      const bounds = layer.getBounds();       // 경계 가져오기
+      map.fitBounds(bounds);                  // 지도 해당 구역으로 이동
+    }
+  }, [selectedRegion, geoData, map]);
+
+  return null;
+};
 
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState('')
@@ -123,24 +144,7 @@ const Home = () => {
 
               {/* Geo JSON */}
               {geoData && (
-                // <RegionLayer
-                //   data={geoData}
-                //   style={() => ({
-                //     color: "#2c3e50",
-                //     weight: 1,
-                //     fillColor: "#a29bfe",
-                //     fillOpacity: 0.3
-                //   })}
-                //   onEachFeature={(feature, layer) => {
-                //     const name = feature.properties.SGG_NM || "알 수 없음";
-                //     layer.bindTooltip(`<strong>${name}</strong>`, {
-                //       direction: "center",
-                //       permanent: false,
-                //       sticky: true
-                //     });
-                //   }}
-                // />
-                <RegionLayer geoData={geoData} />
+                <RegionLayer geoData={geoData} selectedRegion={selectedRegion} />
               )}
 
 
