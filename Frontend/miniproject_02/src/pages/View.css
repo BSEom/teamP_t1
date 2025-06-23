@@ -2,7 +2,8 @@
 .view-container {
   border: 1px solid #ccc;
   border-radius: 8px;
-  /* overflow: hidden; */
+  overflow: auto;
+  overflow-x: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 0;
   background-color: white;
@@ -79,47 +80,42 @@ button.bookmark
 }
 
 /* 버튼 정렬 영역 */
-.d-flex.justify-content-between.mb-4 {
-  justify-content: center;
+.publish-area {
+  justify-content: space-between !important;
   gap: 10px;
-  padding: 15px;
-  border-top: 1px solid #ccc;
-  margin: 0 auto !important;
-}
+  padding: 10px;
 
-.d-flex.justify-content-between.mb-4 > button {
-    flex: 0 0 auto !important;
-    margin: 5px !important;
 }
 
 /* 공통 버튼 스타일 */
-button.btn-smaller {
-  padding: 8px 16px;
+.publish {
+  width: 70px !important;
+  height: 50px;
+  padding: 8px 16px !important;
   font-size: 1rem;
   border: none;
   border-radius: 4px;
   color: white;
-  cursor: pointer;
   margin-right: 10px;
 }
-
 /* 각각 색상 주기 */
-button.btn-smaller.btn-primary:nth-child(1) {
-  background-color: #4271c7; /* 수정 */
-  width: 70px;
-  height: 50px;
+.publish-area .edit {
+  background-color: #4271c7;
 }
-button.btn-smaller.btn-primary:nth-child(2) {
-  background-color: #a6b6c9ab; /* 삭제 - 목록이랑 색깔 연동됨 ㅠ*/
-  width: 70px;
-  height: 50px;
+.publish-area .delete {
+  background-color: #a6b6c9ab;
+  margin-right: 350px;
 }
 
-button.btn-smaller.btn-success {
+button.add_comment {
     background-color: #4271c7;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0;
+    font-weight: 500;
 }
 
-button.btn-smaller.btn-success:hover {
+button.add_comment:hover {
     background-color: #c9d7ff;
 }
 
