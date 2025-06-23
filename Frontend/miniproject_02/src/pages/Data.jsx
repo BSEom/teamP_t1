@@ -133,6 +133,15 @@ const Data = () => {
     { value: '10', label: '10월' }
   ]
 
+  const columnHeaders = {
+    ITME: "품목",
+    MIN_PRICE: "최저가(원)",
+    MAX_PRICE: "최고가(원)",
+    PRICE_DIFF: "가격차이(원)",
+    DIFF_RATIO: "차이 비율(%)"
+  };
+
+
   const handleRegionSelect = (region) => {
     setSelectedRegion(region.name)
     setSelectedRegionCode(region.code)
@@ -162,16 +171,8 @@ const Data = () => {
       })
       
       setChartData(response.data)
-      // setTableData(response.data.tableData)
+      setTableData(response.data)
       console.log('통계 데이터 가져오기 성공:', response.data)
-
-  
-
-      // const labels = chartData.map(d => d.item)
-      // const values = chartData.map(d => parseFloat(d.diff_ratio) || 0)
-
-      // console.log('Labels:', labels)
-      // console.log('Values:', values)
 
     } catch (error) {
       console.error('통계 데이터 가져오기 실패:', error)
@@ -303,13 +304,14 @@ const Data = () => {
             <div className={styles.tableContainer}>
               <h3 className={styles.containerTitle}> 데이터 표</h3>
               <div className={styles.tableContent}>
-                {/* {tableData.length > 0 ? (
+                {tableData.length > 0 ? (
                   <table className={styles.dataTable}>
                     <thead>
                       <tr>
                         {Object.keys(tableData[0]).map((key) => (
-                          <th key={key}>{key}</th>
+                          <th key={key}>{columnHeaders[key] || key}</th>
                         ))}
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -324,8 +326,7 @@ const Data = () => {
                   </table>
                 ) : (
                   <div className={styles.noData}>표시할 데이터가 없습니다.</div>
-                )} */}
-                <div className={styles.noData}>표시할 데이터가 없습니다.</div>
+                )}
               </div>
             </div>
 
