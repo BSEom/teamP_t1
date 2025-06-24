@@ -209,7 +209,7 @@ const View = () => {
                         <div className="form-control">{post.name}</div>
                     </div>
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>조회수</label>
                         <div className="form-control">{post.hit}</div>
                         <button
@@ -224,6 +224,29 @@ const View = () => {
                                 <img src="/bookoff.png" alt="북마크 하기" width={32} height={32} />
                             )}
                         </button>
+                    </div> */}
+                    <div className="form-group">
+                        <label>조회수</label>
+                        {/* <div className="form-control d-flex align-items-center"> */}
+                        <div className="form-control hit">
+                            {post.hit}</div>
+                        {username ? (
+                            <button
+                                className="bookmark btn btn-link"
+                                type="button"
+                                onClick={toggleBookmark}
+                                style={{ marginLeft: "10px", padding: 0, border: "none", background: "none" }}
+                            >
+                                {post.bookmarked ? (
+                                    <img src="/bookon.png" alt="북마크 해제" width={32} height={32} />
+                                ) : (
+                                    <img src="/bookoff.png" alt="북마크 하기" width={32} height={32} />
+                                )}
+                            </button>
+                        ) : (
+                            <span className="text-muted ml-2"> </span>
+                        )}
+                        {/* </div> */}
                     </div>
 
                     <div className="form-group">
