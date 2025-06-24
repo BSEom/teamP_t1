@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/board")
@@ -43,6 +45,7 @@ public class BookmarkController {
     // return false;
     // }
     // }
+    @Operation(summary = "북마크 여부 확인")
     @GetMapping("/bookmark/{boardId}")
     public boolean isBookmarked(@PathVariable int boardId, @RequestParam String userName) {
         try {
@@ -68,6 +71,7 @@ public class BookmarkController {
         }
     }
 
+    @Operation(summary = "북마크 추가")
     @PostMapping("/bookmark/{boardId}")
     public String addBookmark(@PathVariable int boardId,
             @RequestBody Map<String, String> data) {
@@ -95,6 +99,7 @@ public class BookmarkController {
     }
 
     // 북마크 삭제
+    @Operation(summary = "북마크 삭제")
     @PutMapping("/bookmark/{boardId}/{userId}")
     public String toggleBookmark(@PathVariable int boardId, @PathVariable int userId) {
         try {
@@ -132,6 +137,7 @@ public class BookmarkController {
     }
 
     // 북마크된 게시글만 모으기
+    @Operation(summary = "북마크한 게시글 모으기")
     @GetMapping("/mypage/bookmarks")
     public List<Map<String, Object>> getBookmarkedPosts(@RequestParam String userName) {
         try {

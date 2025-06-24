@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/board/comments")
@@ -24,6 +26,7 @@ public class CommentController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Operation(summary = "댓글 작성")
     @PostMapping
     public String addComment(@RequestBody Map<String, String> data) {
         try {
@@ -48,6 +51,7 @@ public class CommentController {
         }
     }
 
+    @Operation(summary = "댓글 조회")
     @GetMapping("/{boardId}")
     public List<Map<String, Object>> getCommentsByBoard(@PathVariable int boardId) {
         String sql = """
@@ -61,6 +65,7 @@ public class CommentController {
         return jdbcTemplate.queryForList(sql, boardId);
     }
 
+    @Operation(summary = "댓글 수정")
     @PutMapping("/{commentId}")
     public String updateComment(@PathVariable int commentId, @RequestBody Map<String, String> data) {
         try {
@@ -92,6 +97,7 @@ public class CommentController {
         }
     }
 
+    @Operation(summary = "댓글 삭제")
     @DeleteMapping("/{commentId}")
     public String deleteComment(@PathVariable int commentId) {
         String sql = "DELETE FROM BOARD_COMMENT WHERE COMMENT_ID = ?";
@@ -100,6 +106,7 @@ public class CommentController {
     }
 
     // 댓글 모으기
+    @Operation(summary = "댓글 모으기")
     @GetMapping("/mypage")
     public List<Map<String, Object>> getUserPosts(@RequestParam String userName) {
         try {

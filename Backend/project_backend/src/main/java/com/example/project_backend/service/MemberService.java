@@ -3,6 +3,7 @@ package com.example.project_backend.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.project_backend.domain.Member;
@@ -17,15 +18,22 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Optional<String> login(LoginDto dto) {
         return memberRepository.findByEmail(dto.getEmail())
                 .filter(member -> member.getPassword().equals(dto.getPassword()))
+                // .filter(member -> passwordEncoder.matches(dto.getPassword(),
+                // member.getPassword()))
                 .map(Member::getUsername);
     }
 
     public ResultDto signup(SignUpDto dto) {
 
-        Member member = new Member(null, dto.getUsername(), dto.getPassword(), dto.getAddress(), dto.getPhonenumber(),
+        String encodedPw = passwordEncoder.encode(dto.getPassword());
+
+        Member member = new Member(null, dto.getUsername(), encodedPw, dto.getAddress(), dto.getPhonenumber(),
                 dto.getEmail());
 
         try {

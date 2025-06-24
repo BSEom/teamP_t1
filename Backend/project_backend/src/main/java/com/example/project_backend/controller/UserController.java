@@ -8,6 +8,7 @@ import com.example.project_backend.dto.ResultDto;
 import com.example.project_backend.dto.SignUpDto;
 import com.example.project_backend.service.MemberService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -30,6 +31,7 @@ public class UserController {
     @Autowired
     private MemberService memberService;
 
+    @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginFn(@RequestBody LoginDto dto, HttpSession session) {
 
@@ -45,6 +47,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "회원가입")
     @PostMapping("/sign-up")
     public ResponseEntity<Map<String, String>> signupFn(@RequestBody SignUpDto dto) {
         ResultDto result = memberService.signup(dto);
@@ -58,6 +61,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "업데이트 (구현X)")
     @PostMapping("/update")
     public ResponseEntity<Map<String, String>> updateFn(@RequestBody SignUpDto dto) {
         ResultDto result = memberService.signup(dto);
@@ -71,6 +75,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "닉네임 중복 체크")
     @PostMapping("/sign-up/name-check")
     public ResponseEntity<Map<String, String>> nameCheck(@RequestBody String username) {
 
@@ -84,6 +89,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "이메일 중복 체크")
     @PostMapping("/sign-up/email-check")
     public ResponseEntity<Map<String, String>> emailCheck(@Valid @RequestBody String email) {
 
@@ -97,6 +103,7 @@ public class UserController {
 
     }
 
+    @Operation(summary = "로그인 상태 확인")
     @GetMapping("/me")
     public ResponseEntity<?> getSession(HttpSession session) {
 
@@ -111,6 +118,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "로그아웃")
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
 
