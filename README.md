@@ -48,9 +48,4 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 |                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                                      |                                   [@leebada13](https://github.com/leebada13)                            |
 
 
-|                                                 이바다                                                  |
-| :-----------------------------------------------------------------------------------------------------: |
-| <img src="https://avatars.githubusercontent.com/u/195835617?v=4" alt="profile" width="100" height="100"> |
-|                                   [@leebada13](https://github.com/leebada13)                            | 
-
 
