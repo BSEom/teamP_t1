@@ -12,7 +12,7 @@ const Write = () => {
 
     useEffect(() => {   // 로그인 연동
         const fetchUser = async () => {
-            const res = await fetch("http://localhost:8050/user/me", {
+            const res = await fetch("/user/me", {
                 credentials: "include",
             });
         
@@ -40,7 +40,7 @@ const Write = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:8050/api/write", {
+            const response = await fetch("/api/write", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

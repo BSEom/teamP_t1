@@ -17,7 +17,7 @@ const Update = () => {
 
     useEffect(() => {
         if (boardId) {
-            fetch(`http://localhost:8050/api/board/${boardId}`)
+            fetch(`/api/board/${boardId}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setForm({
@@ -44,7 +44,7 @@ const Update = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`http://localhost:8050/api/board/${boardId}`, {
+            const res = await fetch(`/api/board/${boardId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

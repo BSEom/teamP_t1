@@ -26,7 +26,7 @@ const View = () => {
     // 댓글 목록
     const fetchComments = async () => {
         if (!boardId) return;
-        const res = await fetch(`http://localhost:8050/api/board/comments/${boardId}`);
+        const res = await fetch(`/api/board/comments/${boardId}`);
         if (res.ok) {
             const data = await res.json();
             setComments(data);
@@ -37,7 +37,7 @@ const View = () => {
     const syncBookmarkStatus = async () => {
         if (!username || !boardId) return;
 
-        const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}?userName=${username}`);
+        const res = await fetch(`/api/board/bookmark/${boardId}?userName=${username}`);
         if (res.ok) {
             const raw = await res.json();
             const isBookmarked = (raw === true || raw === "true");
@@ -50,7 +50,7 @@ const View = () => {
         if (!boardId) return;
 
         // 게시글 데이터
-        fetch(`http://localhost:8050/api/board/${boardId}`)
+        fetch(`/api/board/${boardId}`)
             .then(res => res.json())
             .then(data => {
                 setPost(prev => ({
@@ -84,14 +84,14 @@ const View = () => {
 
         try {
             if (wasBookmarked) {
-                const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}/${userid}`, {
+                const res = await fetch(`/api/board/bookmark/${boardId}/${userid}`, {
                     method: "PUT",
                 });
                 const result = (await res.text()).trim();
                 console.log(result);
                 alert("북마크가 해제되었습니다.");
             } else {
-                const res = await fetch(`http://localhost:8050/api/board/bookmark/${boardId}`, {
+                const res = await fetch(`/api/board/bookmark/${boardId}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ userId: userid }),
@@ -118,7 +118,7 @@ const View = () => {
     const handleDelete = async () => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
-        const res = await fetch(`http://localhost:8050/api/board/${boardId}`, {
+        const res = await fetch(`/api/board/${boardId}`, {
             method: "DELETE",
         });
 
@@ -143,7 +143,7 @@ const View = () => {
             return;
         }
 
-        const res = await fetch(`http://localhost:8050/api/board/comments`, {
+        const res = await fetch(`/api/board/comments`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ boardId, name: username, content: comment }),
@@ -160,7 +160,7 @@ const View = () => {
 
     // 댓글 수정
     const handleCommentUpdate = async (commentId) => {
-        const res = await fetch(`http://localhost:8050/api/board/comments/${commentId}`, {
+        const res = await fetch(`/api/board/comments/${commentId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name: username, content: updateContent }),
@@ -181,7 +181,7 @@ const View = () => {
     const handleCommentDelete = async (commentId) => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
-        const res = await fetch(`http://localhost:8050/api/board/comments/${commentId}`, {
+        const res = await fetch(`/api/board/comments/${commentId}`, {
             method: "DELETE",
         });
 

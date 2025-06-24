@@ -12,7 +12,7 @@ function Mypage() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("http://localhost:8050/user/me", {
+            const res = await fetch("/user/me", {
                 credentials: "include",
             });
 
@@ -41,7 +41,7 @@ function Mypage() {
 
     useEffect(() => {
         if (userInfo?.username) {
-            fetch(`http://localhost:8050/api/board/mypage/bookmarks?userName=${userInfo.username}`)
+            fetch(`/api/board/mypage/bookmarks?userName=${userInfo.username}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log("북마크 목록 데이터:", data);
@@ -53,7 +53,7 @@ function Mypage() {
 
     useEffect(() => {
         if (userInfo?.username) {
-            fetch(`http://localhost:8050/api/board/mypage/board?userName=${userInfo.username}`)
+            fetch(`/api/board/mypage/board?userName=${userInfo.username}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log("게시글 목록 데이터:", data);
@@ -65,7 +65,7 @@ function Mypage() {
 
     useEffect(() => {
         if (userInfo?.username) {
-            fetch(`http://localhost:8050/api/board/comments/mypage?userName=${userInfo.username}`)
+            fetch(`/api/board/comments/mypage?userName=${userInfo.username}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log("댓글 목록 데이터:", data);

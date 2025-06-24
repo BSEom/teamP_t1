@@ -72,7 +72,7 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
         fillColor: "#fab1a0",
       });
    
-      fetch(`http://localhost:8050/chart/map?area=${encodeURIComponent(name)}`)
+      fetch(`/chart/map?area=${encodeURIComponent(name)}`)
         .then(res => res.json())
         .then(data => {
           console.log("📦 가져온 데이터:", data);

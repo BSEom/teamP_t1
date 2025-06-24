@@ -21,7 +21,7 @@ const Login = () => {
   }, []);
 
   const handelLogin = async () => {
-    const response = await fetch("http://localhost:8050/user/login", {
+    const response = await fetch("/user/login", {
       method: "POST",
       credentials: "include",
       headers: {
