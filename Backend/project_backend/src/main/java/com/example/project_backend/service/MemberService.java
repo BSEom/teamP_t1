@@ -23,9 +23,9 @@ public class MemberService {
 
     public Optional<String> login(LoginDto dto) {
         return memberRepository.findByEmail(dto.getEmail())
-                .filter(member -> member.getPassword().equals(dto.getPassword()))
-                // .filter(member -> passwordEncoder.matches(dto.getPassword(),
-                // member.getPassword()))
+                // .filter(member -> member.getPassword().equals(dto.getPassword()))
+                .filter(member -> passwordEncoder.matches(dto.getPassword(),
+                        member.getPassword()))
                 .map(Member::getUsername);
     }
 

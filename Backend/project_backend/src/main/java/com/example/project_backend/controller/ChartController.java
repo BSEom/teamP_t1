@@ -60,4 +60,22 @@ public class ChartController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/area")
+    public ResponseEntity<List<Map<String, Object>>> getLineChartData(
+            @RequestParam String region,
+            @RequestParam String item) {
+
+        System.out.println(region);
+        String sql = "SELECT year, month, min_price, max_price " +
+                "FROM market_prices " +
+                "WHERE area = ? AND item = ? " +
+                "AND year BETWEEN 2015 AND 2024 " +
+                "AND month IN (1, 4, 7, 10) " +
+                "ORDER BY year, month";
+
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, region, item);
+
+        return ResponseEntity.ok(result);
+    }
+
 }
