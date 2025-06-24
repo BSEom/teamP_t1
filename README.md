@@ -1,4 +1,5 @@
-# 부산 지역별 최저가 상품 찾기 프로젝트
+# 알뜰 051
+## 부산 지역별 최저가 상품 찾기 프로젝트
 Java 개발자 과정 2차 팀 프로젝트 1조
 
 <img src="https://github.com/user-attachments/assets/fa611881-fa26-494f-bc75-e9bd0fc44cca" alt="logo" width="300" height="300" />
