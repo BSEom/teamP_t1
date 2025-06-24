@@ -59,6 +59,7 @@ const View = () => {
                     name: data.WRITER,
                     content: data.CONTENT,
                     hit: data.HIT,
+                    boardDate: data.BOARD_TIME,
                 }));
             });
 
@@ -195,44 +196,33 @@ const View = () => {
 
     return (
         <div className="view-container">
-            <h1 className="text-center">게시글 보기</h1>
+            <h1 className="text-center">게시글</h1>
 
-            <div className="row mt-4">
+            {/* <div className="row mt-4"> */}
                 <div className="col-md-8 offset-md-2">
-                    <div className="form-group">
+                <div className="meta-group">
+                    <div className="meta-title-row">
                         <label>제목</label>
-                        <div className="form-control">{post.title}</div>
+                        <div className="meta-title">{post.title}</div>
                     </div>
 
-                    <div className="form-group">
+                    <div className="meta-bottom-row">
+                    <div className="meta-writer">
                         <label>작성자</label>
-                        <div className="form-control">{post.name}</div>
+                        <div className="meta-writer-name">{post.name}</div>
+                    </div>
+                    <div className="meta-day">
+                        <label>작성일</label>
+                        <div className="meta-write-day">{post.boardDate}</div>
                     </div>
 
-                    {/* <div className="form-group">
+                    <div className="meta-hit">
                         <label>조회수</label>
-                        <div className="form-control">{post.hit}</div>
-                        <button
-                            className="bookmark btn btn-link"
-                            type="button"
-                            onClick={toggleBookmark}
-                            style={{ marginLeft: "10px", padding: 0, border: "none", background: "none" }}
-                        >
-                            {post.bookmarked ? (
-                                <img src="/bookon.png" alt="북마크 해제" width={32} height={32} />
-                            ) : (
-                                <img src="/bookoff.png" alt="북마크 하기" width={32} height={32} />
-                            )}
-                        </button>
-                    </div> */}
-                    <div className="form-group">
-                        <label>조회수</label>
-                        {/* <div className="form-control d-flex align-items-center"> */}
-                        <div className="form-control hit">
+                        <div className="meta-hit-count">
                             {post.hit}</div>
                         {username ? (
                             <button
-                                className="bookmark btn btn-link"
+                                className="bookmark"
                                 type="button"
                                 onClick={toggleBookmark}
                                 style={{ marginLeft: "10px", padding: 0, border: "none", background: "none" }}
@@ -246,59 +236,22 @@ const View = () => {
                         ) : (
                             <span className="text-muted ml-2"> </span>
                         )}
-                        {/* </div> */}
                     </div>
+                    </div>
+                </div>
 
                     <div className="form-group">
-                        <label>내용</label>
+                        {/* <label>내용</label> */}
                         <div className="form-control container mt-4">{post.content}</div>
                     </div>
-
                     <div className="publish-area">
                         <button className="publish edit" onClick={handleUpdate}>수정</button>
                         <button className="publish delete" onClick={handleDelete}>삭제</button>
                         <button className="back-list" onClick={() => navigate(`/board?nowpage=${nowpage}`)}>목록으로</button>
                     </div>
-
-                    {/* 댓글 작성 */}
-                    {/* <div className="form-group">
-                        <label>댓글 작성</label>
-                        <textarea
-                            className="form-control"
-                            rows="4"
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            placeholder="댓글을 입력하세요."
-                        />
-                    </div>
-                    <div className="text-right mb-4">
-                        <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
-                    </div> */}
-                    {/* 댓글 작성 */}
-                    {username ? (
-                        <>
-                            <div className="form-group">
-                                <label>댓글 작성</label>
-                                <textarea
-                                    className="form-control"
-                                    rows="4"
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                    placeholder="댓글을 입력하세요."
-                                />
-                            </div>
-                            <div className="text-right mb-4">
-                                <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
-                            </div>
-                        </>
-                    ) : (
-                        <p className="text-muted">🤚로그인 후 댓글을 작성할 수 있습니다.</p>
-                    )}
-
-
                     {/* 댓글 목록 */}
                     <div className="comments-section mt-4">
-                        <h5>댓글 목록</h5>
+                        <h5 className="comment-list-title">댓글 목록</h5>
                         {comments.map((c) => (
                             <div key={c.COMMENT_ID} className="comment-item mb-3">
                                 <div className="comment-meta">
@@ -337,9 +290,28 @@ const View = () => {
                         ))}
 
                     </div>
+                    {username ? (
+                        <>
+                            <div className="form-group">
+                                <label className="view-comment-title">댓글 작성</label>
+                                <textarea
+                                    className="form-control"
+                                    rows="4"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="댓글을 입력하세요."
+                                />
+                            </div>
+                            <div className="text-right mb-4">
+                                <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="text-muted">🤚로그인 후 댓글을 작성할 수 있습니다.</p>
+                    )}
                 </div>
             </div>
-        </div>
+        // </div>
     );
 };
 

@@ -1,191 +1,213 @@
-/* 전체 박스 느낌 */
-.view-container {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: auto;
-  overflow-x: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 0;
-  background-color: white;
-  max-width: 1000px;
-  width : 90% ;
-  max-height : 2000px;
-  height: 80%;
-  margin : 0 auto;
-}
-
 /* 헤더 타이틀 영역 */
 h1.text-center {
-  margin: 0;
-  background-color: #4271c7;
-  color: white;
-  padding: 14px;
-  font-size: 1.4rem !important;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.815) !important;
+  text-align: left !important;
+  padding: 14px 14px 8px 30px;
+  font-size: 2.3rem;
   font-weight: bold;
-  border-bottom: 1px solid #ccc;
-  border-radius: 8px 8px 0 0 ;
+  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
 }
 
-/* 각 줄 (제목, 작성자 등) */
-.form-group {
-  display: flex;
-  border-bottom: 1px solid #ddd;
-  margin: 0;
-  text-align: left;
-  justify-content: space-between;
+/* 제목 + 작성자 + 조회수 묶음 */
+.meta-group {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-/* 왼쪽 라벨 */
-.form-group label {
-  width: 120px;
-  background-color: #d4dffc38;
-  text-align: center;
-  padding: 12px;
-  margin: 0;
-  border-right: 1px solid #ddd;
+/* 제목 */
+.meta-title-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 12px;
 }
-
-label {
-    font-size: 1.1rem !important;
-    font-weight: 500 !important;
+.meta-title-row label {
+  width: 100px;
+  font-weight: 500;
+  padding: 10px;
+  border-right: 4px solid #6b70b3;
+  text-align: center;
+  font-size: 1.1rem;
 }
-
-/* 오른쪽 값 */
-.form-group .form-control {
+.meta-title {
+  padding: 10px 16px 20px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
   flex: 1;
-  padding: 12px 16px;
-  background-color: white;
+  background: transparent;
   border: none;
-  color: #333;
-  white-space: pre-wrap;
-  min-height: auto;
-  margin: 0;
+  color: #111;
+  text-align: left;
 }
 
-/* 내용은 높이 고정 + 스크롤 */
+/* 작성자 + 조회수 줄 */
+.meta-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.meta-writer, .meta-hit, .meta-day {
+  display: flex;
+  align-items: center;
+}
+.meta-writer label,
+.meta-hit label,
+.meta-day label {
+  width: 100px;
+  font-weight: 500;
+  padding: 10px;
+  border-right: 4px solid #6b70b3;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.meta-day label {
+  margin-left: 180px;
+}
+
+.meta-writer-name,
+.meta-hit-count,
+.meta-write-day {
+  padding: 10px 16px 20px 16px;
+  background: transparent;
+  color: #333;
+  border: none;
+  min-height: 1rem;
+  font-size: 1.1rem;
+}
+
+/* 북마크 버튼 */
+button.bookmark {
+  background: none;
+  border: none;
+  padding-left: 10px;
+  cursor: pointer;
+  width: auto;
+}
+
+/* 내용 박스 (내용은 높이 고정 + 스크롤 + 넓게 + 테두리 제거) */
 .form-group .form-control.container.mt-4 {
-  height: 200px;
+  height: 250px;
   overflow-y: auto;
   background-color: #fff;
   box-shadow: none !important;
-  margin: 0 50px 0 0 !important;
-}
-button.bookmark
-{
-  width: 10px;
+  border: none; /* border 없앰 */
+  margin: 0 !important; /* 오른쪽 여백 제거 */
+  width: 100%; /* 가로 최대 넓이 */
+  font-size: 1.05rem;
+  line-height: 1.6;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 /* 버튼 정렬 영역 */
 .publish-area {
-  justify-content: space-between !important;
-  gap: 10px;
-  padding: 10px 0 20px 0;
-  height: 100px;
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  gap: 12px;                 /* 버튼 간 간격 */
 }
 
-/* 공통 버튼 스타일 */
 .publish {
-  width: 70px !important;
+  width: 70px;
   height: 50px;
-  padding: 8px 16px !important;
+  padding: 8px 16px;
   font-size: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   color: white;
   margin-right: 10px;
 }
-/* 각각 색상 주기 */
 .publish-area .edit {
   background-color: #4271c7;
 }
 .publish-area .delete {
   background-color: #a6b6c9ab;
-  margin-right: 350px;
 }
 
-button.add_comment {
-    background-color: #4271c7;
-    border-radius: 4px;
-    height: 40px;
-    padding: 0;
-    font-weight: 500;
-}
-
-button.add_comment:hover {
-    background-color: #c9d7ff;
-}
-
-button.btn.btn-secondary.btn-smaller {
-  width: 70px;
-}
-
-.back-list{
-  width: 150px !important;
-  height: 50px !important;
-  margin: 18px 0 0 0 !important;
+.back-list {
+  width: 150px;
+  height: 50px;
+  margin-top: 10px;
   background: #fff;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
 }
-
 .back-list:hover {
-    background: #1976d2;
-    color: #fff;
-    border: 2px solid #1565c0;
+  background: #1976d2;
+  color: #fff;
+  border-color: #1565c0;
 }
-
-/* 댓글 부분 유지 */
+.view-comment-title {
+  border-top: 3px solid rgb(66, 66, 121);
+  padding: 20px 0 10px 0;
+  margin: 0 !important;
+}
+/* 댓글 영역 */
 .comments-section {
-  margin: 30px 0 50px 0;
-  border-top: 2px solid #ccc;
+  margin: 0 0 80px 0;
   padding-top: 20px;
-
 }
 
+.comment-list-title {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  color: #555;
+  border-bottom: 3px solid rgb(66, 66, 121);
+  padding: 20px 0 10px 0;
+}
 .comment-meta {
   text-align: left;
 }
-
 .comment-time {
   color: #7a8ca1;
   margin: 10px;
 }
 .comment-item {
-  border: 1px solid #ddd;
-  background-color: #fdfdfd;
+  border-bottom: 2px solid #ddd;
   border-radius: 4px;
   padding: 15px;
-  margin-bottom: 50px !important;
 }
 .content-box {
   text-align: left;
 }
-
 .content-button-box {
   width: 500px;
-  margin-left: 290px;
+  margin-left: 570px;
 }
-
 .comment-button {
   width: 70px;
   height: 50px;
-  margin: 0 5px 0 5px;
+  margin: 0 5px;
   border-radius: 5px;
   background-color: #4271c7;
-  padding: 0 !important;
-  font-weight: 500 !important;
+  padding: 0;
+  font-weight: 500;
+  color: white;
+  border: none;
 }
-
-
 .comment-edit-box {
   display: flex;
   justify-content: flex-end;
+}
+
+button.add_comment {
+  background-color: #4271c7;
+  border-radius: 4px;
+  height: 40px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  padding: 0 16px;
+}
+button.add_comment:hover {
+  background-color: #c9d7ff;
+  color: #000;
 }

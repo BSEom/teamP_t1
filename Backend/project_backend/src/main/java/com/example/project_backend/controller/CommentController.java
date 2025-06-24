@@ -51,7 +51,7 @@ public class CommentController {
     @GetMapping("/{boardId}")
     public List<Map<String, Object>> getCommentsByBoard(@PathVariable int boardId) {
         String sql = """
-                    SELECT c.COMMENT_ID, u.USER_NAME AS WRITER, c.CONTENT, TO_CHAR(FROM_TZ(CAST(c.COMMENT_DATE AS TIMESTAMP), 'UTC') AT TIME ZONE 'Asia/Seoul','HH24:MI') AS COMMENT_TIME
+                    SELECT c.COMMENT_ID, u.USER_NAME AS WRITER, c.CONTENT, TO_CHAR(FROM_TZ(CAST(c.COMMENT_DATE AS TIMESTAMP), 'UTC') AT TIME ZONE 'Asia/Seoul','YYYY-MM-DD HH24:MI') AS COMMENT_TIME
                     FROM BOARD_COMMENT c
                     JOIN USERS u ON c.USER_ID = u.USER_ID
                     WHERE c.BOARD_ID = ?
@@ -78,7 +78,10 @@ public class CommentController {
             int userId = ((Number) userList.get(0).get("USER_ID")).intValue();
 
             // 댓글 수정 (작성자도 확인하려면 조건에 user_id 추가 가능)
-            String updateSql = "UPDATE BOARD_COMMENT SET CONTENT = ? WHERE COMMENT_ID = ?";
+            // String updateSql = "UPDATE BOARD_COMMENT SET CONTENT = ? WHERE COMMENT_ID =
+            // ?";
+            // int result = jdbcTemplate.update(updateSql, content, commentId);
+            String updateSql = "UPDATE BOARD_COMMENT SET CONTENT = ?, COMMENT_DATE = SYSTIMESTAMP WHERE COMMENT_ID = ?";
             int result = jdbcTemplate.update(updateSql, content, commentId);
 
             return result > 0 ? "success" : "fail: no rows updated";

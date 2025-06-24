@@ -58,7 +58,7 @@ public class BoardController {
     @GetMapping("/board/count")
     public int getBoardCount() {
         String sql = "SELECT COUNT(*) FROM USER_BOARD";
-        System.out.println("-------------sql:" + sql);
+        // System.out.println("-------------sql:" + sql);
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
@@ -102,7 +102,15 @@ public class BoardController {
     @GetMapping("/board/{boardId}")
     public Map<String, Object> getBoardDetail(@PathVariable int boardId) {
         System.out.println("요청된 boardId: " + boardId);
-        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT, b.HIT " +
+        // String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT,
+        // b.HIT " +
+        // "FROM USER_BOARD b " +
+        // "JOIN USERS u ON b.USER_ID = u.USER_ID " +
+        // "WHERE b.BOARD_ID = ?";
+        // String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT,
+        // b.HIT, b.BOARD_DATE " +
+        String sql = "SELECT b.BOARD_ID, b.TITLE, u.USER_NAME AS WRITER, b.CONTENT, b.HIT, TO_CHAR(FROM_TZ(CAST(b.BOARD_DATE AS TIMESTAMP), 'UTC') AT TIME ZONE 'Asia/Seoul','YYYY-MM-DD HH24:MI') AS BOARD_TIME "
+                +
                 "FROM USER_BOARD b " +
                 "JOIN USERS u ON b.USER_ID = u.USER_ID " +
                 "WHERE b.BOARD_ID = ?";
@@ -134,7 +142,12 @@ public class BoardController {
             int userId = ((Number) userList.get(0).get("USER_ID")).intValue();
 
             // 게시글 수정
-            String updateSql = "UPDATE USER_BOARD SET USER_ID = ?, TITLE = ?, CONTENT = ? WHERE BOARD_ID = ?";
+            // String updateSql = "UPDATE USER_BOARD SET USER_ID = ?, TITLE = ?, CONTENT = ?
+            // WHERE BOARD_ID = ?";
+            // int result = jdbcTemplate.update(updateSql, userId, title, content, boardId);
+
+            // 시간도 같이 바뀜
+            String updateSql = "UPDATE USER_BOARD SET USER_ID = ?, TITLE = ?, CONTENT = ?, BOARD_DATE = SYSTIMESTAMP WHERE BOARD_ID = ?";
             int result = jdbcTemplate.update(updateSql, userId, title, content, boardId);
 
             return result > 0 ? "success" : "fail: no rows updated";
