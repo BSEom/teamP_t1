@@ -238,7 +238,7 @@ const View = () => {
                     </div>
 
                     {/* 댓글 작성 */}
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>댓글 작성</label>
                         <textarea
                             className="form-control"
@@ -250,18 +250,39 @@ const View = () => {
                     </div>
                     <div className="text-right mb-4">
                         <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
-                    </div>
+                    </div> */}
+                    {/* 댓글 작성 */}
+                    {username ? (
+                        <>
+                            <div className="form-group">
+                                <label>댓글 작성</label>
+                                <textarea
+                                    className="form-control"
+                                    rows="4"
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="댓글을 입력하세요."
+                                />
+                            </div>
+                            <div className="text-right mb-4">
+                                <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
+                            </div>
+                        </>
+                    ) : (
+                        <p className="text-muted">🤚로그인 후 댓글을 작성할 수 있습니다.</p>
+                    )}
+
 
                     {/* 댓글 목록 */}
                     <div className="comments-section mt-4">
                         <h5>댓글 목록</h5>
-                        {comments.length === 0 && <p>등록된 댓글이 없습니다.</p>}
                         {comments.map((c) => (
                             <div key={c.COMMENT_ID} className="comment-item mb-3">
                                 <div className="comment-meta">
                                     <strong>{c.WRITER}</strong>
                                     <span className="comment-time">{c.COMMENT_TIME}</span>
                                 </div>
+
                                 {updateCommentId === c.COMMENT_ID ? (
                                     <>
                                         <textarea
@@ -277,17 +298,21 @@ const View = () => {
                                 ) : (
                                     <>
                                         <div className="content-box">{c.CONTENT}</div>
-                                        <div className="content-button-box">
-                                            <button className="comment-button" onClick={() => handleCommentDelete(c.COMMENT_ID)}>삭제</button>
-                                            <button className="comment-button" onClick={() => {
-                                                setUpdateCommentId(c.COMMENT_ID);
-                                                setUpdateContent(c.CONTENT);
-                                            }}>수정</button>
-                                        </div>
+
+                                        {c.WRITER === username && (
+                                            <div className="content-button-box">
+                                                <button className="comment-button" onClick={() => handleCommentDelete(c.COMMENT_ID)}>삭제</button>
+                                                <button className="comment-button" onClick={() => {
+                                                    setUpdateCommentId(c.COMMENT_ID);
+                                                    setUpdateContent(c.CONTENT);
+                                                }}>수정</button>
+                                            </div>
+                                        )}
                                     </>
                                 )}
                             </div>
                         ))}
+
                     </div>
                 </div>
             </div>
