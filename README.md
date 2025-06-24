@@ -48,34 +48,10 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 |                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                                      |                                   [@leebada13](https://github.com/leebada13)                            |
 
 
-### 개발 툴<br>
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/2a81747e-306b-43e3-9fa1-9adebb8b91d6)
- <br>
-### 사용 언어<br>
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/272a1dca-de7f-4e0d-85e2-7713799e7790)
-![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/df52daad-57a2-41ca-a0ef-4629b89c6dc0)
-![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/922ff227-a09f-45c4-a3af-c5c0285b3384)<br> 
-
-### DB<br>
-![image]()
-<br>
-
-### 프레임워크<br>
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/11426330-7c5f-4fd1-b0f4-16f30896867d) <br> 
-
-### 사용 기술<br>
-![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/6e34af19-ad91-433b-a274-049f29574bb0)
-![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/2ed02e21-d3c5-4f37-a929-92b059a21b55)
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/dd60862c-fa66-4dcd-b035-4be6f7507544)
-![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/a3c4701a-7f1d-4934-ab84-3be71c18089e)<br>
-
-### 협업 툴<br>
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/4da6dc79-8bda-4c09-af7d-ab38e7179191)
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/7fa02c32-4862-4391-97a9-b446b52f7150)
-![image](https://github.com/clean17/Village-Front-Project/assets/118657689/30dccaf8-feff-459c-bb32-c7e857141b6b)
 
 ### 💻 Development Tools  
 ![VSCode](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+<br>
 
 ### 💡 Languages  
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)  
@@ -83,16 +59,16 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)  
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)  
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-
+<br>
 ### 🛢️ Database  
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
-
+<br>
 ### 🧩 Framework  
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
-
+<br>
 ### 🤝 Collaboration  
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)  
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)  
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-
+<br>
 
