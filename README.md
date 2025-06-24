@@ -73,3 +73,7 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 <br>
 <hr>
 
+### DB 다이어그램
+![db](https://github.com/user-attachments/assets/6cd99d67-792f-4ccc-9776-2c92fe83ebd2)
+
+
