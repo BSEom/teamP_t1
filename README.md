@@ -48,4 +48,30 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 |                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                                      |                                   [@leebada13](https://github.com/leebada13)                            |
 
 
+### 개발 툴<br>
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/2a81747e-306b-43e3-9fa1-9adebb8b91d6)
+ <br>
+### 사용 언어<br>
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/272a1dca-de7f-4e0d-85e2-7713799e7790)
+![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/df52daad-57a2-41ca-a0ef-4629b89c6dc0)
+![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/922ff227-a09f-45c4-a3af-c5c0285b3384)<br> 
+
+### DB<br>
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/a439e899-0ceb-44b5-9f88-2f648a31128f)
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/546e397b-2d5a-4f70-b3f4-d6a46e1f8d7d) <br>
+
+### 프레임워크<br>
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/11426330-7c5f-4fd1-b0f4-16f30896867d) <br> 
+
+### 사용 기술<br>
+![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/6e34af19-ad91-433b-a274-049f29574bb0)
+![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/2ed02e21-d3c5-4f37-a929-92b059a21b55)
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/dd60862c-fa66-4dcd-b035-4be6f7507544)
+![image](https://github.com/juk5009/Springboot-MyBatis-Jsp-PickMe/assets/122331826/a3c4701a-7f1d-4934-ab84-3be71c18089e)<br>
+
+### 협업 툴<br>
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/4da6dc79-8bda-4c09-af7d-ab38e7179191)
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/44f52fdb-b6db-45cc-a58d-4b35289db93c)
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/7fa02c32-4862-4391-97a9-b446b52f7150)
+![image](https://github.com/clean17/Village-Front-Project/assets/118657689/30dccaf8-feff-459c-bb32-c7e857141b6b)
 
