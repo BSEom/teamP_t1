@@ -21,6 +21,8 @@ import com.example.project_backend.domain.Pagination;
 import com.example.project_backend.domain.PagingResponse;
 import com.example.project_backend.domain.SearchVo;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api")
@@ -29,6 +31,7 @@ public class BoardController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Operation(summary = "페이징한 게시글 리스트")
     @GetMapping("/board")
     public PagingResponse<Map<String, Object>> getBoardList(@ModelAttribute SearchVo searchVo) {
         int total = getBoardCount();
@@ -55,6 +58,7 @@ public class BoardController {
         return new PagingResponse<>(boardList, pagination);
     }
 
+    @Operation(summary = "게시글 개수 조회")
     @GetMapping("/board/count")
     public int getBoardCount() {
         String sql = "SELECT COUNT(*) FROM USER_BOARD";
@@ -62,6 +66,7 @@ public class BoardController {
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
+    @Operation(summary = "게시글 작성")
     @PostMapping("/write")
     public String writePost(@RequestBody Map<String, String> data) {
         System.out.println("받은 데이터: " + data);
@@ -99,6 +104,7 @@ public class BoardController {
         }
     }
 
+    @Operation(summary = "단일 게시글 조회")
     @GetMapping("/board/{boardId}")
     public Map<String, Object> getBoardDetail(@PathVariable int boardId) {
         System.out.println("요청된 boardId: " + boardId);
@@ -124,6 +130,7 @@ public class BoardController {
         }
     }
 
+    @Operation(summary = "게시글 수정")
     @PutMapping("/board/{boardId}")
     public String updateBoard(@PathVariable int boardId, @RequestBody Map<String, String> data) {
         try {
@@ -158,6 +165,7 @@ public class BoardController {
         }
     }
 
+    @Operation(summary = "게시글 삭제")
     @DeleteMapping("/board/{boardId}")
     public String deleteBoard(@PathVariable int boardId) {
         try {
@@ -185,6 +193,7 @@ public class BoardController {
     }
 
     // 조회수
+    @Operation(summary = "조회수")
     @PutMapping("/board/hit/{boardId}")
     public String increaseHit(@PathVariable int boardId) {
         try {
@@ -198,6 +207,7 @@ public class BoardController {
     }
 
     // 게시글 모으기
+    @Operation(summary = "게시글 모으기")
     @GetMapping("/board/mypage/board")
     public List<Map<String, Object>> getUserPosts(@RequestParam String userName) {
         try {

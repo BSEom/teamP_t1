@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/chart")
@@ -20,6 +22,7 @@ public class ChartController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Operation(summary = "시기별 물품 가격 그래프")
     @GetMapping("/select")
     public ResponseEntity<List<Map<String, Object>>> getPriceStats(
             @RequestParam String item,
@@ -36,6 +39,7 @@ public class ChartController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "구별 최저가 지도")
     @GetMapping("/map")
     public ResponseEntity<List<String>> getMinPrice(@RequestParam String area) {
 

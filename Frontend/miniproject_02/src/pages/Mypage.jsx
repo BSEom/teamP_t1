@@ -203,7 +203,7 @@ function Mypage() {
                     <aside className="mypage-menu">
                         <div className="mypage-profile">
                             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=" " className="mypage-profile-img" />
-                            <div className="mypage-profile-id">아이디: {userInfo?.username || 'user123'}</div>
+                            <div className="mypage-profile-id">{userInfo?.username || 'user123'}</div>
                         </div>
                         <button onClick={() => setSelectedMenu('info')}>회원 정보</button>
                         <button onClick={() => {

@@ -156,7 +156,7 @@ const Data = () => {
 
   const fetchStatisticsData = async () => {
     if (!selectedRegionCode || !selectedYear || !selectedMonth) {
-      alert('지역과 날짜를 모두 선택해주세요.')
+      alert('품목과 날짜를 모두 선택해주세요.')
       return
     }
 
@@ -194,7 +194,7 @@ const Data = () => {
           <div className={styles.controlPanel}>
             {/* 지역 선택 드롭다운 */}
             <div className={styles.dropdownSection}>
-              <label className={styles.label}>지역 선택</label>
+              <label className={styles.label}>품목 선택</label>
               <div className={styles.dropdown}>
                 <div 
                   className={styles.dropdownToggle} 

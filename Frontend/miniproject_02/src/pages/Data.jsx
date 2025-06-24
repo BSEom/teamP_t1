@@ -4,8 +4,8 @@ import styles from './Data.module.css'
 import Chart from 'chart.js/auto'
 
 const Data = () => {
-  const [selectedRegion, setSelectedRegion] = useState('')
-  const [selectedRegionCode, setSelectedRegionCode] = useState('')
+  // const [selectedRegion, setSelectedRegion] = useState('')
+  // const [selectedRegionCode, setSelectedRegionCode] = useState('')
   const [selectedItem, setSelectedItem] = useState('')
   const [selectedYear, setSelectedYear] = useState('')
   const [selectedMonth, setSelectedMonth] = useState('')
@@ -45,16 +45,16 @@ const Data = () => {
     chartInstance.current = new Chart(chartRef.current, {
       type: 'bar',
       data: {
-        labels: chartData.map(d => d.AREA),
+        labels: labels,
         datasets: [
           {
             label: '최저가',
-            data: chartData.map(d => d.MIN_PRICE),
+            data: minPrices,
             backgroundColor: 'rgba(75, 192, 192, 0.6)'
           },
           {
             label: '최고가',
-            data: chartData.map(d => d.MAX_PRICE),
+            data: maxPrices,
             backgroundColor: 'rgba(255, 99, 132, 0.6)'
           }
         ]
@@ -93,25 +93,25 @@ const Data = () => {
     })
   }, [chartData])
 
-  useEffect(() => {
-  if (chartData && chartData.length > 0) {
-    console.log('✅ chartData가 업데이트됨:', chartData)
+//   useEffect(() => {
+//   if (chartData && chartData.length > 0) {
+//     console.log('chartData가 업데이트됨:', chartData)
 
-    chartData.forEach((row, i) => {
-      console.log(`[${i}] item =`, row.item, '| diff_ratio =', row.diff_ratio)
-    })
+//     chartData.forEach((row, i) => {
+//       console.log(`[${i}] item =`, row.item, '| diff_ratio =', row.diff_ratio)
+//     })
 
-    const labels = chartData.map(d => d.item)
-    const values = chartData.map(d =>
-      parseFloat((d.diff_ratio + '').replace('%', '').trim()) || 0
-    )
+//     const labels = chartData.map(d => d.item)
+//     const values = chartData.map(d =>
+//       parseFloat((d.diff_ratio + '').replace('%', '').trim()) || 0
+//     )
 
-    console.log('Labels:', labels)
-    console.log('Values:', values)
-  } else {
-    console.log('⚠️ chartData는 있지만 배열이 비어 있음 또는 구조 문제')
-  }
-}, [chartData])
+//     console.log('Labels:', labels)
+//     console.log('Values:', values)
+//   } else {
+//     console.log('chartData는 있지만 배열이 비어 있음 또는 구조 문제')
+//   }
+// }, [chartData])
 
 
 
@@ -180,7 +180,7 @@ const Data = () => {
 
   const fetchStatisticsData = async () => {
     if (!selectedItem || !selectedYear || !selectedMonth) {
-      alert('지역과 날짜를 모두 선택해주세요.')
+      alert('품목과 날짜를 모두 선택해주세요.')
       return
     }
 
@@ -218,7 +218,7 @@ const Data = () => {
           <div className={styles.controlPanel}>
             {/* 지역 선택 드롭다운 */}
             <div className={styles.dropdownSection}>
-              <label className={styles.label}>지역 선택</label>
+              <label className={styles.label}>품목 선택</label>
               <div className={styles.dropdown}>
                 <div 
                   className={styles.dropdownToggle} 
