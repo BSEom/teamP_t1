@@ -3,6 +3,7 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 
 # 부산 지역별 최저가 상품 찾기 프로젝트
 ![logo](https://github.com/user-attachments/assets/fa611881-fa26-494f-bc75-e9bd0fc44cca)
+<img src="https://github.com/user-attachments/assets/fa611881-fa26-494f-bc75-e9bd0fc44cca" alt="logo" width="300" height="150" />
 
 ## 📌 목적
 부산광역시 내 구(남구, 동래구, 부산진구, 북구, 사상구, 사하구, 해운대구)의 소비자 물가 데이터를 분석하고 시각화하여, 지역별 생필품 가격의 최저가 및 최고가를 지도에 표시하고, 분기별·연간 물가 추이 그래프를 제공한다.
