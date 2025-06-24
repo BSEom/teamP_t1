@@ -23,9 +23,9 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 - 게시판 기능 (글쓰기, 열람, 댓글, 북마크)
 - 마이페이지 (내 정보, 내 글 확인 및 수정)
 - 심플하고 사용자 친화적인 UI
-
+</br>
 # 시연영상
-
+</br>
 # PPT
 [1조_미니프로젝트_PPT.pdf]
 </br>
@@ -42,10 +42,10 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 
 
 
-|                                                 김은희                                                  |                                                 박민주                                                  |
-| :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | 
-| <img src="https://avatars.githubusercontent.com/u/197720362?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/164135340?v=4" alt="profile" width="100" height="100"> | 
-|                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                         
+|                                                 김은희                                                  |                                                 박민주                                                  |                                                 이바다                                                  |
+| :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: |  :-----------------------------------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/197720362?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/164135340?v=4" alt="profile" width="100" height="100"> |  <imgsrc="https://avatars.githubusercontent.com/u/195835617?v=4" alt="profile" width="100" height="100"> |
+|                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                                      |                                   [@leebada13](https://github.com/leebada13)                            |
 
 
 |                                                 이바다                                                  |
