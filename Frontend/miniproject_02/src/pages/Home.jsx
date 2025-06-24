@@ -87,13 +87,19 @@ const Home = () => {
       .catch(err => console.error('지역코드 전송 실패:', err))
   }
 
+  const [showGuide, setShowGuide] = useState(false); // 이용방법 버튼 추가
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
         <h2 className={styles.title}>🗺️ 부산 지역별 최저가 상품 찾기</h2>
 
+
         <div className={styles.flexRow}>
-          <div className={styles.dropdown}>
+          <div className={styles.dropdownFixed}>
+        <button className={styles.guideBtn} onClick={() => setShowGuide(true)}>
+  이용 방법 보기 💡
+</button>
             <div className={styles.dropdownToggle} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <span className={selectedRegion ? styles.activeText : styles.placeholder}>
                 {selectedRegion || '지역을 선택하세요'}
@@ -135,7 +141,7 @@ const Home = () => {
             <MapContainer
               center={[mapCenter.lat, mapCenter.lng]}
               zoom={5}
-              style={{ height: '400px', width: '100%', borderRadius: '10px' }}
+              style={{ height: '600px', width: '1300px', borderRadius: '10px' }}
             >
               <TileLayer
                 attribution='&copy; OpenStreetMap contributors'
@@ -181,15 +187,18 @@ const Home = () => {
           </div>
         </div>
       <div className={styles.guide}>
-        <div className={styles.guideText}>
-          💡 <strong>사용 방법:</strong> 지역을 선택하면 지도에 해당 위치가 표시되고, 지역별 최저가 상품이 표시됩니다 !
-        </div>
-        {selectedRegion && (
-          <div className={styles.selectedText}>
-            현재 선택: <strong>{selectedRegion}</strong> (코드: {selectedRegionCode})
-          </div>
-        )}
+  {showGuide && (
+  <div className={styles.popupOverlay} onClick={() => setShowGuide(false)}>
+    <div className={styles.popupBox} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.popupContent}>
+        💡 <strong>사용 방법:</strong><br />
+        지역을 선택하면 지도에 해당 위치가 표시되고,<br />
+        지역별 최저가 상품이 지도에 나타납니다! 📍🛒
       </div>
+    </div>
+  </div>
+)}
+</div>
       </div>
 
     </div>

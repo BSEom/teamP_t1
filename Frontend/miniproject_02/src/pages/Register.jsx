@@ -8,16 +8,6 @@ const Register = () => {
   const [ email, setEmail ] = useState();
   const [ ckm, setCkm ] = useState(false); 
   const [ ckn, setCkn ] = useState(false); 
-  const [emailMsg, setEmailMsg] = useState('');
-  const [nameMsg, setNameMsg] = useState('');
-  const [emailValidClass, setEmailValidClass] = useState('');
-  const [nameValidClass, setNameValidClass] = useState('');
-
-//  정규식 이메일 검증
-const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,13 +53,6 @@ const validateEmail = (email) => {
   };
 
   const checkName = async () => {
-
-     if (!name) {
-      setNameMsg("이름을 입력해주세요");
-      setNameValidClass("is-invalid");
-      return;
-    }
-
     const res = await fetch("http://localhost:8050/user/sign-up/name-check", {
       method: "POST",
       headers: {
@@ -78,34 +61,18 @@ const validateEmail = (email) => {
       body: name,
     });
 
-    const result = await res.json();
 
     if (res.ok) {
-      // alert(JSON.stringify(result.message));
-      setNameMsg(result.message);
-      setNameValidClass("is-valid");
+      const result = await res.json();
+      alert(JSON.stringify(result.message));
       setCkn(true);
     } else {
-      // alert(JSON.stringify(result.message))
-      setEmailMsg(result.message);
-      setNameValidClass("is-invalid");
+      const result = await res.json();
+      alert(JSON.stringify(result.message))
     }
   };
 
   const checkEmail = async () => {
-
-    if (!email) {
-      setEmailMsg("이메일을 입력해주세요");
-      setEmailValidClass("is-invalid");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setEmailMsg("올바른 이메일 형식이 아닙니다");
-      setEmailValidClass("is-invalid");
-      return;
-    }
-
     const res = await fetch("http://localhost:8050/user/sign-up/email-check", {
       method: "POST",
       headers: {
@@ -115,23 +82,18 @@ const validateEmail = (email) => {
     });
 
 
-    const result = await res.json();
-
-
     if (res.ok) {
-      // alert(JSON.stringify(result.message));
-      setEmailMsg(result.message);
-      setEmailValidClass("is-valid");
+      const result = await res.json();
+      alert(JSON.stringify(result.message));
       setCkm(true);
     } else {
-      // alert(JSON.stringify(result.message))
-      setEmailMsg(result.message);
-      setEmailValidClass("is-invalid");
+      const result = await res.json();
+      alert(JSON.stringify(result.message))
     }
   };
 
   return (
-    <div className="body-wrapper">
+    // <div className="body-wrapper">
 
       <div className="container">
         <h2>회원가입</h2>
@@ -141,16 +103,12 @@ const validateEmail = (email) => {
           <div className="form-floating mb-3">
             <input
               type="text"
-              className={`form-control ${nameValidClass}`}
+              className="form-control"
               id="username"
               placeholder="name"
               name="username"
               value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setNameValidClass("");
-                setNameMsg("");
-              }}
+              onChange={(e) => setName(e.target.value)}
               readOnly={ckn}
               required
             />
@@ -159,43 +117,25 @@ const validateEmail = (email) => {
               중복확인
             </button>
           </div>
-          {nameValidClass === "is-invalid" && (
-            <div className="invalid-feedback d-block">{nameMsg}</div>
-          )}
-          {nameValidClass === "is-valid" && (
-            <div className="valid-feedback d-block">{nameMsg}</div>
-          )}
 
           <div className="form-floating mb-3">
             <input
               type="text"
               id="email"
-              className={`form-control ${emailValidClass}`}
+              className="form-control"
               placeholder="name@example.com"
               name="email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailValidClass("");
-                setEmailMsg("");
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               readOnly={ckm}
               required
             />
             <label htmlFor="email">이메일</label>
-
             <button type="button" className="duplicate-check-btn" onClick={checkEmail}>
-              검증
+              중복확인
             </button>
-            
           </div>
-            {emailValidClass === "is-invalid" && (
-              <div className="invalid-feedback d-block">{emailMsg}</div>
-            )}
-            {emailValidClass === "is-valid" && (
-              <div className="valid-feedback d-block">{emailMsg}</div>
-            )}
-          
+
 
           <div className="form-floating mb-3">
             <input
@@ -260,7 +200,7 @@ const validateEmail = (email) => {
           <button type="submit" disabled={!(ckm && ckn)} style={{ fontSize: "1.2rem" }}>가입하기</button>
         </form>
       </div>
-    </div>
+    // </div>
   );
 };
 

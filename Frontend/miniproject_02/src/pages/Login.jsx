@@ -49,7 +49,7 @@ const Login = () => {
   
   return (
 
- <div className="body-wrapper">
+//  <div className="body-wrapper">
   <div className="container">
     <div className="form-container" style={{ padding: "2rem" }}>
       <h2>로그인</h2>
@@ -86,7 +86,7 @@ const Login = () => {
     회원가입</Link>
           </p>
   </div>
-</div>
+// </div>
   );
 };
 
