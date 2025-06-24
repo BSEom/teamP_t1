@@ -142,9 +142,13 @@ function Mypage() {
                             {CommentPosts.map((post, index) => (
                                 <div key={`comment-${post.BOARD_ID}-${index}`} className="bookmark-card">
                                     <Link to={`/view?boardId=${post.BOARD_ID}`}>
-                                        <h4 className="bookmark-title">{post.TITLE}</h4>
+                                        {/* <h4 className="bookmark-title">{post.TITLE}</h4>
                                         <p className="bookmark-content">
                                             {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
+                                        </p> */}
+                                        <h4 className="bookmark-title">글 제목: {post.TITLE}</h4>
+                                        <p className="bookmark-content">
+                                            내 댓글: {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
                                         </p>
                                         <div className="bookmark-meta">
                                             {/* <span>작성자: {post.WRITER}</span><br /> */}
