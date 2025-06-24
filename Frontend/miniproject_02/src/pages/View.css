@@ -45,6 +45,7 @@ h1.text-center {
 .meta-bottom-row {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 .meta-writer, .meta-hit, .meta-day {
   display: flex;
@@ -61,24 +62,16 @@ h1.text-center {
   font-size: 1.1rem;
 }
 
-.meta-hit label {
-  margin-left: 250px;
+.meta-day label {
+  margin-left: 180px;
 }
 
 .meta-writer-name,
-.meta-hit-count {
-  padding: 10px 16px 20px 16px;
-  background: transparent;
-  color: #333;
-  border: none;
-  min-height: 1rem;
-  font-size: 1.1rem;
-}
-
+.meta-hit-count,
 .meta-write-day {
   padding: 10px 16px 20px 16px;
   background: transparent;
-  color: #3333339a;
+  color: #333;
   border: none;
   min-height: 1rem;
   font-size: 1.1rem;
@@ -169,51 +162,30 @@ button.bookmark {
   color: #555;
   border-bottom: 3px solid rgb(66, 66, 121);
   padding: 20px 0 10px 0;
-  margin-bottom: 15px;
+}
+.comment-meta {
+  text-align: left;
+}
+.comment-time {
+  color: #7a8ca1;
+  margin: 10px;
 }
 .comment-item {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   border-bottom: 2px solid #ddd;
+  border-radius: 4px;
   padding: 15px;
-  gap: 20px;
 }
-
-/* 작성자 칸 */
-.comment-meta {
-  flex: 0 0 120px; /* 고정 너비로 설정: 늘어나지 않음 */
-  font-weight: bold;
-  color: #333;
-  text-align: right;
-  word-break: break-all;
-  font-size: 1.02rem;
-}
-
-/* 댓글 내용 */
 .content-box {
-  flex: 1; /* 남는 공간 다 차지함 */
   text-align: left;
-  word-break: break-word;
-  padding: 0 60px;
 }
-
-/* 시간 */
-.comment-time {
-  flex: 0 0 100px; /* 고정 너비 */
-  text-align: right;
-  color: #7a8ca1;
-  font-size: 0.9rem;
-  white-space: nowrap; /* 줄바꿈 방지 */
-}
-
 .content-button-box {
-  width: 180px;
+  width: 500px;
+  margin-left: 570px;
 }
 .comment-button {
   width: 70px;
   height: 50px;
-  margin: 0 8px;
+  margin: 0 5px;
   border-radius: 5px;
   background-color: #4271c7;
   padding: 0;
@@ -224,35 +196,18 @@ button.bookmark {
 .comment-edit-box {
   display: flex;
   justify-content: flex-end;
-  gap: 8px
 }
 
-.comment-update,
-.comment-update-cancel {
-  width: 70px;
-  height: 50px;
-  gap: 10px;
-  border-radius: 5px;
-  padding: 0;
-}
-
-.add-comment-area {
-  display: flex;
-  justify-content: flex-end;
-}
-
-button.add-comment {
+button.add_comment {
   background-color: #4271c7;
-  width: 150px;
-  height: 50px;
-  border-radius: 5px;
+  border-radius: 4px;
+  height: 40px;
   font-weight: 500;
   color: white;
   border: none;
   padding: 0 16px;
 }
-button.add-comment:hover {
+button.add_comment:hover {
   background-color: #c9d7ff;
   color: #000;
 }
-

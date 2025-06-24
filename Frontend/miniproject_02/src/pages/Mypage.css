@@ -1,3 +1,19 @@
+/* 마이페이지 전체 컨테이너 */
+.mypage-container {
+    max-width: 1000px;
+    margin: 48px auto;
+    background: linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
+    padding: 40px 48px;
+    font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
+    position: relative;
+    overflow: auto;
+    /* 전체 스크롤 가능하도록 변경 */
+    max-height: 90vh;
+    /* 화면 기준 최대 높이 제한 */
+}
+
 /* 마이페이지 레이아웃 */
 .mypage-layout {
     display: flex;
@@ -5,26 +21,15 @@
     min-height: 340px;
 }
 
-.Mypage-title {
-  margin-bottom: 3px;
-  color: rgba(0, 0, 0, 0.815) !important;
-  text-align: left !important;
-  padding: 14px 14px 8px 30px;
-  font-size: 2.3rem;
-  font-weight: bold;
-  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
-}
-
-
 /* 왼쪽 메뉴 */
 .mypage-menu {
     display: flex;
     flex-direction: column;
     gap: 22px;
-    min-width: 200px;
+    min-width: 180px;
     background: rgba(25, 118, 210, 0.07);
     border-radius: 16px;
-    padding: 130px 18px;
+    padding: 32px 18px;
     box-shadow: 0 4px 16px rgba(25, 118, 210, 0.07);
     align-items: stretch;
     position: relative;
@@ -58,15 +63,30 @@
     border-radius: 16px;
     min-height: 850px;
     padding: 40px 32px;
-    /* box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06); */
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.15rem;
     color: #222;
     position: relative;
-    /* transition: box-shadow 0.2s; */
+    transition: box-shadow 0.2s;
     overflow-y: auto;
+}
+
+.mypage-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, #e3f0ff 0%, #fafcff 100%);
+    opacity: 0.18;
+    border-radius: 16px;
+    z-index: 0;
+}
+
+.mypage-content>* {
+    position: relative;
+    z-index: 1;
 }
 
 .mypage-section>h2 {
@@ -85,20 +105,6 @@
     align-items: center;
     margin-bottom: 32px;
     gap: 10px;
-}
-
-.fake-button {
-  color: #333;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.fake-button.active {
-  color: #76d7f0 !important;
-}
-
-.fake-button:hover {
-  text-decoration: underline;
 }
 
 .mypage-profile-img {
@@ -241,15 +247,12 @@
     text-align: left;
 }
 
-/* .mypage-edit-bot > label {
-
-} */
 .mypage-edit-title {
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 32px;
     text-align: center;
-    color: #414f79;
+    color: #222;
 }
 
 .mypage-edit-form-simple {
@@ -297,11 +300,6 @@
     justify-content: center;
     height: 60px;
 }
-
-/* .btn-save,
-.btn-cancel {
-    width: 150px !important;
-} */
 
 .btn-save {
     flex: 1;
@@ -358,12 +356,28 @@
     }
 }
 
+/* 게시물관리(나의글) 스타일 */
+.stylish-board {
+    background: linear-gradient(120deg, #e3f0ff 0%, #f8faff 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.10);
+    padding: 36px 32px 60px 32px;
+    width: 415px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    position: relative;
+}
+
 .stylish-title {
-   font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 32px;
-    text-align: center;
-    color: #414f79;
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #1976d2;
+    letter-spacing: 0.01em;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .stylish-tabs {
@@ -474,55 +488,12 @@
  box-shadow: 1px 1px 3px 0px #ccc;
  margin-bottom: 30px;
  padding: 20px;
- text-align: left;
+
 }
 
-.bookmark-title {
-  margin-bottom: 3px;
-  background-color: #64b4f693;
-  color: rgba(0, 0, 0, 0.815) !important;
-  text-align: left !important;
-  padding: 14px 14px 8px 15px;
-  /* font-size: 2.3rem; */
-  font-weight: bold;
-  border-bottom: 2.3px solid rgb(66, 141, 226);
+@media (max-width: 700px) {
+    .stylish-board {
+        padding: 18px 4vw;
+        max-width: 98vw;
+    }
 }
-
-.bookmark-content {
-    color: #2b4458ec;
-}
-
-.bookmark-meta {
-    font-size: 1.1rem ;
-    color: #325b7cc2;
-}
-
-.sub-tab-banner-left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 6px;
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 3px solid #1976d2;
-}
-
-.sub-tab {
-  padding: 6px 10px;
-  border: none;
-  /* background-color: transparent; */
-  color: #1976d2;
-  font-weight: bold;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.sub-tab:hover {
-  background-color: #e3ecff;
-}
-.sub-tab.active {
-  /* background-color: #1976d2; */
-  color: white;
-  /* border-radius: 5px; */
-}
-

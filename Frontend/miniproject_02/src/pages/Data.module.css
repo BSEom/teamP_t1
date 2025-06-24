@@ -1,21 +1,48 @@
-/* 제목 */
-.title {
-  margin-bottom: 3px;
-  color: rgba(0, 0, 0, 0.815) !important;
-  text-align: left !important;
-  padding: 14px 14px 8px 30px;
-  font-size: 2.3rem;
-  font-weight: bold;
-  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
+/* 전체 컨테이너 - 높이 제한하고 스크롤 생성 */
+.container {
+  padding: 20px;
+  background-color: #f5f5f5;
 }
 
-/* 컨텐츠 래퍼*/
+/* 메인 카드 */
+.mainCard {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* 제목 */
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* 컨텐츠 래퍼 (왼쪽 컨트롤 + 오른쪽 데이터 영역) */
 .contentWrapper {
   display: flex;
-  flex-direction: column;
   gap: 30px;
-  align-items: stretch;
-  padding: 30px;
+  align-items: flex-start;
+}
+
+/* 왼쪽 컨트롤 패널 */
+.controlPanel {
+  flex: 1;
+  min-width: 300px;
+  max-width: 350px;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  position: sticky;
+  top: 20px; /* 컨테이너 스크롤 시 상단에서 20px 떨어진 곳에 고정 */
+  max-height: calc(90vh - 40px); /* 컨테이너 높이에서 여백 제외 */
+  overflow-y: auto; /* 컨트롤 패널 내부에서도 스크롤 가능 */
 }
 
 /* 드롭다운 섹션 */
@@ -163,28 +190,6 @@
   gap: 20px;
 }
 
-/* 컨테이너 제목 */
-.containerTitle::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 40px;
-  background-color: white;       /* 바탕색 */
-  border: 2px solid #ffffff;     /* 테두리색 */
-  background-color: #3748a7;     /* 안 채운 네모로 하고 싶으면 white */
-  border-radius: 2px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.containerTitle{
-  text-align: left;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #3748a7;
-  margin-bottom: 8px;
-}
-
 /* 표 컨테이너 */
 .tableContainer {
   background: white;
@@ -201,19 +206,17 @@
   border: 1px solid #e0e0e0;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
 }
 
-/* 섹션을 감싸는 공통 스타일 */
-.section {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* 컨테이너 제목 */
+.containerTitle {
+  background-color: #5a78d8;
+  color: white;
+  padding: 15px 20px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
 }
-
-
-
 
 /* 표 내용 */
 .tableContent {
@@ -323,98 +326,4 @@
   .title {
     font-size: 24px;
   }
-}
-
-.filterRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: flex-end;
-  margin: 10px 0;
-}
-
-.filterRow .dropdownSection {
-  margin-bottom: 0; /* 기존 margin 제거 */
-  flex-shrink: 0;
-}
-
-.filterRow .fetchButton {
-  height: 40px;
-  padding: 0 12px;
-  font-size: 14px;
-  flex-shrink: 0;
-}
-
-.dataDisplayArea {
-  display: flex;
-  flex-direction: column;
-}
-
-.filterWrapper {
-  display: flex;
-  gap: 50px;
-  background: white;
-  padding: 15px 30px 20px 30px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  align-items: stretch; /* 중요! 높이 맞춤 */
-  width: 1300px;
-  margin: 0 auto;
-}
-
-/* 왼쪽 영역 (지역 선택 + 날짜 선택) */
-.filterLeft {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 4;
-  min-width: 250px;
-}
-
-/* 오른쪽 전체 래퍼 */
-.filterRight {
-  display: flex;
-  flex: 6;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 50px;
-}
-
-/* 선택된 정보 박스 */
-.selectedInfo {
-  /* flex: 4; */
-  background: #e8ecf5;
-  border-radius: 8px;
-  padding: 15px;
-  border-left: 4px solid #4c66af;
-  width: 360px !important;
-  height: 160px !important;
-  margin: 30px 0 0 0;
-}
-
-.infoTitle {
-font-size: 1.3rem;
-}
-.infoItem {
-font-size : 1.2rem;
-}
-
-
-/* 조회 버튼 */
-.fetchButton {
-  flex: 2;
-  height: 160px !important;
-  padding: 12px;
-  background-color: #5789e6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.5rem !important;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
 }

@@ -14,16 +14,10 @@ import CheckMyPage from './pages/CheckMypage'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Logout from './pages/Logout'
-import sticker from './components/sticker.webp'
 
 function App() {
   return (
     <div className='app-container'>
-      <div className='Team01_logo'>
-        <Link to="/">
-          <img src={sticker} alt="로고" style={{ height: 90, filter: 'drop-shadow(0 2px 6px rgba(25,118,210,0.10))', borderRadius: '18px', padding: '2px' }} />
-        </Link>
-      </div>
       <Header />
       <nav>
         <Link to="/">최저가 물건 찾기</Link>

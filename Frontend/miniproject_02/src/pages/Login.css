@@ -1,3 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+min-height: 100vh;
+overflow-x: hidden;
+}
+.body-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 90px;
+  padding-bottom: 40px; /* footer 고려 */
+  box-sizing: border-box;
+}
 
 .form-container {
   display: flex;
@@ -12,7 +28,6 @@
   width: 100%;
   min-height: 500px;
   box-sizing: border-box;
-  margin-top : 80px
 }
 
 .container h2 {

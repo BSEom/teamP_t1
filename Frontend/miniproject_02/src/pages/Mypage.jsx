@@ -81,6 +81,16 @@ function Mypage() {
         if (activeTab === 'posts') {
             return (
                 <>
+                    <div className="mypage-board-search stylish-search">
+                        <select className="mypage-board-select stylish-select">
+                            <option>제목</option>
+                            <option>내용</option>
+                        </select>
+                        <div className="mypage-board-searchbox stylish-searchbox" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                            <input type="text" placeholder="검색어를 입력하세요" className="stylish-input" />
+                        </div>
+                    </div>
+                    <button className="mypage-board-searchbtn stylish-searchbtn" style={{ minWidth: '100px', alignSelf: 'flex-end' }}>검색</button>
                     {BoardPosts.length === 0 ? (
                         <div className="stylish-empty-list">
                             <span>게시글이 없습니다.</span>
@@ -110,6 +120,16 @@ function Mypage() {
         } else if (activeTab === 'comments') {
             return (
                 <>
+                    <div className="mypage-board-search stylish-search">
+                        <select className="mypage-board-select stylish-select">
+                            <option>제목</option>
+                            <option>내용</option>
+                        </select>
+                    </div>
+                    <div className="mypage-board-searchbox stylish-searchbox" style={{ marginTop: '10px', marginBottom: '10px' }}>
+                        <input type="text" placeholder="검색어를 입력하세요" className="stylish-input" />
+                    </div>
+                    <button className="mypage-board-searchbtn stylish-searchbtn" style={{ minWidth: '100px', alignSelf: 'flex-end' }}>검색</button>
                     {/* <div className="stylish-empty-list">
                         <span>댓글이 없습니다.</span>
                     </div> */}
@@ -126,7 +146,7 @@ function Mypage() {
                                         <p className="bookmark-content">
                                             {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
                                         </p> */}
-                                        <h4 className="bookmark-title"> 제목 : {post.TITLE}</h4>
+                                        <h4 className="bookmark-title">글 제목: {post.TITLE}</h4>
                                         <p className="bookmark-content">
                                             내 댓글: {post.CONTENT?.length > 100 ? post.CONTENT.substring(0, 100) + '...' : post.CONTENT}
                                         </p>
@@ -144,6 +164,9 @@ function Mypage() {
         } else if (activeTab === 'bookmarks') {
             return (
                 <>
+                    <div className="mypage-board-search stylish-search">
+                        <input type="text" placeholder="검색어를 입력하세요" className="stylish-input" />
+                    </div>
                     {bookmarkedPosts.length === 0 ? (
                         <div className="stylish-empty-list">
                             <span>북마크한 게시글이 없습니다.</span>
@@ -175,41 +198,19 @@ function Mypage() {
     return (
         <div className="mypage-container">
             <section className="mypage-section">
-                <h2 className="Mypage-title">마이페이지</h2>
+                <h2>마이페이지</h2>
                 <div className="mypage-layout">
                     <aside className="mypage-menu">
                         <div className="mypage-profile">
                             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=" " className="mypage-profile-img" />
-                            <div className="mypage-profile-id">{userInfo?.username || 'user123'}</div>
+                            <div className="mypage-profile-id">아이디: {userInfo?.username || 'user123'}</div>
                         </div>
                         <button onClick={() => setSelectedMenu('info')}>회원 정보</button>
                         <button onClick={() => {
                             setSelectedMenu('posts');
                             setActiveTab('posts');
                         }}>나의 글</button>
-                        {/* 여기 밑에 배너 탭 조건부로 표시!! */}
-                        {selectedMenu === 'posts' && (
-                            <div className="sub-tab-banner-left">
-                                <span
-                                    className={`sub-tab fake-button ${activeTab === 'posts' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('posts')}
-                                >
-                                    게시글
-                                </span>
-                                <span
-                                    className={`sub-tab fake-button ${activeTab === 'comments' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('comments')}
-                                >
-                                    댓글
-                                </span>
-                                <span
-                                    className={`sub-tab fake-button ${activeTab === 'bookmarks' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('bookmarks')}
-                                >
-                                    북마크
-                                </span>
-                            </div>
-                        )}
+
                     </aside>
                     <div className="mypage-content">
                         {selectedMenu === 'info' ? (
@@ -265,34 +266,26 @@ function Mypage() {
                                     </div>
                                 </form>
                             </div>
-                        ) : selectedMenu === 'posts' ? ( 
+                        ) : selectedMenu === 'posts' ? (
                             <div className="mypage-board-manage stylish-board">
-                                <h3 className="mypage-board-title stylish-title">게시물 관리</h3>
-                                
-                                {/* 👉 하위 배너 스타일 탭 바 */}
-                                {/*<div className="sub-tab-banner">
+                                <h3 className="mypage-board-title stylish-title">게시물관리</h3>
+                                <div className="mypage-board-tabs stylish-tabs">
                                     <button
-                                        className={`sub-tab ${activeTab === 'posts' ? 'active' : ''}`}
+                                        className={`stylish-tab${activeTab === 'posts' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('posts')}
-                                    >
-                                        게시글 ({BoardPosts.length})
-                                    </button>
+                                    >게시글 ({BoardPosts.length})</button>
                                     <button
-                                        className={`sub-tab ${activeTab === 'comments' ? 'active' : ''}`}
+                                        className={`stylish-tab${activeTab === 'comments' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('comments')}
-                                    >
-                                        댓글 ({CommentPosts.length})
-                                    </button>
+                                    >댓글 ({CommentPosts.length})</button>
                                     <button
-                                        className={`sub-tab ${activeTab === 'bookmarks' ? 'active' : ''}`}
+                                        className={`stylish-tab${activeTab === 'bookmarks' ? ' active' : ''}`}
                                         onClick={() => setActiveTab('bookmarks')}
                                     >
                                         북마크 ({bookmarkedPosts.length})
                                     </button>
-                                </div>
 
-                                 선택된 탭 콘텐츠 
-                                {renderTabContent()} */}
+                                </div>
                                 {renderTabContent()}
                             </div>
                         ) : (

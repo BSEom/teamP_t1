@@ -212,8 +212,8 @@ const View = () => {
                         <div className="meta-writer-name">{post.name}</div>
                     </div>
                     <div className="meta-day">
-                        {/* <label>작성일</label> */}
-                        <div className="meta-write-day"> | {post.boardDate}</div>
+                        <label>작성일</label>
+                        <div className="meta-write-day">{post.boardDate}</div>
                     </div>
 
                     <div className="meta-hit">
@@ -256,7 +256,9 @@ const View = () => {
                             <div key={c.COMMENT_ID} className="comment-item mb-3">
                                 <div className="comment-meta">
                                     <strong>{c.WRITER}</strong>
+                                    <span className="comment-time">{c.COMMENT_TIME}</span>
                                 </div>
+
                                 {updateCommentId === c.COMMENT_ID ? (
                                     <>
                                         <textarea
@@ -265,15 +267,13 @@ const View = () => {
                                             onChange={(e) => setUpdateContent(e.target.value)}
                                         />
                                         <div className="comment-edit-box">
-                                            <button className="comment-update" onClick={() => handleCommentUpdate(c.COMMENT_ID)}>저장</button>
-                                            <hr />
-                                            <button className="comment-update-cancel" onClick={() => setUpdateCommentId(null)}>취소</button>
+                                            <button className="btn btn-primary btn-smaller" onClick={() => handleCommentUpdate(c.COMMENT_ID)}>저장</button>
+                                            <button className="btn btn-secondary btn-smaller" onClick={() => setUpdateCommentId(null)}>취소</button>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div className="content-box">{c.CONTENT}</div>
-                                        <span className="comment-time">{c.COMMENT_TIME}</span>
 
                                         {c.WRITER === username && (
                                             <div className="content-button-box">
@@ -302,8 +302,8 @@ const View = () => {
                                     placeholder="댓글을 입력하세요."
                                 />
                             </div>
-                            <div className="add-comment-area">
-                                <button className="add-comment" onClick={handleCommentInsert}>댓글 등록</button>
+                            <div className="text-right mb-4">
+                                <button className="add_comment" onClick={handleCommentInsert}>댓글 등록</button>
                             </div>
                         </>
                     ) : (
