@@ -48,7 +48,7 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 |                                   [@BBiT808](https://github.com/BBiT808)                            |                                 [@pmj8298](https://github.com/pmj8298)                                      |                                   [@leebada13](https://github.com/leebada13)                            |
 
 
-
+<hr>
 ### 💻 Development Tools  
 ![VSCode](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
 <br>
@@ -71,4 +71,5 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)  
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 <br>
+<hr>
 
