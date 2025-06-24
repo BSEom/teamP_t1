@@ -24,7 +24,7 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 
 |                                                 김은희                                                  |                                                 박민주                                                  |
 | :-----------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------: | 
-| <img src="https://avatars.githubusercontent.com/u/122371902?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/122357103?v=4" alt="profile" width="100" height="100"> | 
+| <img src="https://avatars.githubusercontent.com/u/122371902?v=4" alt="profile" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/164135340?v=4" alt="profile" width="100" height="100"> | 
 |                                   [@](https://github.com/)                            |                                 [@pmj8298](https://github.com/pmj8298)                         
 
 
