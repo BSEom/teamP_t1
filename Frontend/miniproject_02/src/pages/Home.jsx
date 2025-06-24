@@ -162,7 +162,7 @@ const Home = () => {
                   </Tooltip>
                 </Marker>
               )}
-              {mapData.map((item, idx) => {
+              {Array.isArray(mapData) && mapData.map((item, idx) => {
                 const { 위도: lat, 경도: lon, 타입: type, 이름: placeName } = item
                 let color = "purple", fillColor = "skyblue"
                 if (type === "Lowest") {

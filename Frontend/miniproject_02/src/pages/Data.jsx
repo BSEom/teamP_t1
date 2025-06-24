@@ -465,7 +465,7 @@ const Data = () => {
                     <div className={styles.infoTitle}>선택된 정보:</div>
                     {selectedItem && (
                       <div className={styles.infoItem}>
-                        지역: <strong>{selectedItem}</strong>
+                        품목: <strong>{selectedItem}</strong>
                       </div>
                     )}
                     {(selectedYear && selectedMonth) && (
