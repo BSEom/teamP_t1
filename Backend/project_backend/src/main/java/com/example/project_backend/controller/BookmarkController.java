@@ -23,17 +23,45 @@ public class BookmarkController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // @GetMapping("/bookmark/{boardId}")
+    // public boolean isBookmarked(@PathVariable int boardId, @RequestParam String
+    // userName) {
+    // try {
+
+    // String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+    // Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class,
+    // userName);
+
+    // String sql = "SELECT IS_BOOKMARKED FROM USER_BOOKMARK WHERE BOARD_ID = ? AND
+    // USER_ID = ?";
+    // Integer isBookmarked = jdbcTemplate.queryForObject(sql, Integer.class,
+    // boardId, userId);
+
+    // return isBookmarked != null && isBookmarked == 1;
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return false;
+    // }
+    // }
     @GetMapping("/bookmark/{boardId}")
     public boolean isBookmarked(@PathVariable int boardId, @RequestParam String userName) {
         try {
-
             String findUserSql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
-            Integer userId = jdbcTemplate.queryForObject(findUserSql, Integer.class, userName);
+            List<Integer> userIds = jdbcTemplate.query(findUserSql, (rs, rowNum) -> rs.getInt("USER_ID"), userName);
+
+            if (userIds.isEmpty()) {
+                System.out.println("사용자 없음: " + userName);
+                return false;
+            }
+
+            int userId = userIds.get(0);
 
             String sql = "SELECT IS_BOOKMARKED FROM USER_BOOKMARK WHERE BOARD_ID = ? AND USER_ID = ?";
-            Integer isBookmarked = jdbcTemplate.queryForObject(sql, Integer.class, boardId, userId);
+            List<Integer> bookmarks = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("IS_BOOKMARKED"), boardId,
+                    userId);
 
-            return isBookmarked != null && isBookmarked == 1;
+            return !bookmarks.isEmpty() && bookmarks.get(0) == 1;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
