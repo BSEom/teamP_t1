@@ -9,6 +9,7 @@ import com.example.project_backend.dto.SignUpDto;
 import com.example.project_backend.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 import java.util.Optional;
@@ -84,7 +85,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up/email-check")
-    public ResponseEntity<Map<String, String>> emailCheck(@RequestBody String email) {
+    public ResponseEntity<Map<String, String>> emailCheck(@Valid @RequestBody String email) {
 
         boolean result = memberService.emailck(email);
 

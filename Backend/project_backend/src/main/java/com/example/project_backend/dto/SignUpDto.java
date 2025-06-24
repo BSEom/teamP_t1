@@ -1,11 +1,15 @@
 package com.example.project_backend.dto;
 
+import jakarta.validation.constraints.Email;
+
 public class SignUpDto {
 
     private String username;
     private String password;
     private String address;
     private String phonenumber;
+
+    @Email(message = "올바른 이메일 형식이 아닙니다.")
     private String email;
 
     public SignUpDto(String username, String password, String address, String phonenumber, String email) {
