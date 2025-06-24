@@ -1,10 +1,3 @@
-body {
-    font-family: 'Noto Sans KR', 'Pretendard', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f7f9fb;
-    margin: 0;
-    padding: 0;
-}
-
 .board-main-layout {
     display: flex;
     justify-content: center;
@@ -14,42 +7,42 @@ body {
 }
 
 .board-section {
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
-    padding: 40px 48px;
-    min-width: 900px;
-    max-width: 1200px;
-    width: 100%;
+    overflow: visible;
+    min-width: 1000px;
+    max-width: 1400px;
+    width: 95%;
     position: relative;
+    padding: 0 0 48px 0;
+    box-sizing: border-box;
+}
+
+.board-title{
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.815) !important;
+  text-align: left !important;
+  padding: 14px 14px 8px 30px;
+  font-size: 2.3rem;
+  font-weight: bold;
+  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
 }
 
 .board-header {
-    display: flex;
+     display: flex;              /* flex로 정렬 */
     justify-content: space-between;
     align-items: center;
-    margin : 0 30px 32px 30px;
-    flex-wrap: wrap;
-}
-
-.board-header h2 {
-    color: #1976d2;
-    font-size: 2.5rem;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    text-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-    margin: 0;
+    flex-wrap: nowrap;
+    gap: 16px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .board-search-box {
-    margin: 100px 0 0 80px;
+    margin: 0; /* margin 제거 */
+    flex-grow: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 8px;
-    flex-wrap: nowrap;
-    width: auto;
-    max-width: none;
-    flex-shrink: 0;
 }
 
 .board-search-select {
@@ -63,6 +56,7 @@ body {
     color: #222;
     cursor: pointer;
     flex-shrink: 0;
+    margin-left: 415px;
 }
 
 .board-search-select:focus {
@@ -143,11 +137,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-width: 1200px; /* 더 넓게! */
+    margin: 0 auto;
 }
 
 .board-table {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     border-collapse: collapse;
     border-spacing: 0 8px;
     background: transparent;
@@ -155,27 +151,50 @@ body {
 
 .board-table th,
 .board-table td {
-    border: 1px solid #e3eaf5;
+    border: none; /* 세로줄 제거 */
     padding: 1rem 0.7rem;
-    background: #f9fafb;
     color: #333;
-    font-size: 1.05rem;
-    text-align: center;
+    font-size: 1.05rem !important;
+    text-align: left;
+    transition: background-color 0.2s;
 }
 
+.board-table td {
+    border-bottom: 2px solid #9eb9e4; /* 부드러운 회색 선 추가 */
+}
+
+.writer-cell {
+    padding-left: 8rem !important;
+    color: #748aad !important;
+}
+
+/* 마우스 오버시 셀 색상 변경 */
+.board-table tr:hover td {
+    background-color: #e3f2fd; /* 연한 하늘색 */
+}
+
+/* 제목 셀은 왼쪽 정렬 */
+.board-table .table-title {
+    text-align: left;
+    padding-left: 50px;
+}
+
+.table-num {
+    text-align: center !important;
+    vertical-align: middle;
+}
+
+/* 게시판 제목 설정 */
 .board-table th {
-    background: #e3f0ff;
-    color: #1976d2;
-    font-weight: 700;
-    font-size: 1.08rem;
-    border-bottom: 2px solid #b6d0f7;
+     font-weight: 800; /* 더 진하게 */
+    color: #0e3d75;
+    text-align: center;
+    font-size: 1.2rem !important;
+    border-bottom: 2px solid #6480aa;
 }
 
-.board-table tr {
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(25, 118, 210, 0.05);
-    border-radius: 8px;
-    transition: box-shadow 0.2s;
+.board-table tr:nth-child(1) {
+    border-top: 3px solid #1565c0;
 }
 
 .board-table tr:hover {
@@ -185,16 +204,17 @@ body {
 
 .board-table .table-title {
     text-align: left;
-    color: #1976d2;
-    font-weight: 500;
-    background: #f9fafb;
+    color: #1a4d80;
+    font-weight: bold;
     transition: background 0.2s;
+    font-size: 1.05rem !important;
 }
 
 .board-table .table-title a {
-    color: #1976d2;
+    color: #1a4d80;
     text-decoration: none;
     transition: text-decoration 0.2s, color 0.2s;
+    font-size: 1.05rem !important;
 }
 
 .board-table .table-title a:hover {
@@ -246,7 +266,8 @@ body {
 }
 
 .btn.write-post {
-    margin: 100px 30px 0 0;
+    margin-left: auto;
+    align-self: flex-start;
     width: 150px !important;
     height: 44px !important;
     background: #fff;
@@ -264,6 +285,7 @@ body {
     color: #fff;
     border: 2px solid #1565c0;
 }
+
 
 /* 반응형 디자인 */
 @media (max-width: 1200px) {

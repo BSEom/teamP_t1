@@ -50,12 +50,12 @@ const Data = () => {
           {
             label: '최저가',
             data: chartData.map(d => d.MIN_PRICE),
-            backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            backgroundColor: 'rgb(82, 122, 197)'
           },
           {
             label: '최고가',
             data: chartData.map(d => d.MAX_PRICE),
-            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+            backgroundColor: 'rgba(250, 100, 80, 0.88)'
           }
         ]
       },
@@ -215,8 +215,10 @@ const Data = () => {
         
         <div className={styles.contentWrapper}>
           {/* 왼쪽: 드롭다운 영역 */}
-          <div className={styles.controlPanel}>
+          <div className={styles.filterRow}>
             {/* 지역 선택 드롭다운 */}
+            <div className={styles.filterWrapper}>
+            <div className={styles.filterLeft}>
             <div className={styles.dropdownSection}>
               <label className={styles.label}>지역 선택</label>
               <div className={styles.dropdown}>
@@ -294,8 +296,9 @@ const Data = () => {
                 )}
               </div>
             </div>
-
+            </div>
             {/* 선택된 정보 표시 */}
+            <div className={styles.filterRight}>
             {(selectedItem || (selectedYear && selectedMonth)) && (
               <div className={styles.selectedInfo}>
                 <div className={styles.infoTitle}>선택된 정보:</div>
@@ -311,7 +314,6 @@ const Data = () => {
                 )}
               </div>
             )}
-
             {/* 데이터 조회 버튼 */}
             <button 
               className={styles.fetchButton}
@@ -321,12 +323,36 @@ const Data = () => {
               {loading ? '데이터 조회 중...' : '통계 데이터 조회'}
             </button>
           </div>
+            </div>
+              </div>
+
+
 
           {/* 오른쪽: 표와 그래프 영역 */}
           <div className={styles.dataDisplayArea}>
+            {/* 그래프 컨테이너 */}
+            <div className={styles.section}>
+            <h3 className={styles.containerTitle}> 데이터 그래프</h3>
+            <div className={styles.chartContainer}>
+              <div className={styles.chartContent}>
+                {chartData ? (
+                  <div className={styles.chartPlaceholder}>
+                    {/* 여기에 실제 차트 라이브러리 컴포넌트가 들어갈 예정 */}
+                    {/* <p>차트 데이터가 로드되었습니다!</p>
+                    <pre>{JSON.stringify(chartData, null, 2)}</pre> */}
+                    <canvas ref={chartRef} className={styles.chartCanvas}></canvas>
+                  </div>
+                ) : (
+                  <div className={styles.noData}>표시할 그래프가 없습니다.</div>
+                )}
+              </div>
+            </div>
+          </div>
+
             {/* 표 컨테이너 */}
-            <div className={styles.tableContainer}>
+            <div className={styles.section}>
               <h3 className={styles.containerTitle}> 데이터 표</h3>
+            <div className={styles.tableContainer}>
               <div className={styles.tableContent}>
                 {tableData.length > 0 ? (
                   <table className={styles.dataTable}>
@@ -353,23 +379,8 @@ const Data = () => {
                 )}
               </div>
             </div>
-
-            {/* 그래프 컨테이너 */}
-            <div className={styles.chartContainer}>
-              <h3 className={styles.containerTitle}> 데이터 그래프</h3>
-              <div className={styles.chartContent}>
-                {chartData ? (
-                  <div className={styles.chartPlaceholder}>
-                    {/* 여기에 실제 차트 라이브러리 컴포넌트가 들어갈 예정 */}
-                    {/* <p>차트 데이터가 로드되었습니다!</p>
-                    <pre>{JSON.stringify(chartData, null, 2)}</pre> */}
-                    <canvas ref={chartRef} className={styles.chartCanvas}></canvas>
-                  </div>
-                ) : (
-                  <div className={styles.noData}>표시할 그래프가 없습니다.</div>
-                )}
-              </div>
             </div>
+
           </div>
         </div>
       </div>
