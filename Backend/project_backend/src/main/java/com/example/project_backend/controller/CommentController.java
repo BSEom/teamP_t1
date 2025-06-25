@@ -133,11 +133,11 @@ public class CommentController {
 
             // String sql = "SELECT * FROM BOARD_COMMENT WHERE USER_ID = ? ";
 
-            String sql = "SELECT DISTINCT UB.TITLE, BC.CONTENT " +
+            String sql = "SELECT UB.BOARD_ID,UB.TITLE,BC.CONTENT,BC.COMMENT_ID, BC.COMMENT_DATE " +
                     "FROM BOARD_COMMENT BC " +
                     "JOIN USER_BOARD UB ON BC.BOARD_ID = UB.BOARD_ID " +
                     "WHERE BC.USER_ID = ? ";
-
+                    
             return jdbcTemplate.queryForList(sql, userId);
         } catch (Exception e) {
             e.printStackTrace();
