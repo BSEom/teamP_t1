@@ -131,7 +131,12 @@ public class CommentController {
             // "GROUP BY B.BOARD_ID, B.TITLE, B.CONTENT, U.USER_NAME, B.HIT " +
             // "ORDER BY B.BOARD_ID ";
 
-            String sql = "SELECT * FROM BOARD_COMMENT WHERE USER_ID = ? ";
+            // String sql = "SELECT * FROM BOARD_COMMENT WHERE USER_ID = ? ";
+
+            String sql = "SELECT DISTINCT UB.TITLE, BC.CONTENT " +
+                    "FROM BOARD_COMMENT BC " +
+                    "JOIN USER_BOARD UB ON BC.BOARD_ID = UB.BOARD_ID " +
+                    "WHERE BC.USER_ID = ? ";
 
             return jdbcTemplate.queryForList(sql, userId);
         } catch (Exception e) {

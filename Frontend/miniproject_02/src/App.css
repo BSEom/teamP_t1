@@ -44,15 +44,13 @@ html, body {
 }
 
 .Team01_logo {
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  z-index: 2000; 
-  width: 200px; 
+  /* position 속성을 제거하면 일반적인 문서 흐름을 따릅니다 */
+  width: 200px;
   padding-top: 10px;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   justify-content: center;
+  transform: translateZ(0);
 }
 
 @keyframes logo-spin {
@@ -79,7 +77,7 @@ html, body {
 }
 
 .info_container {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 1rem 2rem;
@@ -99,7 +97,7 @@ html, body {
 
 nav {
   position: relative;   /* sticky 대신 relative */
-  margin : 100px -200px 0 -200px !important;
+  margin : 10px -200px 0 -200px !important;
   max-width: 3000px;
   background: linear-gradient(
     135deg,
@@ -109,7 +107,7 @@ nav {
     #3ba7ff75 75%,
     #63a1ff 100%
   );
- backdrop-filter: blur(10px);
+ /* backdrop-filter: blur(10px); */
   border: 1px solid rgba(255, 255, 255, 0.2);
   
   padding: 1rem 2rem;

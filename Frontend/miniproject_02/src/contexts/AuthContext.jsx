@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // 앱 시작 시 세션 검사
     const checkLoginStatus = async () => {
-      const res = await fetch("http://localhost:8050/user/me", {
+      const res = await fetch("/user/me", {
         credentials: "include",
       });
 
@@ -24,6 +24,8 @@ export const AuthProvider = ({ children }) => {
         setUsername(null);
         setUserid(null);
       }
+      console.log(username);
+      console.log(userid);
     };
 
     checkLoginStatus();

@@ -60,6 +60,7 @@ public class ChartController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "구별 물품 가격 변동 그래프")
     @GetMapping("/area")
     public ResponseEntity<List<Map<String, Object>>> getLineChartData(
             @RequestParam String region,
