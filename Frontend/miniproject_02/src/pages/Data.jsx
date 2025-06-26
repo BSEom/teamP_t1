@@ -310,7 +310,7 @@ const Data = () => {
 
     setLoading(true)
     try {
-      const response = await axios.get('/chart/select', {
+      const response = await axios.get('/api/chart/select', {
         params: {
           item: selectedItem,
           year: selectedYear,
@@ -338,7 +338,7 @@ const Data = () => {
 
     setLoading_2(true)
     try {
-      const response = await axios.get('/chart/area', {
+      const response = await axios.get('/api/chart/area', {
         params: {
           region: selectedRegion,
           item: selectedItem

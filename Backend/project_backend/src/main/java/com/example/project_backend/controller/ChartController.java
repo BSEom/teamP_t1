@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/chart")
+@RequestMapping("/api/chart")
 public class ChartController {
 
     @Autowired

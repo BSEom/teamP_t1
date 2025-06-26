@@ -12,7 +12,7 @@ function Mypage() {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const res = await fetch("/user/me", {
+            const res = await fetch("/api/user/me", {
                 credentials: "include",
             });
 

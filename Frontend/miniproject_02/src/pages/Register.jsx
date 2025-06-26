@@ -43,7 +43,7 @@ const Register = () => {
     // e.target.submit();
     
     // JSON으로 제출
-    const response = await fetch("/user/sign-up", {
+    const response = await fetch("/api/user/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const Register = () => {
       return;
     }
 
-    const res = await fetch("/user/sign-up/name-check", {
+    const res = await fetch("/api/user/sign-up/name-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -107,7 +107,7 @@ const Register = () => {
       return;
     }
 
-    const res = await fetch("/user/sign-up/email-check", {
+    const res = await fetch("/api/user/sign-up/email-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",

@@ -12,7 +12,7 @@ const Write = () => {
 
     useEffect(() => {   // 로그인 연동
         const fetchUser = async () => {
-            const res = await fetch("/user/me", {
+            const res = await fetch("/api/user/me", {
                 credentials: "include",
             });
         

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // 앱 시작 시 세션 검사
     const checkLoginStatus = async () => {
-      const res = await fetch("/user/me", {
+      const res = await fetch("/api/user/me", {
         credentials: "include",
       });
 
