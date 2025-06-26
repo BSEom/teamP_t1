@@ -284,6 +284,9 @@
     border: 2px solid #1565c0;
 }
 
+.table-view {
+    text-align: center !important
+}
 
 /* 반응형 디자인 */
 @media (max-width: 1200px) {
@@ -368,4 +371,6 @@
         min-width: 35px;
         font-size: 0.9rem;
     }
+
+    
 }

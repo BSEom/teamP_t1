@@ -68,8 +68,8 @@ public class BoardController {
 
         String baseSql = """
                     SELECT * FROM (
-                        SELECT ROWNUM AS RNUM, BOARD_ID, WRITER, TITLE FROM (
-                            SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE
+                        SELECT ROWNUM AS RNUM, BOARD_ID, WRITER, TITLE, HIT FROM (
+                            SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE, b.HIT
                             FROM USER_BOARD b
                             JOIN USERS u ON b.USER_ID = u.USER_ID
                 """;
