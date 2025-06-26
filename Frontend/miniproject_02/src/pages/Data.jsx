@@ -278,6 +278,28 @@ const Data = () => {
     setIsDateDropdownOpen(false)
   }
 
+  const resetChartState = () => {
+    setChartData([])
+    setChartData_2([])
+    setTableData([])
+    setTableData_2([])
+    setSelectedItem('')
+    setSelectedYear('')
+    setSelectedMonth('')
+    setSelectedRegion('')
+    setSelectedRegionCode('')
+
+    if (chartInstance.current) {
+      chartInstance.current.destroy()
+      chartInstance.current = null
+    }
+
+    if (chartInstance_2.current) {
+      chartInstance_2.current.destroy()
+      chartInstance_2.current = null
+    }
+  }
+
   const handleToggleView = () => {
     setIsChartView(prev => !prev)
 
@@ -362,12 +384,34 @@ const Data = () => {
       <div className={styles.mainCard}>
         <div className={styles.headerRow}>
           <h2 className={styles.title}> 부산 지역별 통계 데이터
-            <button 
+            {/* <button 
               className={styles.toggleButton} 
               onClick={handleToggleView}
             >
               {isChartView ? '지역 통계 보기' : '날짜 통계 보기'}
-            </button>
+              </button> */}
+              <div className={styles.toggleButtonGroup}>
+                <button
+                  className={styles.toggleButton}
+                  disabled={isChartView}
+                  onClick={() => {
+                    setIsChartView(true)
+                    resetChartState()
+                  }}
+                >
+                  날짜 통계 보기
+                </button>
+                <button
+                  className={styles.toggleButton}
+                  disabled={!isChartView}
+                  onClick={() => {
+                    setIsChartView(false)
+                    resetChartState()
+                  }}
+                >
+                  지역 통계 보기
+                </button>
+              </div>
           </h2>
         </div>
         

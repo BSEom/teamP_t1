@@ -102,7 +102,8 @@ const Board = () => {
                                 <th className="table-num">No</th>
                                 <th className="table-title1">제목</th>
                                 <th className="table-name">작성자</th>
-
+                                {/* <th className="table-view">조회수</th> */}
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -115,6 +116,7 @@ const Board = () => {
                                         </a>
                                     </td>
                                     <td className="writer-cell">{board.WRITER}</td>
+
                                 </tr>
                             ))}
                         </tbody>

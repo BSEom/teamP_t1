@@ -8,6 +8,8 @@
   font-weight: bold;
   border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
   position: relative;  /* 버튼 기준 위치를 h2로 설정 */
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 컨텐츠 래퍼*/
@@ -421,7 +423,7 @@ font-size : 1.2rem;
 }
 
 
-.toggleButton {
+/* .toggleButton {
   width: 200px;
   margin-left: 16px;
   padding: 6px 12px;
@@ -433,7 +435,7 @@ font-size : 1.2rem;
   cursor: pointer;
   transition: background-color 0.2s ease;
   position: absolute;
-  right: 0;             /* 오른쪽에 고정 */
+  right: 0;            
 }
 
 .toggleButton:hover {
@@ -447,4 +449,34 @@ font-size : 1.2rem;
   border-radius: 10px;
   font-size: 1.1rem;
   color: #333;
+} */
+
+
+/* styles.module.css */
+.toggleButtonGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
+
+.toggleButton {
+  padding: 8px 14px;
+  font-weight: bold;
+  background-color: #4c63af;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggleButton:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* .headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
