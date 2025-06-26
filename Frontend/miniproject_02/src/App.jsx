@@ -21,7 +21,12 @@ function App() {
     <div className='app-container'>
       <div className='Team01_logo'>
         <Link to="/">
-          <img src={sticker} alt="로고" style={{ height: 90, borderRadius: '18px', padding: '2px' }} />
+          <img src={sticker} 
+               alt="로고" 
+               style={{ height: 90, 
+                        borderRadius: '18px', 
+                        padding: '2px' }} />
+              <div className='logoText'>알뜰 051</div>
         </Link>
       </div>
       <Header />

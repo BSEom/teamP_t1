@@ -5,7 +5,6 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from './Home.module.css'
 import RegionLayer from './RegionLayer'
-import { useAuth } from '../contexts/AuthContext'
 
 // npm i leaflet react-leaflet 이걸 설치해야 지도가 보임 !!
 
@@ -41,21 +40,6 @@ const FlyToRegion = ({ selectedRegion, geoData }) => {
   return null;
 };
 
-const GetRegion = async () => {
-
-  const res = await fetch("/api/user/info", {
-      method: "GET",
-      credentials: "include",
-    });
-
-  const result = await res.json();
-
-  const address = result.message.address;
-  console.log(address);
-
-  return address;
-};
-
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState('')
   const [selectedRegionCode, setSelectedRegionCode] = useState('')
@@ -63,21 +47,12 @@ const Home = () => {
   const [mapData, setMapData] = useState([])
   const [mapCenter, setMapCenter] = useState({ lat: 35.1796, lng: 129.0756 })
 
-  const { isLoggedIn, username } = useAuth();
-
   const [geoData, setGeoData] = useState(null);
   
    useEffect(() => {
     fetch("/map.geojson") 
       .then((res) => res.json())
       .then((data) => setGeoData(data));
-
-    if (isLoggedIn) {
-      console.log("..");
-      setSelectedRegion(GetRegion());
-      // GetRegion();
-    }
-    
   }, [])
 
   const busanRegions = [
@@ -166,7 +141,7 @@ const Home = () => {
             <MapContainer
               center={[mapCenter.lat, mapCenter.lng]}
               zoom={5}
-              style={{ height: '600px', width: '1300px', borderRadius: '10px' }}
+              style={{ height: '600px', width: '1500px', borderRadius: '10px' }}
             >
               <TileLayer
                 attribution='&copy; OpenStreetMap contributors'
@@ -175,10 +150,7 @@ const Home = () => {
 
               {/* Geo JSON */}
               {geoData && (
-                <>
                 <RegionLayer geoData={geoData} selectedRegion={selectedRegion} />
-                <FlyToRegion geoData={geoData} selectedRegion={selectedRegion} />
-                </>
               )}
 
 

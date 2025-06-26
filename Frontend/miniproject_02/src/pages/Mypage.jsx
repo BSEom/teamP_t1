@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import "./Mypage.css";
-import { useAuth } from "../contexts/AuthContext";
 
 function Mypage() {
     const [selectedMenu, setSelectedMenu] = useState('info');
@@ -10,18 +9,6 @@ function Mypage() {
     const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
     const [BoardPosts, setBoardPosts] = useState([]);
     const [CommentPosts, setCommentPosts] = useState([]);
-
-    const [ID, setID] = useState("");
-    const [nickname, setNickname] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [address, setAddress] = useState("");
-    
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
-
-    const isMatch = password && confirm && password === confirm;
-    // const { username } = useAuth();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -38,48 +25,7 @@ function Mypage() {
         };
 
         fetchUser();
-
-        const GetInfo = async () => {
-
-            const res = await fetch("/api/user/info", {
-                method: "GET",
-                credentials: "include",
-                });
-
-            const result = await res.json();
-
-            setID(result.message.id);
-            setNickname(result.message.username);
-            setAddress(result.message.address);
-            setPhone(result.message.phonenumber);
-            setEmail(result.message.email);
-        };
-
-        GetInfo();
-
     }, []);
-
-    const ChangePW = async () => {
-        console.log("수정 버튼 누름")
-        const res = await fetch( "/api/user/update", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "text/plain",
-            },
-            credentials: "include",
-            body: password,
-        });
-
-        const result = await res.json();
-
-        console.log(res);
-
-        if (res.ok) {
-            alert(JSON.stringify(result.message));
-        } else {
-            alert(JSON.stringify(result.message));
-        }
-    }
 
     // useEffect(() => {
     //     if (userInfo?.id) {
@@ -270,12 +216,12 @@ function Mypage() {
                             <div className="mypage-edit-box">
                                 <h3 className="mypage-edit-title">회원 정보 수정</h3>
                                 <form className="mypage-edit-form-simple">
-                                    <label>회원 ID<input type="text" value={ID} readOnly/></label>
-                                    <label>닉네임<input type="text" value={nickname} readOnly/></label>
+                                    <label>회원 ID<input type="text" /></label>
+                                    <label>닉네임<input type="text" /></label>
                                     <label>이메일
                                         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                            <input type="text" style={{ flex: 1 }} value={email} readOnly />
-                                            {/* <span>@</span>
+                                            <input type="text" style={{ flex: 1 }} placeholder="이메일 아이디" />
+                                            <span>@</span>
                                             <select style={{ flex: 1 }}>
                                                 <option value="gmail.com">gmail.com</option>
                                                 <option value="naver.com">naver.com</option>
@@ -285,12 +231,12 @@ function Mypage() {
                                                 <option value="hotmail.com">hotmail.com</option>
                                                 <option value="kakao.com">kakao.com</option>
                                                 <option value="직접입력">직접입력</option>
-                                            </select> */}
+                                            </select>
                                         </div>
                                     </label>
-                                    <label>전화번호<input type="text" value={phone} readOnly/></label>
+                                    <label>전화번호<input type="text" /></label>
                                     <label>부산광역시 구/군
-                                        {/* <select>
+                                        <select>
                                             <option value="">구/군 선택</option>
                                             <option value="중구">중구</option>
                                             <option value="서구">서구</option>
@@ -308,37 +254,13 @@ function Mypage() {
                                             <option value="수영구">수영구</option>
                                             <option value="사상구">사상구</option>
                                             <option value="기장군">기장군</option>
-                                        </select> */}
-                                        <input type="text" value={address} readOnly/>
+                                        </select>
                                     </label>
-                                    {/* <label>상세주소<input type="text" placeholder="상세주소 (예: 00동 123-45)" /></label> */}
-                                    <label>새 비밀번호
-                                        <input 
-                                            type="password" 
-                                            placeholder="새 비밀번호"  
-                                            className="form-control changeAllow" 
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                        </label>
-                                    <label>새 비밀번호 확인
-                                        <input 
-                                            type="password" 
-                                            placeholder="새 비밀번호 확인" 
-                                            className={`form-control changeAllow ${confirm ? (isMatch ? 'is-valid' : 'is-invalid') : ''}`}
-                                            value={confirm}
-                                            onChange={(e) => setConfirm(e.target.value)}
-                                        />
-                                    {confirm && (
-                                        isMatch ? (
-                                            <div className="valid-feedback">비밀번호가 일치합니다 ✅</div>
-                                        ) : (
-                                            <div className="invalid-feedback">비밀번호가 일치하지 않습니다 ❌</div>
-                                        )
-                                    )}
-                                    </label>
+                                    <label>상세주소<input type="text" placeholder="상세주소 (예: 00동 123-45)" /></label>
+                                    <label>새 비밀번호<input type="password" placeholder="새 비밀번호" /></label>
+                                    <label>새 비밀번호 확인<input type="password" placeholder="새 비밀번호 확인" /></label>
                                     <div className="mypage-edit-btns">
-                                        <button type="button" className="btn-save" onClick={ChangePW} disabled={!isMatch}>저장</button>
+                                        <button type="submit" className="btn-save">저장</button>
                                         <button type="button" className="btn-cancel">취소</button>
                                     </div>
                                 </form>

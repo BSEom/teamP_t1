@@ -17,6 +17,10 @@ html, body {
   box-sizing: border-box;
 }
 
+.leaflet-control-attribution {
+  display: none !important;
+}
+
 .app-container {
   min-height: 100vh;            /* 화면 전체 높이 확보 */
   display: flex;                /* flex 컨테이너 */
@@ -45,12 +49,29 @@ html, body {
 
 .Team01_logo {
   /* position 속성을 제거하면 일반적인 문서 흐름을 따릅니다 */
-  width: 200px;
-  padding-top: 10px;
+  width: 300px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
   transform: translateZ(0);
+}
+
+.Team01_logo a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none; /* 링크 밑줄 제거 */
+  gap: 10px; /* 이미지와 텍스트 간격 */
+}
+
+.logoText {
+  margin-left: 10px;
+  padding-top: 20px;
+  font-family: "Do Hyeon", sans-serif;
+  /* font-family: "Diphylleia", serif; */
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2d3961;
+  text-shadow: 3px 3px 6px #a3b2ce62;
 }
 
 @keyframes logo-spin {
@@ -97,7 +118,7 @@ html, body {
 
 nav {
   position: relative;   /* sticky 대신 relative */
-  margin : 10px -200px 0 -200px !important;
+  margin : 0 -200px 0 -200px !important;
   max-width: 3000px;
   background: linear-gradient(
     135deg,

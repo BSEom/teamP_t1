@@ -4,17 +4,6 @@
   box-sizing: border-box;
 }
 
-/* .card {
-  max-width: 1600px;
-  height: auto;
-  margin: 0 auto;
-  background: #ffffff33;
-  border-radius: 12px;
-  padding: 0 0 5px 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: relative; /* z-index 위해 필요!
-} */
-
 .title {
   margin-bottom: 3px;
   color: rgba(0, 0, 0, 0.815);
@@ -28,11 +17,11 @@
 
 .flexRow {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
-  padding: 20px 30px 10px 30px;
+  padding: 20px 30px 10px 15px;
   align-items: flex-start;
   position: relative; /* 드롭다운 겹침 방지 */
+  justify-content: center;
 }
 
 .dropdown {
@@ -105,6 +94,7 @@
   padding: 10px;
   border: 1px dashed #4c63af;
   border-radius: 5px;
+  background-color: rgba(248, 251, 255, 0.829);
 }
 
 .selectedLabel {
@@ -119,14 +109,16 @@
   color: #4c63af;
 }
 
-.mapContainer {
+/* .mapContainer {
   flex: 1;
   min-width: 700px;
   height: 600px;
   max-width: 100%;
   z-index: 1;
+  margin: 0 auto;
   position: relative;
-}
+} */
+
 .popupOverlay {
   position: fixed;
   top: 0;
@@ -192,6 +184,7 @@
   transform: none;  /* ✅ 중앙 정렬 필요 없으니까 제거 */
   z-index: 1000;
   width: 250px;
+  margin : 20px 100px 0 0
 }
 
 .buttonRow {

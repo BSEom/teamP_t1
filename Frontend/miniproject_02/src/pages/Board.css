@@ -164,13 +164,16 @@
 }
 
 .writer-cell {
-    padding-left: 8rem !important;
+    padding-left: 9rem !important;
     color: #748aad !important;
 }
 
 /* 마우스 오버시 셀 색상 변경 */
-.board-table tr:hover td {
+.board-table tbody > tr:hover {
     background-color: #e3f2fd; /* 연한 하늘색 */
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.10);
+    background: #f0f8ff;
+    
 }
 
 /* 제목 셀은 왼쪽 정렬 */
@@ -195,11 +198,6 @@
 
 .board-table tr:nth-child(1) {
     border-top: 3px solid #1565c0;
-}
-
-.board-table tr:hover {
-    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.10);
-    background: #f0f8ff;
 }
 
 .board-table .table-title {
