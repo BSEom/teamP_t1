@@ -33,37 +33,108 @@ public class BoardController {
 
     @Operation(summary = "페이징한 게시글 리스트")
     @GetMapping("/board")
+    // public PagingResponse<Map<String, Object>> getBoardList(@ModelAttribute
+    // SearchVo searchVo) {
+    // int total = getBoardCount();
+    // Pagination pagination = new Pagination(total, searchVo);
+
+    // int endRow = searchVo.getPage() * searchVo.getRecordSize();
+    // int offset = (searchVo.getPage() - 1) * searchVo.getRecordSize();
+
+    // String sql = """
+    // SELECT * FROM (
+    // SELECT ROWNUM AS RNUM, BOARD_ID, WRITER, TITLE FROM (
+    // SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE
+    // FROM USER_BOARD b
+    // JOIN USERS u ON b.USER_ID = u.USER_ID
+    // ORDER BY b.BOARD_ID DESC
+    // )
+    // WHERE ROWNUM <= ?
+    // )
+    // WHERE RNUM > ?
+    // """;
+
+    // List<Map<String, Object>> boardList = jdbcTemplate.queryForList(sql, endRow,
+    // offset);
+
+    // return new PagingResponse<>(boardList, pagination);
+    // }
     public PagingResponse<Map<String, Object>> getBoardList(@ModelAttribute SearchVo searchVo) {
-        int total = getBoardCount();
+        int total = getBoardCount(searchVo);
         Pagination pagination = new Pagination(total, searchVo);
 
         int endRow = searchVo.getPage() * searchVo.getRecordSize();
         int offset = (searchVo.getPage() - 1) * searchVo.getRecordSize();
 
-        String sql = """
-                SELECT * FROM (
-                    SELECT ROWNUM AS RNUM, BOARD_ID, WRITER, TITLE FROM (
-                        SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE
-                        FROM USER_BOARD b
-                        JOIN USERS u ON b.USER_ID = u.USER_ID
-                        ORDER BY b.BOARD_ID DESC
-                    )
-                    WHERE ROWNUM <= ?
-                )
-                WHERE RNUM > ?
+        String baseSql = """
+                    SELECT * FROM (
+                        SELECT ROWNUM AS RNUM, BOARD_ID, WRITER, TITLE FROM (
+                            SELECT b.BOARD_ID, u.USER_NAME AS WRITER, b.TITLE
+                            FROM USER_BOARD b
+                            JOIN USERS u ON b.USER_ID = u.USER_ID
                 """;
 
-        List<Map<String, Object>> boardList = jdbcTemplate.queryForList(sql, endRow, offset);
+        String whereClause = "";
+        Object[] params = new Object[] { endRow, offset };
+
+        if (searchVo.getKeyword() != null && !searchVo.getKeyword().isEmpty()) {
+            String keyword = "%" + searchVo.getKeyword() + "%";
+
+            switch (searchVo.getSearchType()) {
+                case "title" -> {
+                    whereClause = " WHERE b.TITLE LIKE ?";
+                    params = new Object[] { keyword, endRow, offset };
+                }
+                case "writer" -> {
+                    whereClause = " WHERE u.USER_NAME LIKE ?";
+                    params = new Object[] { keyword, endRow, offset };
+                }
+                default -> {
+                }
+            }
+        }
+
+        String sql = baseSql + whereClause + " ORDER BY b.BOARD_ID DESC ) WHERE ROWNUM <= ? ) WHERE RNUM > ?";
+
+        List<Map<String, Object>> boardList = jdbcTemplate.queryForList(sql, params);
 
         return new PagingResponse<>(boardList, pagination);
     }
 
     @Operation(summary = "게시글 개수 조회")
     @GetMapping("/board/count")
-    public int getBoardCount() {
-        String sql = "SELECT COUNT(*) FROM USER_BOARD";
-        // System.out.println("-------------sql:" + sql);
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+    // public int getBoardCount() {
+    // String sql = "SELECT COUNT(*) FROM USER_BOARD";
+    // return jdbcTemplate.queryForObject(sql, Integer.class);
+    // }
+    private int getBoardCount(SearchVo searchVo) {
+        String baseSql = """
+                    SELECT COUNT(*) FROM USER_BOARD b
+                    JOIN USERS u ON b.USER_ID = u.USER_ID
+                """;
+
+        String whereClause = "";
+        Object[] params = new Object[] {};
+
+        if (searchVo.getKeyword() != null && !searchVo.getKeyword().isEmpty()) {
+            String keyword = "%" + searchVo.getKeyword() + "%";
+
+            switch (searchVo.getSearchType()) {
+                case "title" -> {
+                    whereClause = " WHERE b.TITLE LIKE ?";
+                    params = new Object[] { keyword };
+                }
+                case "writer" -> {
+                    whereClause = " WHERE u.USER_NAME LIKE ?";
+                    params = new Object[] { keyword };
+                }
+                default -> {
+                }
+            }
+        }
+
+        String sql = baseSql + whereClause;
+        return jdbcTemplate.queryForObject(sql, params, Integer.class);
     }
 
     @Operation(summary = "게시글 작성")

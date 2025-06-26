@@ -16,9 +16,33 @@ const Board = () => {
     const [searchKeyword, setSearchKeyword] = useState("");
     const [searchType, setSearchType] = useState("title"); // title, writer, content
 
+    //검색
+    const fetchBoardList = (keyword = "", type = "title") => {
+        const query = new URLSearchParams({
+            page,
+            recordSize: 10,
+            searchType: type,
+            keyword: keyword,
+        }).toString();
+
+        fetch(`/api/board?${query}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setBoardList(data.list);
+                setPagination(data.pagination);
+            })
+            .catch((err) => console.error("게시글 불러오기 실패:", err));
+    };
+
+
+    // useEffect(() => {
+    //     navigate(`?nowpage=${page}`, { replace: true });
+    // }, [page, navigate]);
     useEffect(() => {
+        fetchBoardList(searchKeyword, searchType);
         navigate(`?nowpage=${page}`, { replace: true });
-    }, [page, navigate]);
+    }, [page, navigate, searchKeyword, searchType]);
+
 
     useEffect(() => {
         fetch(`/api/board?page=${page}&recordSize=10`)
@@ -32,14 +56,14 @@ const Board = () => {
 
     const handleSearch = () => {
         setPage(1); // 검색 시 첫 페이지로 이동
-        fetchBoardList(searchKeyword, searchType);
+        // fetchBoardList(searchKeyword, searchType); 검색 추가하면서 이거 주석처리
     };
 
     const handleSearchReset = () => {
         setSearchKeyword("");
         setSearchType("title");
         setPage(1);
-        fetchBoardList(); // 전체 목록 다시 불러오기
+        //fetchBoardList(); // 전체 목록 다시 불러오기
     };
 
     const handleKeyPress = (e) => {
@@ -68,9 +92,9 @@ const Board = () => {
     return (
         <div className="board-main-layout">
             <div className="board-section">
-                    <h2 style={{ margin: 0 }} className="board-title">게시판</h2>
-                <br/>
-                <br/>
+                <h2 style={{ margin: 0 }} className="board-title">게시판</h2>
+                <br />
+                <br />
                 <div className="board-table-wrapper">
                     <table className="board-table">
                         <thead>
@@ -139,17 +163,17 @@ const Board = () => {
                         <button onClick={handleSearch} className="board-search-btn">
                             검색
                         </button>
-                    <button className="btn write-post" onClick={handleGoWrite}>
-                        글 작성
-                    </button>
+                        <button className="btn write-post" onClick={handleGoWrite}>
+                            글 작성
+                        </button>
                     </div>
 
                 </div>
 
-                
+
             </div>
         </div>
-        
+
     );
 };
 
