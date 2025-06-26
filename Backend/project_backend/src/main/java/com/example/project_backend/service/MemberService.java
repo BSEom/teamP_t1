@@ -10,6 +10,7 @@ import com.example.project_backend.domain.Member;
 import com.example.project_backend.dto.LoginDto;
 import com.example.project_backend.dto.ResultDto;
 import com.example.project_backend.dto.SignUpDto;
+import com.example.project_backend.dto.UserInfoDto;
 import com.example.project_backend.repository.MemberRepository;
 
 @Service
@@ -45,6 +46,23 @@ public class MemberService {
         return new ResultDto(true, "회원가입 성공");
     }
 
+    public ResultDto update(String pw, Object user) {
+
+        String name = String.valueOf(user);
+
+        Optional<Member> Member = memberRepository.findByUsername(name);
+
+        if (Member.isPresent()) {
+            Member updateData = Member.get();
+            updateData.setPassword(passwordEncoder.encode(pw));
+            memberRepository.save(updateData);
+
+            return new ResultDto(true, "변경 성공!");
+        }
+
+        return new ResultDto(false, "변경 실패.");
+    }
+
     public boolean nameck(String name) {
         System.out.println(name + name.length());
         return memberRepository.findByUsername(name).isPresent();
@@ -63,4 +81,12 @@ public class MemberService {
 
         return memberRepository.findByUsername(name).map(Member::getId);
     }
+
+    public Optional<UserInfoDto> getinfo(Object username) {
+
+        String name = String.valueOf(username);
+
+        return memberRepository.findInfoByUsername(name);
+    }
+
 }

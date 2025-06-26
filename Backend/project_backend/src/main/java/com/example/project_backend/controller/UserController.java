@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.project_backend.dto.LoginDto;
 import com.example.project_backend.dto.ResultDto;
 import com.example.project_backend.dto.SignUpDto;
+import com.example.project_backend.dto.UserInfoDto;
 import com.example.project_backend.service.MemberService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,8 +21,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -62,12 +65,18 @@ public class UserController {
     }
 
     @Operation(summary = "업데이트 (구현X)")
-    @PostMapping("/update")
-    public ResponseEntity<Map<String, String>> updateFn(@RequestBody SignUpDto dto) {
-        ResultDto result = memberService.signup(dto);
+    @PutMapping("/update")
+    public ResponseEntity<Map<String, String>> updateFn(@RequestBody String pw, HttpSession session) {
+
+        Object user = session.getAttribute("user");
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "로그인이 필요합니다."));
+        }
+
+        ResultDto result = memberService.update(pw, user);
 
         if (result.isSuccess()) {
-
             return ResponseEntity.ok(Map.of("message", result.getMessage()));
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", result.getMessage())); // code: 409
@@ -109,7 +118,6 @@ public class UserController {
 
         Object user = session.getAttribute("user");
         Object uid = memberService.getuid(user);
-        memberService.getuid(user);
 
         if (user != null) {
             return ResponseEntity.ok(Map.of("username", user, "uid", uid));
@@ -125,6 +133,17 @@ public class UserController {
         session.invalidate();
 
         return ResponseEntity.ok(Map.of("message", "로그아웃 완료"));
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<?> getInfo(HttpSession session) {
+        Object user = session.getAttribute("user");
+
+        Optional<UserInfoDto> data = memberService.getinfo(user);
+
+        System.out.println(data);
+
+        return ResponseEntity.ok(Map.of("message", data));
     }
 
 }
