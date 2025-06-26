@@ -5,87 +5,146 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from './Home.module.css'
 import RegionLayer from './RegionLayer'
+import { useAuth } from '../contexts/AuthContext'
 
 // npm i leaflet react-leaflet 이걸 설치해야 지도가 보임 !!
 
 // 지도 중심을 이동시키는 커스텀 컴포넌트
 const ChangeMapCenter = ({ lat, lng }) => {
   const map = useMap()
+
   useEffect(() => {
-    if (lat && lng) {
-      map.setView([lat, lng], 10)
+    if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
+      map.whenReady(() => {
+        console.log("📍 setView 실행:", lat, lng);
+        map.setView([lat, lng], 10);
+      });
     }
-  }, [lat, lng, map])
+  }, [lat, lng, map]);
+
   return null
 }
 
-const FlyToRegion = ({ selectedRegion, geoData }) => {
-  const map = useMap();
 
-  useEffect(() => {
-    if (!selectedRegion || !geoData) return;
+const GetRegion = async () => {
 
-    // geoData.features에서 이름이 일치하는 feature 찾기
-    const targetFeature = geoData.features.find(
-      (f) => f.properties.SGG_NM === selectedRegion
-    );
+  const res = await fetch("/api/user/info", {
+      method: "GET",
+      credentials: "include",
+    });
 
-    if (targetFeature) {
-      const layer = L.geoJSON(targetFeature);
-      const bounds = layer.getBounds();       // 경계 가져오기
-      map.fitBounds(bounds);                  // 지도 해당 구역으로 이동
-    }
-  }, [selectedRegion, geoData, map]);
+  const result = await res.json();
 
-  return null;
+  const address = result.message.address;
+  console.log("로그인 사용자 지역 로드 : "+address);
+
+  return address;
 };
 
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState('')
   const [selectedRegionCode, setSelectedRegionCode] = useState('')
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [mapData, setMapData] = useState([])
+  // const [mapData, setMapData] = useState([])
   const [mapCenter, setMapCenter] = useState({ lat: 35.1796, lng: 129.0756 })
 
+  const { isLoggedIn, username } = useAuth();
+
+  const [busanRegions, setBusanRegions] = useState([])
   const [geoData, setGeoData] = useState(null);
   
-   useEffect(() => {
-    fetch("/map.geojson") 
-      .then((res) => res.json())
-      .then((data) => setGeoData(data));
-  }, [])
+  useEffect(() => {
+    console.log("✅ mapData 확인", geoData);
+  }, [geoData]);
 
-  const busanRegions = [
-    { code: '5', name: '남구', lat: 35.1367, lng: 129.0844 },
-    { code: '7', name: '동래구', lat: 35.2046, lng: 129.0837 },
-    { code: '8', name: '부산진구', lat: 35.1618, lng: 129.0532 },
-    { code: '10', name: '북구', lat: 35.1974, lng: 128.9906 },
-    { code: '11', name: '사상구', lat: 35.1549, lng: 128.9916 },
-    { code: '12', name: '사하구', lat: 35.104, lng: 128.9747 },
-    { code: '18', name: '해운대구', lat: 35.1631, lng: 129.1639 }
-  ]
+
+  useEffect(() => {
+    const init = async () => {
+      const geojsonRes = await fetch("/map.geojson");
+      const data = await geojsonRes.json();
+
+      console.log("📦 geoJSON 전체:", data);
+      setGeoData(data);
+
+      const extractedRegions = data.features.map((f) => {
+        const name = f.properties.SGG_NM;
+        const code = f.properties.SGG_OID;
+
+        try {
+          const layer = L.geoJSON(f);
+          const center = layer.getBounds().getCenter();
+
+          return {
+            code,
+            name,
+            lat: center.lat,
+            lng: center.lng
+          };
+        } catch (e) {
+          console.warn(`❌ ${name} 중심 계산 실패:`, e.message);
+          return null;
+        }
+      }).filter(Boolean);
+
+      setBusanRegions(extractedRegions);
+
+      // ✅ 사용자 주소 기반 지역 자동 설정
+      // if (isLoggedIn) {
+      //   const regionName = await GetRegion();           // 주소 이름 문자열
+      //   const found = extractedRegions.find(r => r.name === regionName);  // 이름으로 찾기
+      //   if (found) {
+      //     setSelectedRegion(found.name);
+      //     setSelectedRegionCode(found.code);
+      //     setMapCenter({ lat: found.lat, lng: found.lng });
+      //   } else {
+      //     console.warn("❗ GeoJSON에서 해당 지역을 찾을 수 없습니다:", regionName);
+      //   }
+      // }
+    };
+
+    init();
+  }, []);
+
+
+  useEffect(() => {
+    const loadUserRegion = async () => {
+      const regionName = await GetRegion();
+      console.log("✅ 사용자 지역:", regionName);
+
+      const found = busanRegions.find(r => r.name === regionName);
+      if (found) {
+        setSelectedRegion(found.name);
+        setSelectedRegionCode(found.code);
+        setMapCenter({ lat: found.lat, lng: found.lng });
+      } else {
+        console.warn("❗ GeoJSON에서 해당 지역을 찾을 수 없습니다:", regionName);
+      }
+    };
+
+    if (isLoggedIn && busanRegions.length > 0) {
+      loadUserRegion();
+    }
+  }, [isLoggedIn, busanRegions]);
+
+
+  useEffect(() => {
+    if (!selectedRegion || busanRegions.length === 0) return;
+
+    const found = busanRegions.find(region => region.name === selectedRegion);
+    if (found) {
+      setMapCenter({ lat: found.lat, lng: found.lng });
+    }
+  }, [selectedRegion, busanRegions]);
+
 
   const handleRegionSelect = (region) => {
     setSelectedRegion(region.name)
     setSelectedRegionCode(region.code)
     setIsDropdownOpen(false)
     setMapCenter({ lat: region.lat, lng: region.lng })
-    sendRegionCode(region.code)
+    // sendRegionCode(region.code)
   }
 
-  const sendRegionCode = (regionCode) => {
-    fetch('/api/region', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ regionCode })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log('지역코드 전송 성공:', data)
-        setMapData(data)
-      })
-      .catch(err => console.error('지역코드 전송 실패:', err))
-  }
 
   const [showGuide, setShowGuide] = useState(false); // 이용방법 버튼 추가
 
@@ -97,9 +156,9 @@ const Home = () => {
 
         <div className={styles.flexRow}>
           <div className={styles.dropdownFixed}>
-        <button className={styles.guideBtn} onClick={() => setShowGuide(true)}>
-  이용 방법 보기 💡
-</button>
+            <button className={styles.guideBtn} onClick={() => setShowGuide(true)}>
+              이용 방법 보기 💡
+            </button>
             <div className={styles.dropdownToggle} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
               <span className={selectedRegion ? styles.activeText : styles.placeholder}>
                 {selectedRegion || '지역을 선택하세요'}
@@ -150,58 +209,32 @@ const Home = () => {
 
               {/* Geo JSON */}
               {geoData && (
+                <>
                 <RegionLayer geoData={geoData} selectedRegion={selectedRegion} />
+                {/* <ChangeMapCenter geoData={geoData} selectedRegion={selectedRegion} /> */}
+                </>
               )}
 
 
               <ChangeMapCenter lat={mapCenter.lat} lng={mapCenter.lng} />
-              {selectedRegion && (
-                <Marker position={[mapCenter.lat, mapCenter.lng]}>
-                  <Tooltip direction="top" offset={[0, -10]} opacity={0.9}>
-                    {selectedRegion}
-                  </Tooltip>
-                </Marker>
-              )}
-              {Array.isArray(mapData) && mapData.map((item, idx) => {
-                const { 위도: lat, 경도: lon, 타입: type, 이름: placeName } = item
-                let color = "purple", fillColor = "skyblue"
-                if (type === "Lowest") {
-                  color = "lightgreen"; fillColor = "orange"
-                } else if (type === "Highest") {
-                  color = "pink"; fillColor = "yellow"
-                }
-                return (
-                  <CircleMarker
-                    key={idx}
-                    center={[lat, lon]}
-                    radius={15}
-                    pathOptions={{ color, fillColor, fillOpacity: 0.6 }}
-                  >
-                    <Tooltip direction="top" offset={[0, -10]} opacity={0.8}>
-                      {placeName}
-                    </Tooltip>
-                  </CircleMarker>
-                )
-              })}
             </MapContainer>
           </div>
         </div>
       <div className={styles.guide}>
-  {showGuide && (
-  <div className={styles.popupOverlay} onClick={() => setShowGuide(false)}>
-    <div className={styles.popupBox} onClick={(e) => e.stopPropagation()}>
-      <div className={styles.popupContent}>
-        💡 <strong>사용 방법:</strong><br />
-        지역을 선택하면 지도에 해당 위치가 표시되고,<br />
-        지역별 최저가 상품이 지도에 나타납니다! 📍🛒
+        {showGuide && (
+          <div className={styles.popupOverlay} onClick={() => setShowGuide(false)}>
+            <div className={styles.popupBox} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.popupContent}>
+                💡 <strong>사용 방법:</strong><br />
+                지역을 선택하면 지도에 해당 위치가 표시되고,<br />
+                지역별 최저가 상품이 지도에 나타납니다! 📍🛒
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </div>
-)}
-</div>
-      </div>
-
-    </div>
   )
 }
 

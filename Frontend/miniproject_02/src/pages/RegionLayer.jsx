@@ -38,10 +38,10 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
     const name = feature.properties.SGG_NM || "지역명 없음";
 
     // Tooltip
-    layer.bindTooltip(name, {
-      direction: "top",
-      sticky: true,
-    });
+    // layer.bindTooltip(name, {
+    //   direction: "top",
+    //   sticky: true,
+    // });
 
     layerMap.current[name] = layer;
 
@@ -80,10 +80,25 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
           const itemList = data.length > 0 ? data.map(item => `<li>${item}</li>`).join("")
           : "<li>준비중...</li>";
       
-          layer.bindPopup(`
-            <h6><b>${name}</b>의 최저가 품목:</h6><br/>
-            <ul>${itemList}</ul>
-          `).openPopup();
+          // layer.bindPopup(`
+          //   <h6><b>${name}</b>의 최저가 품목:</h6><br/>
+          //   <ul>${itemList}</ul>
+          // `).openPopup();
+
+          const bounds = layer.getBounds();
+          const center = bounds.getCenter();
+
+          const adjustedLat = name === "사하구" ? center.lat + 0.075 : center.lat + 0.01;
+          const adjustedCenter = L.latLng(adjustedLat, center.lng);
+
+          const popup = L.popup()
+            .setLatLng(adjustedCenter)
+            .setContent(`
+              <h6><b>${name}</b>의 최저가 품목:</h6><br/>
+              <ul>${itemList}</ul>
+            `);
+
+          popup.openOn(map);
         })
         .catch(err => {
           console.error("❌ 데이터 불러오기 실패:", err);
