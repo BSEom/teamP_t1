@@ -6,7 +6,7 @@ import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setIsLoggedIn, setUsername } = useAuth();
+  const { setIsLoggedIn, setUsername, checkLoginStatus } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +37,8 @@ const Login = () => {
 
       setIsLoggedIn(true);
       setUsername(result.username);
+
+      await checkLoginStatus()
 
       setTimeout(() => navigate("/"), 100); 
     } else {
