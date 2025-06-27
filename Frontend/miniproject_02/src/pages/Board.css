@@ -56,7 +56,7 @@
     color: #222;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: 415px;
+    margin-left: 340px;
 }
 
 .board-search-select:focus {
@@ -264,7 +264,7 @@
 }
 
 .btn.write-post {
-    margin-left: auto;
+    margin-left: 150px;
     align-self: flex-start;
     width: 150px !important;
     height: 44px !important;

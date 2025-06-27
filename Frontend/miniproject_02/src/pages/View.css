@@ -57,6 +57,10 @@ h1.text-center {
   align-items: center;
 }
 
+.meta-hit-count {
+  margin-right: 12px;
+}
+
 .meta-day {
   margin-left: 180px;
 }
@@ -103,7 +107,7 @@ h1.text-center {
 button.bookmark {
   background: none;
   border: none;
-  padding-left: 10px;
+  padding-right: 20px;
   cursor: pointer;
   width: auto;
 }
@@ -347,3 +351,19 @@ button.add-comment:hover {
   background-color: #265fc1;
 }
 
+.comment-edit-box {
+  display: flex;
+  justify-content: flex-end !important;
+}
+
+.comment-update {
+  background-color: #4271c7;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  padding: 0 16px;
+  margin-left: auto !important;
+}

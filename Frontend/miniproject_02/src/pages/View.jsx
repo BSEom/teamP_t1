@@ -319,7 +319,7 @@ const renderComments = (commentList, level = 0) => {
                 <div className="meta-writer-name">{post.name}</div>
               </div>
               <div className="meta-day">
-                <label>날짜</label>
+                <label>작성일</label>
                 <div className="meta-write-day">{post.boardDate}</div>
               </div>
               <div className="meta-hit">
