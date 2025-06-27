@@ -76,7 +76,7 @@ Java 개발자 과정 2차 팀 프로젝트 1조
 <hr>
 
 ### 테이블 모델링
-![db]![image](https://github.com/user-attachments/assets/272f0e15-5b81-4136-8f8e-c1fa0e90be05)
+![image](https://github.com/user-attachments/assets/272f0e15-5b81-4136-8f8e-c1fa0e90be05)
 
 
 
