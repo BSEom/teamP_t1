@@ -48,6 +48,12 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
     // Hover 효과
     layer.on("mouseover", function () {
       layer.setStyle(highlightStyle);
+      // Tooltip
+      layer.bindTooltip(name, {
+        direction: "top",
+        sticky: true,
+      });
+
     });
 
     layer.on("mouseout", function () {
