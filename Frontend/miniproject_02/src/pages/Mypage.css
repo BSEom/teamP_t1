@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     gap: 22px;
-    min-width: 200px;
+    min-width: 250px;
     background: rgba(25, 118, 210, 0.07);
     border-radius: 16px;
     padding: 130px 18px;
@@ -89,7 +89,7 @@
 
 .fake-button {
   color: #333;
-  font-size: 16px;
+  font-size: 1.2rem !important;
   cursor: pointer;
 }
 
@@ -99,6 +99,35 @@
 
 .fake-button:hover {
   text-decoration: underline;
+}
+
+.sub-tab-banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #1976d2;
+}
+
+.sub-tab {
+  padding: 6px 10px;
+  border: none;
+  /* background-color: transparent; */
+  color: #1976d2;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.sub-tab:hover {
+  background-color: #e3ecff;
+}
+.sub-tab.active {
+  /* background-color: #1976d2; */
+  color: white;
+  /* border-radius: 5px; */
 }
 
 .mypage-profile-img {
@@ -473,16 +502,18 @@
  border-radius: 10px;
  box-shadow: 1px 1px 3px 0px #ccc;
  margin-bottom: 30px;
- padding: 20px;
+ padding: 0px 20px 20px 20px;
  text-align: left;
+ width: 760px;
 }
 
 .bookmark-title {
-  margin-bottom: 3px;
+  margin : 0px -20px 20px -20px; 
+  border-radius: 10px 10px 0 0 ;
   background-color: #64b4f693;
   color: rgba(0, 0, 0, 0.815) !important;
   text-align: left !important;
-  padding: 14px 14px 8px 15px;
+  padding: 14px 14px 8px 20px;
   /* font-size: 2.3rem; */
   font-weight: bold;
   border-bottom: 2.3px solid rgb(66, 141, 226);
@@ -490,54 +521,12 @@
 
 .bookmark-content {
     color: #2b4458ec;
+    margin-bottom: 10px;
 }
 
 .bookmark-meta {
-    font-size: 1.1rem ;
+    font-size: 1.08rem ;
     color: #325b7cc2;
 }
 
-.sub-tab-banner-left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 6px;
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 3px solid #1976d2;
-}
 
-.sub-tab {
-  padding: 6px 10px;
-  border: none;
-  /* background-color: transparent; */
-  color: #1976d2;
-  font-weight: bold;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.sub-tab:hover {
-  background-color: #e3ecff;
-}
-.sub-tab.active {
-  /* background-color: #1976d2; */
-  color: white;
-  /* border-radius: 5px; */
-}
-
-input {
-    color: gray;
-}
-
-.changeAllow {
-    color: black;
-}
-
-
-.btn-save:disabled {
-  background-color: #ccc;     
-  color: #666;               
-  cursor: not-allowed;        
-  opacity: 0.7; 
-}

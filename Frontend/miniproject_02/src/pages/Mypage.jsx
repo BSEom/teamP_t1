@@ -75,9 +75,21 @@ function Mypage() {
         console.log(res);
 
         if (res.ok) {
-            alert(JSON.stringify(result.message));
+            // alert(JSON.stringify(result.message));
+            Swal.fire({
+                title: '알림',
+                text: JSON.stringify(result.message),
+                icon: 'info',
+                confirmButtonText: '확인'
+            })
         } else {
-            alert(JSON.stringify(result.message));
+            // alert(JSON.stringify(result.message));
+            Swal.fire({
+                title: '알림',
+                text: JSON.stringify(result.message),
+                icon: 'info',
+                confirmButtonText: '확인'
+            })
         }
     }
 

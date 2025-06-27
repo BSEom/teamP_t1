@@ -28,6 +28,12 @@ const Update = () => {
                 })
                 .catch((err) => {
                     alert("게시글 불러오기 실패");
+                    Swal.fire({
+                        title: '알림',
+                        text: "게시글 불러오기 실패",
+                        icon: 'info',
+                        confirmButtonText: '확인'
+                    })
                     console.error(err);
                 });
         }
@@ -54,13 +60,36 @@ const Update = () => {
 
             const result = await res.text();
             if (result === "success") {
-                alert("글 수정 완료!");
-                navigate(`/board?nowpage=${nowpage}`);
+                // alert("글 수정 완료!");
+                // navigate(`/board?nowpage=${nowpage}`);
+
+                Swal.fire({
+                    title: '알림',
+                    text: "글 수정 완료!",
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate(`/board?nowpage=${nowpage}`);
+                    }
+                });
             } else {
-                alert("수정 실패: " + result);
+                // alert("수정 실패: " + result);
+                Swal.fire({
+                    title: '알림',
+                    text: "수정 실패: " + result,
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                })
             }
         } catch (err) {
-            alert("수정 중 오류 발생: " + err.message);
+            // alert("수정 중 오류 발생: " + err.message);
+            Swal.fire({
+                    title: '알림',
+                    text: "수정 중 오류 발생: " + err.message,
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                })
         }
     };
 
