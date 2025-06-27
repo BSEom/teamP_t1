@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect} from "react";
 import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,18 +34,42 @@ const Login = () => {
     // 응답
     if (response.ok) {
       const result = await response.json();
-      alert(JSON.stringify(result.message));
+      // alert(JSON.stringify(result.message));
 
-      setIsLoggedIn(true);
-      setUsername(result.username);
+      Swal.fire({
+              title: '알림',
+              text: JSON.stringify(result.message),
+              icon: 'info',
+              confirmButtonText: '확인'
+            }).then(async (res) => {
+              if (res.isConfirmed) {
+                setIsLoggedIn(true);
+                setUsername(result.username);
+                await checkLoginStatus();
+                navigate("/");
+              }
+            });
 
-      await checkLoginStatus()
+      // setIsLoggedIn(true);
+      // setUsername(result.username);
 
-      setTimeout(() => navigate("/"), 100); 
+      // await checkLoginStatus()
+
+      // setTimeout(() => navigate("/"), 100); 
     } else {
       const result = await response.json();
-      alert(JSON.stringify(result.message))
-      setTimeout(() => navigate("/login"), 100); 
+      // alert(JSON.stringify(result.message))
+      Swal.fire({
+              title: '알림',
+              text: JSON.stringify(result.message),
+              icon: 'info',
+              confirmButtonText: '확인'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                navigate("/login");
+              }
+            });
+      // setTimeout(() => navigate("/login"), 100); 
     }
   }
 

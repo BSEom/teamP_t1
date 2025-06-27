@@ -54,11 +54,27 @@ const Register = () => {
     // 응답
     if (response.ok) {
       const result = await response.json();
-      alert(JSON.stringify(result.message));
-      setTimeout(() => navigate("/"), 100); 
+      // alert(JSON.stringify(result.message));
+      // setTimeout(() => navigate("/"), 100);
+      Swal.fire({
+                    title: '알림',
+                    text: JSON.stringify(result.message),
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/");
+                    }
+                  }); 
     } else {
       const result = await response.json();
-      alert(JSON.stringify(result.message))
+      // alert(JSON.stringify(result.message))
+      Swal.fire({
+                    title: '알림',
+                    text: JSON.stringify(result.message),
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                  })
     }
 
   };
