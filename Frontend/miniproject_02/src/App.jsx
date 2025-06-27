@@ -14,7 +14,7 @@ import CheckMyPage from './pages/CheckMypage'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Logout from './pages/Logout'
-import sticker from './components/sticker.webp'
+import sticker from './components/sticker.png'
 
 function App() {
   return (
