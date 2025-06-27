@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Write.css";
+import Swal from "sweetalert2";
 
 const Write = () => {
     const navigate = useNavigate();
@@ -23,8 +24,18 @@ const Write = () => {
                     name: data.username
                 }))
             } else {
-                alert("로그인이 필요합니다.");
-                setTimeout(() => navigate("/login"), 100);
+                // alert("로그인이 필요합니다.");
+                // setTimeout(() => navigate("/login"), 100);
+                Swal.fire({
+                    title: '알림',
+                    text: "로그인이 필요합니다.",
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/login");
+                    }
+                });
             }
         
         };
@@ -50,13 +61,35 @@ const Write = () => {
 
             const result = await response.text();
             if (result === "success") {
-                alert("글 작성 완료!");
-                navigate("/Board");
+                // alert("글 작성 완료!");
+                // navigate("/Board");
+                Swal.fire({
+                    title: '알림',
+                    text: "글 작성 완료!",
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/Board");
+                    }
+                });
             } else {
-                alert("글 작성 실패: " + result);
+                // alert("글 작성 실패: " + result);
+                Swal.fire({
+                    title: '알림',
+                    text: "글 작성 실패" + result,
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                })
             }
         } catch (err) {
-            alert("글 작성 중 오류 발생: " + err.message);
+            // alert("글 작성 중 오류 발생: " + err.message);
+            Swal.fire({
+                    title: '알림',
+                    text: "글 작성 중 오류 발생" + err.message,
+                    icon: 'info',
+                    confirmButtonText: '확인'
+                })
         }
     };
 
