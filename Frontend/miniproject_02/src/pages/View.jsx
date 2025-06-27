@@ -90,7 +90,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "로그인이 필요합니다.",
-        icon: 'info',
+        icon: 'warning',
         confirmButtonText: '확인'
       })
       return;
@@ -105,7 +105,7 @@ const View = () => {
         Swal.fire({
           title: '알림',
           text: "북마크가 해제되었습니다.",
-          icon: 'info',
+          icon: 'success',
           confirmButtonText: '확인'
         })
       } else {
@@ -118,7 +118,7 @@ const View = () => {
         Swal.fire({
           title: '알림',
           text: "북마크에 추가되었습니다.",
-          icon: 'info',
+          icon: 'success',
           confirmButtonText: '확인'
         })
       }
@@ -127,7 +127,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "북마크 처리 중 오류 발생: " + err.message,
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }
@@ -142,14 +142,25 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "작성자가 아닙니다.",
-        icon: 'info',
+        icon: 'warning',
         confirmButtonText: '확인'
       })
     }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+
+    const result = await Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      text: '이 작업은 되돌릴 수 없습니다.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+      reverseButtons: true  // 버튼 순서 반전 (한국 UX에 적합)
+    });
+
+    if (!result.isConfirmed) return;
     const res = await fetch(`/api/board/${boardId}`, { method: "DELETE" });
     const resultText = await res.text();
 
@@ -158,7 +169,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "작성자가 아닙니다.",
-        icon: 'info',
+        icon: 'warning',
         confirmButtonText: '확인'
       })
     } else if (resultText.includes("comments_exist")) {
@@ -166,7 +177,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "댓글이 존재하여 게시글을 삭제할 수 없습니다.",
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     } else if (resultText.includes("success")) {
@@ -175,7 +186,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "삭제되었습니다.",
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       }).then((result) => {
         if (result.isConfirmed) {
@@ -187,7 +198,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "삭제 실패: " + resultText,
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }
@@ -215,7 +226,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "댓글이 등록되었습니다.",
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       })
       
@@ -226,7 +237,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "댓글 등록에 실패했습니다.",
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }
@@ -255,7 +266,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "답글이 등록되었습니다.",
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       })
       setReplyContent(prev => ({ ...prev, [parentCommentId]: "" }));
@@ -266,7 +277,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "답글 등록에 실패했습니다.",
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }
@@ -285,7 +296,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "댓글이 수정되었습니다.",
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       })
       setUpdateCommentId(null);
@@ -296,14 +307,25 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "수정 실패: " + result,
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }
   };
 
   const handleCommentDelete = async (commentId) => {
-    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+
+    const check = await Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      text: '이 작업은 되돌릴 수 없습니다.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+      reverseButtons: true  // 버튼 순서 반전 (한국 UX에 적합)
+    });
+
+    if (!check.isConfirmed) return;
     const res = await fetch(`/api/board/comments/${commentId}`, { method: "DELETE" });
     const result = await res.text();
     if (result === "success") {
@@ -311,7 +333,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "댓글 삭제 완료",
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       })
       await fetchComments();
@@ -320,7 +342,7 @@ const View = () => {
       Swal.fire({
         title: '알림',
         text: "삭제 실패: " + result,
-        icon: 'info',
+        icon: 'error',
         confirmButtonText: '확인'
       })
     }

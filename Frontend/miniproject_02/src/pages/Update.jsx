@@ -67,7 +67,7 @@ const Update = () => {
                 Swal.fire({
                     title: '알림',
                     text: "글 수정 완료!",
-                    icon: 'info',
+                    icon: 'success',
                     confirmButtonText: '확인'
                     }).then((result) => {
                     if (result.isConfirmed) {
@@ -79,7 +79,7 @@ const Update = () => {
                 Swal.fire({
                     title: '알림',
                     text: "수정 실패: " + result,
-                    icon: 'info',
+                    icon: 'error',
                     confirmButtonText: '확인'
                 })
             }
@@ -88,7 +88,7 @@ const Update = () => {
             Swal.fire({
                     title: '알림',
                     text: "수정 중 오류 발생: " + err.message,
-                    icon: 'info',
+                    icon: 'error',
                     confirmButtonText: '확인'
                 })
         }

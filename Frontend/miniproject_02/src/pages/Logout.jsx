@@ -21,7 +21,7 @@ const Logout = () => {
       Swal.fire({
         title: '알림',
         text: '로그아웃 되었습니다!',
-        icon: 'info',
+        icon: 'success',
         confirmButtonText: '확인'
       })
 

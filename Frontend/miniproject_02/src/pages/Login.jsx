@@ -39,7 +39,7 @@ const Login = () => {
       Swal.fire({
               title: '알림',
               text: JSON.stringify(result.message),
-              icon: 'info',
+              icon: 'success',
               confirmButtonText: '확인'
             }).then(async (res) => {
               if (res.isConfirmed) {
@@ -62,7 +62,7 @@ const Login = () => {
       Swal.fire({
               title: '알림',
               text: JSON.stringify(result.message),
-              icon: 'info',
+              icon: 'error',
               confirmButtonText: '확인'
             }).then((result) => {
               if (result.isConfirmed) {

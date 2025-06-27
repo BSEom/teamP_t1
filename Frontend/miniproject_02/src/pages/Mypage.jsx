@@ -80,7 +80,7 @@ function Mypage() {
             Swal.fire({
                 title: '알림',
                 text: JSON.stringify(result.message),
-                icon: 'info',
+                icon: 'success',
                 confirmButtonText: '확인'
             })
         } else {
@@ -88,7 +88,7 @@ function Mypage() {
             Swal.fire({
                 title: '알림',
                 text: JSON.stringify(result.message),
-                icon: 'info',
+                icon: 'error',
                 confirmButtonText: '확인'
             })
         }

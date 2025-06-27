@@ -64,7 +64,7 @@ public class UserController {
 
     }
 
-    @Operation(summary = "업데이트 (구현X)")
+    @Operation(summary = "사용자 정보 변경")
     @PutMapping("/update")
     public ResponseEntity<Map<String, String>> updateFn(@RequestBody String pw, HttpSession session) {
 
@@ -135,6 +135,7 @@ public class UserController {
         return ResponseEntity.ok(Map.of("message", "로그아웃 완료"));
     }
 
+    @Operation(summary = "사용자 정보 로드")
     @GetMapping("/info")
     public ResponseEntity<?> getInfo(HttpSession session) {
         Object user = session.getAttribute("user");
