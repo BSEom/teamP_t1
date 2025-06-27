@@ -79,6 +79,11 @@ http://bjava.iptime.org:8897/
 
 ### 테이블 모델링
 ![image](https://github.com/user-attachments/assets/272f0e15-5b81-4136-8f8e-c1fa0e90be05)
+<hr>
+
+### 메인페이지
+[영상 보기]()
+
 
 
 
