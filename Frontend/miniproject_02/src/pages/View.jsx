@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./View.css";
+import Swal from "sweetalert2";
 
 const View = () => {
   const [searchParams] = useSearchParams();
@@ -85,7 +86,13 @@ const View = () => {
 
   const toggleBookmark = async () => {
     if (!userid || !boardId) {
-      alert("로그인이 필요합니다.");
+      // alert("로그인이 필요합니다.");
+      Swal.fire({
+        title: '알림',
+        text: "로그인이 필요합니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       return;
     }
     const wasBookmarked = post.bookmarked;
@@ -94,17 +101,35 @@ const View = () => {
     try {
       if (wasBookmarked) {
         await fetch(`/api/board/bookmark/${boardId}/${userid}`, { method: "PUT" });
-        alert("북마크가 해제되었습니다.");
+        // alert("북마크가 해제되었습니다.");
+        Swal.fire({
+          title: '알림',
+          text: "북마크가 해제되었습니다.",
+          icon: 'info',
+          confirmButtonText: '확인'
+        })
       } else {
         await fetch(`/api/board/bookmark/${boardId}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: userid }),
         });
-        alert("북마크에 추가되었습니다.");
+        // alert("북마크에 추가되었습니다.");
+        Swal.fire({
+          title: '알림',
+          text: "북마크에 추가되었습니다.",
+          icon: 'info',
+          confirmButtonText: '확인'
+        })
       }
     } catch (err) {
       alert("북마크 처리 중 오류 발생: " + err.message);
+      Swal.fire({
+        title: '알림',
+        text: "북마크 처리 중 오류 발생: " + err.message,
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
     await syncBookmarkStatus();
   };
@@ -113,7 +138,13 @@ const View = () => {
     if (post.name === username) {
       navigate(`/update?boardId=${boardId}&nowpage=${nowpage}`);
     } else {
-      alert("작성자가 아닙니다.");
+      // alert("작성자가 아닙니다.");
+      Swal.fire({
+        title: '알림',
+        text: "작성자가 아닙니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 
@@ -123,20 +154,54 @@ const View = () => {
     const resultText = await res.text();
 
     if (post.name !== username) {
-      alert("작성자가 아닙니다.");
+      // alert("작성자가 아닙니다.");
+      Swal.fire({
+        title: '알림',
+        text: "작성자가 아닙니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     } else if (resultText.includes("comments_exist")) {
-      alert("댓글이 존재하여 게시글을 삭제할 수 없습니다.");
+      // alert("댓글이 존재하여 게시글을 삭제할 수 없습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "댓글이 존재하여 게시글을 삭제할 수 없습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     } else if (resultText.includes("success")) {
-      alert("삭제되었습니다.");
-      navigate(`/board?nowpage=${nowpage}`);
+      // alert("삭제되었습니다.");
+      // navigate(`/board?nowpage=${nowpage}`);
+      Swal.fire({
+        title: '알림',
+        text: "삭제되었습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/board?nowpage=${nowpage}`);
+        }
+      });
     } else {
-      alert("삭제 실패: " + resultText);
+      // alert("삭제 실패: " + resultText);
+      Swal.fire({
+        title: '알림',
+        text: "삭제 실패: " + resultText,
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 
   const handleCommentInsert = async () => {
     if (!comment.trim()) {
-      alert("댓글 내용을 입력해주세요.");
+      // alert("댓글 내용을 입력해주세요.");
+      Swal.fire({
+        title: '알림',
+        text: "댓글 내용을 입력해주세요.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       return;
     }
     const res = await fetch(`/api/board/comments`, {
@@ -146,18 +211,37 @@ const View = () => {
     });
 
     if (res.ok) {
-      alert("댓글이 등록되었습니다.");
+      // alert("댓글이 등록되었습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "댓글이 등록되었습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
+      
       setComment("");
       await fetchComments();
     } else {
-      alert("댓글 등록에 실패했습니다.");
+      // alert("댓글 등록에 실패했습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "댓글 등록에 실패했습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 
   const handleReplyInsert = async (parentCommentId) => {
     const content = replyContent[parentCommentId];
     if (!content || !content.trim()) {
-      alert("답글 내용을 입력해주세요.");
+      // alert("답글 내용을 입력해주세요.");
+      Swal.fire({
+        title: '알림',
+        text: "답글 내용을 입력해주세요.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       return;
     }
     const res = await fetch(`/api/board/comments`, {
@@ -167,12 +251,24 @@ const View = () => {
     });
 
     if (res.ok) {
-      alert("답글이 등록되었습니다.");
+      // alert("답글이 등록되었습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "답글이 등록되었습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       setReplyContent(prev => ({ ...prev, [parentCommentId]: "" }));
       setReplyBoxOpen(prev => ({ ...prev, [parentCommentId]: false }));
       await fetchComments();
     } else {
-      alert("답글 등록에 실패했습니다.");
+      // alert("답글 등록에 실패했습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "답글 등록에 실패했습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 
@@ -185,12 +281,24 @@ const View = () => {
 
     const result = await res.text();
     if (result === "success") {
-      alert("댓글이 수정되었습니다.");
+      // alert("댓글이 수정되었습니다.");
+      Swal.fire({
+        title: '알림',
+        text: "댓글이 수정되었습니다.",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       setUpdateCommentId(null);
       setUpdateContent("");
       await fetchComments();
     } else {
-      alert("수정 실패: " + result);
+      // alert("수정 실패: " + result);
+      Swal.fire({
+        title: '알림',
+        text: "수정 실패: " + result,
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 
@@ -199,10 +307,22 @@ const View = () => {
     const res = await fetch(`/api/board/comments/${commentId}`, { method: "DELETE" });
     const result = await res.text();
     if (result === "success") {
-      alert("댓글 삭제 완료");
+      // alert("댓글 삭제 완료");
+      Swal.fire({
+        title: '알림',
+        text: "댓글 삭제 완료",
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
       await fetchComments();
     } else {
-      alert("삭제 실패: " + result);
+      // alert("삭제 실패: " + result);
+      Swal.fire({
+        title: '알림',
+        text: "삭제 실패: " + result,
+        icon: 'info',
+        confirmButtonText: '확인'
+      })
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import './Update.css';
+import Swal from "sweetalert2";
 
 const Update = () => {
     const [searchParams] = useSearchParams();
