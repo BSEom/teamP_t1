@@ -37,17 +37,13 @@ const RegionLayer = ({ geoData, selectedRegion }) => {
   const onEachFeature = (feature, layer) => {
     const name = feature.properties.SGG_NM || "지역명 없음";
 
-    // Tooltip
-    // layer.bindTooltip(name, {
-    //   direction: "top",
-    //   sticky: true,
-    // });
-
     layerMap.current[name] = layer;
 
     // Hover 효과
     layer.on("mouseover", function () {
+      
       layer.setStyle(highlightStyle);
+      
       // Tooltip
       layer.bindTooltip(name, {
         direction: "top",
