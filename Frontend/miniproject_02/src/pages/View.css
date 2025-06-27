@@ -1,73 +1,369 @@
-.container.mt-5 {
-  margin-top: 50px;
-  width: 90%;           /* 또는 100%, 1200px 이런 것도 가능! */
-  max-width: 1200px;
-}
-
+/* 헤더 타이틀 영역 */
 h1.text-center {
-    margin-bottom: 30px;
-    font-weight: bold;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.815) !important;
+  text-align: left !important;
+  padding: 14px 14px 8px 30px;
+  font-size: 2.3rem;
+  font-weight: bold;
+  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349);
 }
 
-label {
-    font-size: 1.2rem;
-    text-align: left;
-    margin-left: 10px;
+/* 제목 + 작성자 + 조회수 묶음 */
+.meta-group {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 
-.container.mt-4 {
-  height: 300px;        /* 고정 높이 지정! */
-  overflow-y: auto;     /* 세로 스크롤만 나오게 설정 */
-  border: 1px solid #ccc; /* 눈에 보이게 해보자! */
-  padding: 20px;        /* 여백도 살짝~ */
+/* 제목 */
+.meta-title-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.meta-title-row label {
+  width: 100px;
+  font-weight: 500;
+  padding: 10px;
+  border-right: 4px solid #6b70b3;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.meta-title {
+  padding: 10px 16px 20px 16px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #111;
+  text-align: left;
+}
+
+/* 작성자 + 조회수 줄 */
+.meta-bottom-row {
+  display: flex;
+  justify-content: space-between;
+}
+.meta-writer, .meta-day {
+  display: flex;
+  align-items: center;
+  width: 300px !important;
+}
+
+.meta-hit {
+  display: flex;
+  align-items: center;
+}
+
+.meta-hit-count {
+  margin-right: 12px;
+}
+
+.meta-day {
+  margin-left: 180px;
+}
+
+.meta-writer label,
+.meta-hit label,
+.meta-day label {
+  width: 100px;
+  font-weight: 500;
+  padding: 10px;
+  border-right: 4px solid #6b70b3;
+  text-align: center;
+  font-size: 1.1rem;
 }
 
 
-.form-group {
-    margin-bottom: 20px;
+.meta-writer-name,
+.meta-hit-count {
+  padding: 10px 16px 20px 16px;
+  background: transparent;
+  color: #333;
+  border: none;
+  min-height: 1rem;
+  font-size: 1.1rem;
 }
 
-.form-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
+.meta-writer-name {
+  width: 180px !important;
+  padding: 10px 16px 20px 20px;
+  text-align: left;
 }
 
-.form-control {
-    color: #333;
-    background-color: #fff;
-    min-height: 50px;
-    white-space: pre-wrap;
+.meta-write-day {
+  padding: 13px 16px 20px 16px;
+  background: transparent;
+  color: #333;
+  border: none;
+  min-height: 1rem;
+  font-size: 1.1rem;
+  width: 200px !important;
 }
 
-.form-group .form-control {
-    border: 1px solid #ccc;
-    background-color: #fdfdfd;
-    padding: 12px;
-    border-radius: 4px;
+/* 북마크 버튼 */
+button.bookmark {
+  background: none;
+  border: none;
+  padding-right: 20px;
+  cursor: pointer;
+  width: auto;
 }
 
-.form-group .form-control:focus {
-    border-color: #80bdff;
-    outline: 0;
+/* 내용 박스 (높이 고정, 스크롤, 넓게, 테두리 제거) */
+.form-group .form-control.container.mt-4 {
+  height: 250px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: none !important;
+  border: none; /* border 없앰 */
+  margin: 0 !important; /* 오른쪽 여백 제거 */
+  max-width: 1000px;
+  width: 100%;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  padding: 20px 20px 20px 30px;
+  box-sizing: border-box;
+  text-align: left;
+}
+/* 버튼 정렬 영역 */
+.publish-area {
+  display: flex;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  gap: 8px;                 /* 버튼 간 간격 */
 }
 
-button.btn {
-   min-width: 80px;
+.publish {
+  width: 70px;
+  height: 50px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-right: 10px;
+}
+.publish-area .edit {
+  background-color: #4271c7;
+}
+.publish-area .delete {
+  background-color: #a6b6c9ab;
+}
+.back-list {
+  width: 150px;
+  height: 50px;
+  margin-top: 10px;
+  background: #fff;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+.back-list:hover {
+  background: #1976d2;
+  color: #fff;
+  border-color: #1565c0;
 }
 
-button.btn.btn-smaller {
-    padding: 1px 1px;  /* 위아래 패딩 줄임! 기본은 보통 8~12px 정도임 */
-    font-size: 0.9rem;  /* 글자 크기도 살짝 줄이면 버튼이 더 슬림해 보여 */
-    height: auto;       /* 혹시 높이 고정돼 있으면 auto로 바꿔줘 */;
+.view-comment-title {
+  border-top: 3px solid rgb(66, 66, 121);
+  padding: 20px 0 10px 0;
+  margin: 0 !important;
 }
 
-.btn+.btn {
-    margin-left: 10px;
+/* 댓글 영역 */
+.comments-section {
+  margin: 0 0 80px 0;
+  padding-top: 20px;
+  overflow-x: hidden;
+  width: 100%;
+}
+.comment-list-title {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  color: #555;
+  border-bottom: 3px solid rgb(66, 66, 121);
+  padding: 20px 0 10px 0;
+  margin-bottom: 15px;
 }
 
-.d-flex > div {
-  display: flex;      /* 내부 버튼들을 가로로 정렬! */
-  gap: 10px;          /* 버튼 사이 여백 귀엽게~ */
+.text-muted {
+  margin-top: 70px;
 }
 
+/* 댓글/답글 컨테이너 */
+/* 기본 댓글 */
+.comment-item {
+  /* width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto; 
+  position: relative;
+  padding: 12px 16px 12px 20px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background-color: #fdfdfd;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border-left: 4px solid transparent;*/
+  position: relative;
+  /* padding: 12px 16px; */
+  padding: 5px 15px 15px 15px;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 2px solid #ddd;
+  /* margin-bottom: 12px; */
+  gap: 20px;
+  margin: 10px 0 15px 0 !important ;
+  border-radius: 6px;
+  background-color: #fdfdfd;
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.06); */
+  border-left: 4px solid transparent; /* 기본은 투명 */
+}
+
+.comment-item.reply {
+  background-color: rgb(220, 233, 243);
+  padding: 15px 15px 10px 20px;
+  margin: 13px 0 10px !important;
+}
+
+/* 댓글 상단: 작성자와 시간 */
+.comment-header {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.comment-writer {
+  font-weight: bold;
+  color: #333;
+  flex-grow: 1;  /* 왼쪽 공간 꽉 차게 */
+  text-align: left;
+  font-size: 1.05rem !important;
+}
+
+.comment-time {
+  /* font-size: 0.8rem;
+  color: #999;
+  white-space: nowrap; */
+  flex: 0 0 100px; /* 고정 너비 */
+  text-align: right;
+  color: #7a8ca1;
+  font-size: 0.9rem;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+/* 댓글 본문 내용 */
+.comment-content {
+  margin: 8px 0;
+  color: #444;
+  white-space: pre-wrap;
+  padding-left: 15px;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* 댓글 버튼 영역 */
+.comment-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: flex-end; /* 오른쪽 끝 정렬 */
+}
+
+.comment-actions button {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  background-color: #4271c7;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comment-actions button:hover {
+  background-color: #265fc1;
+}
+
+/* 수정/답글 textarea 공통 스타일 */
+textarea.form-control {
+  width: 100%;
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+/* 댓글 버튼 공통 스타일 */
+.comment-button {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  width: 80px;
+  border: none;
+  background-color: #4271c7;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px 4px;
+  white-space: nowrap;
+  height: auto;
+  min-width: auto;
+}
+
+.comment-button:hover {
+  background-color: #265fc1;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.add-comment-area {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 !important;
+}
+
+button.add-comment {
+  background-color: #4271c7;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  padding: 0 16px;
+}
+button.add-comment:hover {
+  background-color: #265fc1;
+}
+
+.comment-edit-box {
+  display: flex;
+  justify-content: flex-end !important;
+}
+
+.comment-update {
+  background-color: #4271c7;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  padding: 0 16px;
+  margin-left: auto !important;
+}

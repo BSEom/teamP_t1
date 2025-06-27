@@ -5,9 +5,35 @@
   text-align: center;
 }
 
-body {
+html, body {
+  font-family: 
+  'Nanum Gothic', 
+  '맑은 고딕', 
+    'Malgun Gothic',
+    'Apple SD Gothic Neo',
+    sans-serif !important;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+.app-container {
+  min-height: 100vh;            /* 화면 전체 높이 확보 */
+  display: flex;                /* flex 컨테이너 */
+  flex-direction: column;       /* 세로 방향 쭉 쌓기 */
+  padding: 0 200px; /* ← 요게 좌우 여백! (상하 0, 좌우 24px) */
+  box-sizing: border-box; /* 패딩이 전체 너비에 포함되게! */
+}
+
+.content {
+  flex: 1;                     /* 남은 공간을 모두 차지 */
+  padding: 30px;               /* 내용 주변 여백 */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -19,6 +45,33 @@ body {
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.Team01_logo {
+  /* position 속성을 제거하면 일반적인 문서 흐름을 따릅니다 */
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  transform: translateZ(0);
+}
+
+.Team01_logo a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none; /* 링크 밑줄 제거 */
+  gap: 10px; /* 이미지와 텍스트 간격 */
+}
+
+.logoText {
+  margin-left: 10px;
+  padding-top: 20px;
+  font-family: "Do Hyeon", sans-serif;
+  /* font-family: "Diphylleia", serif; */
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2d3961;
+  text-shadow: 3px 3px 6px #a3b2ce62;
 }
 
 @keyframes logo-spin {
@@ -45,7 +98,7 @@ body {
 }
 
 .info_container {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 1rem 2rem;
@@ -65,18 +118,28 @@ body {
 
 nav {
   position: relative;   /* sticky 대신 relative */
-  margin-top: 150px;    /* 150px 아래로 내리기 */
-  margin-bottom: 60px;
-  width: 100%;
-  background-color: #829fff;
+  margin : 0 -200px 0 -200px !important;
+  max-width: 3000px;
+  background: linear-gradient(
+    135deg,
+    #1d59ff8e 0%,
+    #2460e0 30%,
+    #78a3ff 60%,
+    #3ba7ff75 75%,
+    #63a1ff 100%
+  );
+ /* backdrop-filter: blur(10px); */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
   padding: 1rem 2rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 1000;
   display: flex;
   justify-content: center;
+  text-align: center;
   gap: 3rem;
-  font-weight: bold;
+  font-weight: bold !important;
   font-size: 2.5rem;
+  transition: all 0.3s ease;
 }
 
 nav a {
@@ -84,19 +147,34 @@ nav a {
   text-decoration: none;
   transition: color 0.3s ease;
   margin : 0 1rem;
+  text-shadow: 1px 1px 3px gray;
 }
 
 nav a:hover {
-  color: #b0faff;
+  color: #ffe17c;
 }
 
-footer {
-  background-color: #eeeeee;
-  padding: 1rem 0;
-  font-size: 0.9rem;
-  color: #666;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
+
+/* 전체 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 8px;         /* 스크롤바 너비 */
+  height: 8px;        /* 가로 스크롤바일 경우 */
+}
+
+::-webkit-scrollbar-track {
+  background: #e9e8e8; /* 트랙 배경색 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cddcfc;     /* 스크롤바 손잡이 */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #97b9e5cb;     /* 마우스 올렸을 때 색 */
+}
+
+.leaflet-interactive:focus {
+  outline: none;
 }

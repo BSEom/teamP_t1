@@ -4,25 +4,24 @@
   box-sizing: border-box;
 }
 
-.card {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #ffffff33;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
 .title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.815);
+  padding: 14px;
+  font-size: 2.3rem !important;
+  font-weight: bold;
+  border-bottom: 2.3px solid rgba(0, 0, 0, 0.349); /* 밑줄을 border로 */
+  padding-bottom: 8px;             /* 밑줄과 텍스트 사이 간격 */
+  text-align: left;
 }
 
 .flexRow {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  padding: 20px 30px 10px 15px;
+  align-items: flex-start;
+  position: relative; /* 드롭다운 겹침 방지 */
+  justify-content: center;
 }
 
 .dropdown {
@@ -30,6 +29,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  z-index: 1000;
+  position: relative;
+  background: white;
 }
 
 .dropdownToggle {
@@ -58,9 +60,14 @@
 .dropdownMenu {
   border: 1px solid #ddd;
   border-radius: 5px;
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.95); /* 투명도 낮추기 */
   max-height: 300px;
   overflow-y: auto;
+  z-index: 1000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
 }
 
 .dropdownItem {
@@ -76,7 +83,7 @@
 
 .regionCode {
   font-weight: bold;
-  color: #4CAF50;
+  color: #4c63af;
 }
 
 .regionName {
@@ -85,8 +92,9 @@
 
 .selectedBox {
   padding: 10px;
-  border: 1px dashed #4CAF50;
+  border: 1px dashed #4c63af;
   border-radius: 5px;
+  background-color: rgba(248, 251, 255, 0.829);
 }
 
 .selectedLabel {
@@ -98,28 +106,89 @@
 .selectedValue {
   font-size: 16px;
   font-weight: bold;
-  color: #4CAF50;
+  color: #4c63af;
 }
 
-.mapContainer {
+/* .mapContainer {
   flex: 1;
-  min-width: 500px;
+  min-width: 700px;
+  height: 600px;
+  max-width: 100%;
+  z-index: 1;
+  margin: 0 auto;
+  position: relative;
+} */
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.guide {
-  margin-top: 20px;
-  font-size: 14px;
+/* 팝업 본체 */
+.popupBox {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 10px;
+  max-width: 800px;
+  text-align: left;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.guideText {
-  background: #e9ecf8;
-  padding: 10px;
-  border-left: 5px solid #4a6ac3;
-  margin-bottom: 10px;
-  border-radius: 4px;
+/* 닫기 버튼 */
+.popupClose {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
 }
 
-.selectedText {
-  font-weight: bold;
+/* 내용 */
+.popupContent {
+  font-size: 1.5rem;
   color: #333;
+  line-height: 1.6;
+}
+
+/* 이용 방법 버튼 (제목 바로 아래) */
+.guideBtn {
+  background-color: #4a6ac3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.guideBtn:hover {
+  background-color: #354a91;
+}
+
+.dropdownFixed {
+  position: absolute;
+  top: 15px;
+  right: 15px;   /* ✅ 왼쪽 대신 오른쪽으로 이동 */
+  transform: none;  /* ✅ 중앙 정렬 필요 없으니까 제거 */
+  z-index: 1000;
+  width: 250px;
+  margin : 20px 100px 0 0
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }

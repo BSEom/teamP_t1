@@ -9,6 +9,17 @@ const Register = () => {
   const [ ckm, setCkm ] = useState(false); 
   const [ ckn, setCkn ] = useState(false); 
 
+  const [emailMsg, setEmailMsg] = useState('');
+  const [nameMsg, setNameMsg] = useState('');
+  const [emailValidClass, setEmailValidClass] = useState('');
+  const [nameValidClass, setNameValidClass] = useState('');
+
+  //  정규식 이메일 검증
+  const validateEmail = (email) => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const pw1 = document.querySelector("#password").value;
@@ -32,7 +43,7 @@ const Register = () => {
     // e.target.submit();
     
     // JSON으로 제출
-    const response = await fetch("http://localhost:8050/user/sign-up", {
+    const response = await fetch("/api/user/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,17 +54,40 @@ const Register = () => {
     // 응답
     if (response.ok) {
       const result = await response.json();
-      alert(JSON.stringify(result.message));
-      setTimeout(() => navigate("/"), 100); 
+      // alert(JSON.stringify(result.message));
+      // setTimeout(() => navigate("/"), 100);
+      Swal.fire({
+                    title: '알림',
+                    text: JSON.stringify(result.message),
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/");
+                    }
+                  }); 
     } else {
       const result = await response.json();
-      alert(JSON.stringify(result.message))
+      // alert(JSON.stringify(result.message))
+      Swal.fire({
+                    title: '알림',
+                    text: JSON.stringify(result.message),
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                  })
     }
 
   };
 
   const checkName = async () => {
-    const res = await fetch("http://localhost:8050/user/sign-up/name-check", {
+
+     if (!name) {
+      setNameMsg("이름을 입력해주세요");
+      setNameValidClass("is-invalid");
+      return;
+    }
+
+    const res = await fetch("/api/user/sign-up/name-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -61,19 +95,35 @@ const Register = () => {
       body: name,
     });
 
+    const result = await res.json();
 
     if (res.ok) {
-      const result = await res.json();
-      alert(JSON.stringify(result.message));
+      // alert(JSON.stringify(result.message));
+      setNameMsg(result.message);
+      setNameValidClass("is-valid");
       setCkn(true);
     } else {
-      const result = await res.json();
-      alert(JSON.stringify(result.message))
+      // alert(JSON.stringify(result.message))
+      setEmailMsg(result.message);
+      setNameValidClass("is-invalid");
     }
   };
 
   const checkEmail = async () => {
-    const res = await fetch("http://localhost:8050/user/sign-up/email-check", {
+
+    if (!email) {
+      setEmailMsg("이메일을 입력해주세요");
+      setEmailValidClass("is-invalid");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setEmailMsg("올바른 이메일 형식이 아닙니다");
+      setEmailValidClass("is-invalid");
+      return;
+    }
+
+    const res = await fetch("/api/user/sign-up/email-check", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -82,18 +132,23 @@ const Register = () => {
     });
 
 
+    const result = await res.json();
+
+
     if (res.ok) {
-      const result = await res.json();
-      alert(JSON.stringify(result.message));
+      // alert(JSON.stringify(result.message));
+      setEmailMsg(result.message);
+      setEmailValidClass("is-valid");
       setCkm(true);
     } else {
-      const result = await res.json();
-      alert(JSON.stringify(result.message))
+      // alert(JSON.stringify(result.message))
+      setEmailMsg(result.message);
+      setEmailValidClass("is-invalid");
     }
   };
 
   return (
-    <div className="body-wrapper">
+    // <div className="body-wrapper">
 
       <div className="container">
         <h2>회원가입</h2>
@@ -103,12 +158,16 @@ const Register = () => {
           <div className="form-floating mb-3">
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${nameValidClass}`}
               id="username"
               placeholder="name"
               name="username"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameValidClass("");
+                setNameMsg("");
+              }}
               readOnly={ckn}
               required
             />
@@ -118,23 +177,41 @@ const Register = () => {
             </button>
           </div>
 
+          {nameValidClass === "is-invalid" && (
+            <div className="invalid-feedback d-block">{nameMsg}</div>
+          )}
+          {nameValidClass === "is-valid" && (
+            <div className="valid-feedback d-block">{nameMsg}</div>
+          )}
+
           <div className="form-floating mb-3">
             <input
               type="text"
               id="email"
-              className="form-control"
+              className={`form-control ${emailValidClass}`}
               placeholder="name@example.com"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailValidClass("");
+                setEmailMsg("");
+              }}
               readOnly={ckm}
               required
             />
             <label htmlFor="email">이메일</label>
             <button type="button" className="duplicate-check-btn" onClick={checkEmail}>
-              중복확인
+              검증
             </button>
           </div>
+
+            {emailValidClass === "is-invalid" && (
+              <div className="invalid-feedback d-block">{emailMsg}</div>
+            )}
+            {emailValidClass === "is-valid" && (
+              <div className="valid-feedback d-block">{emailMsg}</div>
+            )}
 
 
           <div className="form-floating mb-3">
@@ -200,7 +277,7 @@ const Register = () => {
           <button type="submit" disabled={!(ckm && ckn)} style={{ fontSize: "1.2rem" }}>가입하기</button>
         </form>
       </div>
-    </div>
+    // </div>
   );
 };
 

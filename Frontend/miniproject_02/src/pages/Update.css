@@ -1,0 +1,138 @@
+/* 🖍️ UpdateForm 스타일 */
+div.update-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow-x: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* padding: 0 30px 30px 30px; */
+  background-color: white;
+  max-width: 1000px ;  
+  width: 90% ;        
+  margin: 0 auto ; 
+  min-height: auto ; 
+}
+
+main.content {
+  display: block !important;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px; /* 전체적인 여백 추가 */
+}
+
+h1.text-center {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 📄 폼 스타일 */
+.update-form {
+    width: 900px;
+    max-width: 100%;
+    margin : 0 50px 30px 50px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #555;
+    display: block;
+}
+
+.form-control {
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* 추가 */
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+textarea.form-control {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    height: 200px;
+    resize: vertical;
+    overflow-y: auto;
+    min-height: 200px;
+}
+
+/* 🎛️ 버튼 컨테이너 */
+.d-flex.justify-content-between {
+    width: 250px;
+    height: 60px;
+    margin-left: 660px;
+
+}
+
+.btn {
+    width: 110px !important;
+    height: 40px;
+    padding: 6px 15px !important;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    justify-content: center;
+    align-content: center;
+}
+
+.btn-primary {
+    background-color: #4271c7;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-primary {
+    background-color: #8a949ce5;
+    color: white;
+    margin: 10px 0 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #545b62;
+}
+
+/* 반응형 디자인 추가 */
+@media (max-width: 768px) {
+  div.update-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  div.update-container {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}

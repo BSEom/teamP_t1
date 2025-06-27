@@ -6,7 +6,7 @@ const CheckMyPage = () => {
 
   useEffect(() => {
     const checkLogin = async () => {
-      const res = await fetch("http://localhost:8050/user/me", {
+      const res = await fetch("/api/user/me", {
         method: "GET",
         credentials: "include", // 세션 검사
       });

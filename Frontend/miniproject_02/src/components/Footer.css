@@ -1,0 +1,16 @@
+.footer {
+  max-width: 3000px;
+  text-align: center;
+  padding: 20px 0;
+  background-color: #f0f0f0;
+  font-size: 0.9rem;
+  color: #555;
+  position: relative; /* 기본은 relative */
+  bottom: 0;
+  margin: 0 -200px 0 -200px;
+}
+
+p {
+  margin: 0 auto;
+}
+

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import './Update.css';
+import Swal from "sweetalert2";
 
 const Update = () => {
     const [searchParams] = useSearchParams();
     const boardId = searchParams.get("boardId");
     const nowpage = searchParams.get("nowpage") || 1;
     const navigate = useNavigate();
+    
 
     const [form, setForm] = useState({
         title: "",
@@ -15,7 +18,7 @@ const Update = () => {
 
     useEffect(() => {
         if (boardId) {
-            fetch(`http://localhost:8050/api/board/${boardId}`)
+            fetch(`/api/board/${boardId}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setForm({
@@ -26,6 +29,12 @@ const Update = () => {
                 })
                 .catch((err) => {
                     alert("게시글 불러오기 실패");
+                    Swal.fire({
+                        title: '알림',
+                        text: "게시글 불러오기 실패",
+                        icon: 'info',
+                        confirmButtonText: '확인'
+                    })
                     console.error(err);
                 });
         }
@@ -42,7 +51,7 @@ const Update = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`http://localhost:8050/api/board/${boardId}`, {
+            const res = await fetch(`/api/board/${boardId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -52,20 +61,44 @@ const Update = () => {
 
             const result = await res.text();
             if (result === "success") {
-                alert("글 수정 완료!");
-                navigate(`/?nowpage=${nowpage}`);
+                // alert("글 수정 완료!");
+                // navigate(`/board?nowpage=${nowpage}`);
+
+                Swal.fire({
+                    title: '알림',
+                    text: "글 수정 완료!",
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate(`/board?nowpage=${nowpage}`);
+                    }
+                });
             } else {
-                alert("수정 실패: " + result);
+                // alert("수정 실패: " + result);
+                Swal.fire({
+                    title: '알림',
+                    text: "수정 실패: " + result,
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                })
             }
         } catch (err) {
-            alert("수정 중 오류 발생: " + err.message);
+            // alert("수정 중 오류 발생: " + err.message);
+            Swal.fire({
+                    title: '알림',
+                    text: "수정 중 오류 발생: " + err.message,
+                    icon: 'error',
+                    confirmButtonText: '확인'
+                })
         }
     };
 
     return (
-        <div className="container mt-5">
+        <div className="update-container">
             <h1 className="text-center">글 수정</h1>
-            <form onSubmit={handleSubmit} className="col-md-8 offset-md-2">
+            <br/>
+            <form onSubmit={handleSubmit} className="update-form">
                 <div className="form-group">
                     <label>제목</label>
                     <input
@@ -100,7 +133,7 @@ const Update = () => {
                         required
                     />
                 </div>
-
+                <br/>
                 <div className="d-flex justify-content-between">
                     <button className="btn btn-primary" type="submit">
                         수정 완료
@@ -112,6 +145,7 @@ const Update = () => {
                     >
                         취소
                     </button>
+                    <br/>
                 </div>
             </form>
         </div>
